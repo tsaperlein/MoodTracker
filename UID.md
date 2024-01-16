@@ -5,7 +5,7 @@
 Identify and analyze problems related to assigned semester project. This should be done by means of user research techniques.
 
 ### Tasks:
-- user research (done and reported by each team member)
+- user research
     - analysis and interpretation of collected data (either from own user research or from sources of third parties - articles, books, etc.)
         - summary of knowledge gained
         - user requirements
@@ -32,7 +32,7 @@ Come up with possible solutions to user problems identified.
         - it must be clearly shown how the design will help to solve problems identified
         - describe possible alternative solutions
     - must be uploaded on the server (photos of the paper mockup)
-    - each team member creates at least one (part of) mockup
+    - create quite amount of mockups
     - document the iterative nature of the design process
         - document (take photos) interesting intermediate results of the Design studio technique
 
@@ -60,7 +60,6 @@ Convert the solution described in the D2 document into an interactive LoFi proto
     - findings and recommendations (describe relevant observations during the test; indicate recommendations for further design)
 
 **NOTE 1**: Details about usability testing can be found in lectures 5, 6, and 7 of the TUR course.
-
 **NOTE 2**: Submit all the materials in one ZIP file.
 
 
@@ -82,7 +81,7 @@ Push the LoFi prototype (created and tested in D3) to a higher level by means of
     - the HW/SW technologies used for prototype creation must be specified
 - evaluation (each team member must perform at least 1 usability test)
     - the goal of evaluation (which requirements are we going to test) must be defined.
-    - the test setup must be precisely described including schema/photos of the setup).
+    - the test setup must be precisely described including schema/photos of the setup.
     - the test execution must be documented (e.g. short video or sequence of photos/screenshots).
     - the findings and recommendations must be described in detail.
 - documentation for developers (do not write all from the beginning, reuse what you have already done or refer to it in the text of previous deliverables)
@@ -90,7 +89,7 @@ Push the LoFi prototype (created and tested in D3) to a higher level by means of
         - the priorities should respect the goals and key issues your design is trying to solve
     - point out important design ideas from various relevant points of view - interaction design, visual design, and user experience design
         - if possible refer to your prototypes and previous deliverables
-- presentation of D4 (all team members must actively present)
+- presentation of D4
     - start with the story of your solution
     - present key features of your solution
     - more pictures less text
@@ -99,4 +98,4 @@ Push the LoFi prototype (created and tested in D3) to a higher level by means of
     - send the slides (in PDF format) 1 day before the presentation (Sun 7. 1. 2024) to my email xmikovec [at] fel.cvut.cz
 
 **NOTE**:
-The report should be well structured (divided into chapters, and sections), and should be stylistically correct (proofreading, formal and technical language, usage of right
+The report should be well structured (divided into chapters, and sections), and should be stylistically correct (proofreading, formal and technical language, usage of right)
