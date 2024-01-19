@@ -9,3 +9,7 @@ Students and professors of universities and colleges.
 - The communication with the other students
 - The amount of deadlines
 - The amount of preparation for the exams
+
+## How many mood states will the app track?
+- One every day
+- Option between 5 emojis
