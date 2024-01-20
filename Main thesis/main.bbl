@@ -1,0 +1,198 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{research-1}{article}{}
+      \name{author}{2}{}{%
+        {{hash=f6a187650b6c81bb1115093586bc7ce1}{%
+           family={Rynke\bibnamedelima Douwes},
+           familyi={R\bibinitperiod\bibinitdelim D\bibinitperiod},
+           given={Gerdina\bibnamedelimb Hendrika\bibnamedelimb Maria\bibnamedelima Pijnenborg},
+           giveni={G\bibinitperiod\bibinitdelim H\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim P\bibinitperiod},
+           suffix={Janneke\bibnamedelima Metselaar},
+           suffixi={J\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=94dc861c38da8fb9804bb057a200ebb5}{%
+           family={Boonstra},
+           familyi={B\bibinitperiod},
+           given={Nynke},
+           giveni={N\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cogent OA}%
+      }
+      \strng{namehash}{97baad9807b71f8335a867f651b2c957}
+      \strng{fullhash}{97baad9807b71f8335a867f651b2c957}
+      \strng{bibnamehash}{97baad9807b71f8335a867f651b2c957}
+      \strng{authorbibnamehash}{97baad9807b71f8335a867f651b2c957}
+      \strng{authornamehash}{97baad9807b71f8335a867f651b2c957}
+      \strng{authorfullhash}{97baad9807b71f8335a867f651b2c957}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Cogent Education}
+      \field{number}{1}
+      \field{title}{Well-being of students in higher education: The importance of a student perspective}
+      \field{volume}{10}
+      \field{year}{2023}
+      \field{pages}{2190697}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1080/2331186X.2023.2190697
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1080/2331186X.2023.2190697
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1080/2331186X.2023.2190697
+      \endverb
+    \endentry
+    \entry{research-2}{article}{}
+      \name{author}{3}{}{%
+        {{hash=15328184ba3634228c36eaf863a2453b}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Xinqiao},
+           giveni={X\bibinitperiod}}}%
+        {{hash=956b9e4d9918f9c4b1cba0a385c5a7aa}{%
+           family={Ping},
+           familyi={P\bibinitperiod},
+           given={Siqing},
+           giveni={S\bibinitperiod}}}%
+        {{hash=a2bc60177a0df26e7f30f813bfce74e3}{%
+           family={Gao},
+           familyi={G\bibinitperiod},
+           given={Wenjuan},
+           giveni={W\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {MDPI}%
+      }
+      \strng{namehash}{1e73a89cfcbf1f05c43defbb890b156f}
+      \strng{fullhash}{1e73a89cfcbf1f05c43defbb890b156f}
+      \strng{bibnamehash}{1e73a89cfcbf1f05c43defbb890b156f}
+      \strng{authorbibnamehash}{1e73a89cfcbf1f05c43defbb890b156f}
+      \strng{authornamehash}{1e73a89cfcbf1f05c43defbb890b156f}
+      \strng{authorfullhash}{1e73a89cfcbf1f05c43defbb890b156f}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International Journal of Environmental Research and Public Health}
+      \field{number}{16}
+      \field{title}{Changes in Undergraduate Students’ Psychological Well-Being as They Experience University Life}
+      \field{volume}{16}
+      \field{year}{2019}
+      \field{pages}{2864}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3390/ijerph16162864
+      \endverb
+      \verb{urlraw}
+      \verb https://www.mdpi.com/1660-4601/16/16/2864
+      \endverb
+      \verb{url}
+      \verb https://www.mdpi.com/1660-4601/16/16/2864
+      \endverb
+    \endentry
+    \entry{research-3}{article}{}
+      \name{author}{2}{}{%
+        {{hash=1bcde3bb6b43d9c9055ecd9b7d2f3b47}{%
+           family={Anne\bibnamedelimb Kathryn\bibnamedelima Soutter},
+           familyi={A\bibinitperiod\bibinitdelim K\bibinitperiod\bibinitdelim S\bibinitperiod},
+           given={Billy\bibnamedelima O'Steen},
+           giveni={B\bibinitperiod\bibinitdelim O\bibinitperiod}}}%
+        {{hash=714bb0b6aed73d1addb9354b87e8cf7b}{%
+           family={Gilmore},
+           familyi={G\bibinitperiod},
+           given={Alison},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Routledge}%
+      }
+      \strng{namehash}{34524ec4b7c8d16c8840f94ee5c8773c}
+      \strng{fullhash}{34524ec4b7c8d16c8840f94ee5c8773c}
+      \strng{bibnamehash}{34524ec4b7c8d16c8840f94ee5c8773c}
+      \strng{authorbibnamehash}{34524ec4b7c8d16c8840f94ee5c8773c}
+      \strng{authornamehash}{34524ec4b7c8d16c8840f94ee5c8773c}
+      \strng{authorfullhash}{34524ec4b7c8d16c8840f94ee5c8773c}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International Journal of Adolescence and Youth}
+      \field{number}{4}
+      \field{title}{The student well-being model: a conceptual framework for the development of student well-being indicators}
+      \field{volume}{19}
+      \field{year}{2014}
+      \field{pages}{496\bibrangedash 520}
+      \range{pages}{25}
+      \verb{doi}
+      \verb 10.1080/02673843.2012.754362
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1080/02673843.2012.754362
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1080/02673843.2012.754362
+      \endverb
+    \endentry
+    \entry{research-4}{article}{}
+      \name{author}{1}{}{%
+        {{hash=59ad49137b04cabb42f41a00d8a63837}{%
+           family={Hascher},
+           familyi={H\bibinitperiod},
+           given={Tina},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{59ad49137b04cabb42f41a00d8a63837}
+      \strng{fullhash}{59ad49137b04cabb42f41a00d8a63837}
+      \strng{bibnamehash}{59ad49137b04cabb42f41a00d8a63837}
+      \strng{authorbibnamehash}{59ad49137b04cabb42f41a00d8a63837}
+      \strng{authornamehash}{59ad49137b04cabb42f41a00d8a63837}
+      \strng{authorfullhash}{59ad49137b04cabb42f41a00d8a63837}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0883-0355}
+      \field{journaltitle}{International Journal of Educational Research}
+      \field{note}{Application of qualitative and quantitative methods to enrich understanding of emotional and motivational aspects of learning}
+      \field{number}{2}
+      \field{title}{Quantitative and qualitative research approaches to assess student well-being}
+      \field{volume}{47}
+      \field{year}{2008}
+      \field{pages}{84\bibrangedash 96}
+      \range{pages}{13}
+      \verb{doi}
+      \verb https://doi.org/10.1016/j.ijer.2007.11.016
+      \endverb
+      \verb{urlraw}
+      \verb https://www.sciencedirect.com/science/article/pii/S0883035508000281
+      \endverb
+      \verb{url}
+      \verb https://www.sciencedirect.com/science/article/pii/S0883035508000281
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
