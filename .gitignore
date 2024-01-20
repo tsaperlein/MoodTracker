@@ -13,3 +13,6 @@
 **/main.synctex.gz
 **/main.toc
 
+# DS_Store files
+
+**/.DS_Store
