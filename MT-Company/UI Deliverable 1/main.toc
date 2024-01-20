@@ -1,0 +1,11 @@
+\babel@toc {american}{}\relax 
+\contentsline {section}{\numberline {1}Introduction to the Moodtracker}{2}{section.1}%
+\contentsline {section}{\numberline {2}Preparatory Research}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Relevance of a Moodtracker for Companies}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Survey as a Tool for User Research}{3}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Realization of the Survey}{3}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Results of the Survey}{4}{subsubsection.2.2.2}%
+\contentsline {section}{\numberline {3}Key Problems}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Problems to be Solved by Future Design}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Possible HCI Problems}{6}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Appendix 1 - The survey as presented to the participants}{8}{section.4}%
