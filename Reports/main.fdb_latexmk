@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber main"] 1705719240 "main.bcf" "main.bbl" "main" 1705719320 0
+["biber main"] 1705719240 "main.bcf" "main.bbl" "main" 1705721540 0
   "./references.bib" 1705719100 1931 b15e873d531cfe55511e5d761c163682 ""
-  "main.bcf" 1705719320 107288 a04427407ddd58d03985e2cdb44ad6c5 "pdflatex"
+  "main.bcf" 1705721540 107288 a04427407ddd58d03985e2cdb44ad6c5 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1705719318 "/Users/tsaperlein/Desktop/GitHub Projects/MoodTracker/Main thesis/main.tex" "main.pdf" "main" 1705719320 0
-  "/Users/tsaperlein/Desktop/GitHub Projects/MoodTracker/Main thesis/main.tex" 1705719317 18935 5e8a7772feb01a81cd27d6ec36399043 ""
+["pdflatex"] 1705721537 "/Users/tsaperlein/Desktop/GitHub Projects/MoodTracker/Main thesis/main.tex" "main.pdf" "main" 1705721540 0
+  "/Users/tsaperlein/Desktop/GitHub Projects/MoodTracker/Main thesis/main.tex" 1705721537 19016 8bc1c8d3d80843390a656826595861cb ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/enc/dvips/base/8r.enc" 1678549815 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/map/fontname/texfonts.map" 1678549815 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/map/pdftex/updmap/pdftex.map" 1678549815 4609045 74543da1ab9350ba886fce0af49a2cfd ""
@@ -30,9 +30,11 @@
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm" 1678549815 908 2921f8a10601f252058503cc6570e581 ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm" 1678549815 940 228d6584342e91276bf566bcf9716b83 ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/tfm/public/cm/cmex10.tfm" 1678549815 992 662f679a0b3d2d53c1b94050fdaa3f50 ""
+  "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm" 1678549815 1528 abec98dbc43e172678c11b3b9031252a ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm" 1678549815 1524 4414a8315f39513458b80dfc63bff03a ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm" 1678549815 1512 f21f83efb36853c0b70002322c1ab3ad ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm" 1678549815 1520 eccf95517727cb11801f4f1aee3a21b4 ""
+  "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/tfm/public/cm/cmr10.tfm" 1678549815 1296 45809c5a464d5f32c8f98ba97c1bb47f ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/tfm/public/cm/cmr12.tfm" 1678549815 1288 655e228510b4c2a1abe905c368440826 ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/tfm/public/cm/cmr6.tfm" 1678549815 1300 b62933e007d01cfd073f79b963c01526 ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/tfm/public/cm/cmr8.tfm" 1678549815 1292 21c1c5bfeaebccffdb478fd231a0997d ""
@@ -90,7 +92,7 @@
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/base/ifthen.sty" 1678549815 5319 48d7f3cfa322abd2788e3c09d624b922 ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/base/inputenc.sty" 1678549815 5048 84b05796b49b69e2d4257d537721c960 ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/base/report.cls" 1678549815 23203 3d69f4661dd74a5edb1507ff18e40fb9 ""
-  "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/base/size12.clo" 1678549815 8449 c314623021fbddd0180c05345324933c ""
+  "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/base/size11.clo" 1678549815 8464 63bf71cc1214ffdd38288da73a7ca182 ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx" 1678549815 1818 9ed166ac0a9204a8ebe450ca09db5dde ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/biblatex/bbx/standard.bbx" 1678549815 25680 409c3f3d570418bc545e8065bebd0688 ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/biblatex/biblatex.cfg" 1678549815 69 249fa6df04d948e51b6d5c67bea30c42 ""
@@ -105,6 +107,9 @@
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/caption/caption.sty" 1678549815 55778 14d5c99aa26410e440820bb9ea5b8b3a ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/caption/caption3.sty" 1678549815 71836 1a735454ad10692452eb2f2fc37f3865 ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/caption/subcaption.sty" 1678549815 12462 ecf33913ce1e8012075d24e1f47f0d9b ""
+  "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/csquotes/csquotes.cfg" 1678549815 7068 06f8d141725d114847527a66439066b6 ""
+  "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/csquotes/csquotes.def" 1678549815 21994 2bc2a882df92d97dbce35c06bb1d3541 ""
+  "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/csquotes/csquotes.sty" 1678549815 62761 3c92d495a9e03d7254b9a3266aa17164 ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1678549815 13886 d1306dcf79a944f6988e688c1785f9ce ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/etoolbox/etoolbox.sty" 1678549815 46845 3b58f70c6e861a13d927bff09d35ecbc ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/float/float.sty" 1678549815 6749 16d2656a1984957e674b149555f1ea1d ""
@@ -158,12 +163,12 @@
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/web2c/texmf.cnf" 1705714214 40748 4081c8bc921e56c865f975bd762e388c ""
   "/usr/local/Cellar/texlive/20230313_2/share/texmf-var/web2c/pdftex/pdflatex.fmt" 1678549815 7884133 0f67aaebd17442f411388bfa9c71485e ""
   "figures/q11.png" 1705709192 78840 4fec26af3c51c4cf967b28e3f67d8219 ""
-  "main.aux" 1705719320 4145 74001ee8790017ffe9a501f13fd8bd0c "pdflatex"
+  "main.aux" 1705721540 4144 9d0dfd425fafa23bb8daffba9e265717 "pdflatex"
   "main.bbl" 1705719242 7615 1dc6db3f57498199b6fdb0edbdafd207 "biber main"
-  "main.out" 1705719320 3766 23bfbd6eadfa743696b721221203a9bf "pdflatex"
-  "main.run.xml" 1705719320 2337 b2ee8b18e54974831552021761e69af9 "pdflatex"
-  "main.tex" 1705719317 18935 5e8a7772feb01a81cd27d6ec36399043 ""
-  "main.toc" 1705719320 1579 03ff3a0ea8781f579e453a516ef85e71 "pdflatex"
+  "main.out" 1705721540 3766 23bfbd6eadfa743696b721221203a9bf "pdflatex"
+  "main.run.xml" 1705721540 2337 b2ee8b18e54974831552021761e69af9 "pdflatex"
+  "main.tex" 1705721537 19016 8bc1c8d3d80843390a656826595861cb ""
+  "main.toc" 1705721540 1578 23d2d270b4ddecae8ab5df1f979a451b "pdflatex"
   "paperStyle.sty" 1705709192 517 1362a1dd51af6fa6a15c5eb5baf0defa ""
   (generated)
   "main.aux"
