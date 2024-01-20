@@ -1,4 +1,5 @@
 \documentclass[11pt]{report}
+\usepackage[utf8]{inputenc}
 \usepackage{csquotes} % Add this line to import the 'csquotes' package
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
@@ -21,6 +22,13 @@
     style=numeric,
     sorting=none
   ]{biblatex}
+
+% TOP MARGIN:
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+
+% BIBLIOGRAPHY:
 \addbibresource{references.bib}
 
 % TITLE:
@@ -36,9 +44,7 @@ AM: 1072824}
 \date{}
 
 \begin{document}
-
 \maketitle 
-\vspace{5mm}
 \tableofcontents
 
 \chapterfont{\LARGE \centering}
@@ -99,7 +105,7 @@ My survey should help me identify the problems my application can solve and figu
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.9\linewidth]{figures/q11.png}
+    \includegraphics[width=0.9\linewidth]{figures/results/q11.png}
     \caption{Enter Caption}
     \label{fig:comments form}
 \end{figure}
@@ -117,6 +123,47 @@ In my exploration of the most used mood-tracking apps of 2023, I encountered sev
 Building upon the insights gathered from the aforementioned articles on students' moods in universities and our comprehensive survey aimed at uncovering the most pressing issues affecting their well-being, our mood-tracking application takes a pioneering approach. The information gleaned from these sources has been instrumental in shaping a solution that not only combines the best features from existing apps but also digs into the core challenges faced by students in the university environment.\vspace{5mm} \\
 The combination of these sources has enabled our application to transcend the limitations observed in current solutions. It aims to provide an unparalleled, user-friendly experience that not only visually captivates users but also serves as a powerful tool for understanding and anonymously tracking students' moods efficiently. Our solution is not merely an integration of features; it is a thoughtful response to the intricate interplay of factors influencing the emotional landscape of students in higher education.
 
+\section{Appendix - The survey as presented to the participants}
+
+The survey's first page [\ref{fig:q1}] introduces the research purpose, expresses gratitude to participants, and underscores the importance of their insights in understanding academic challenges. Clear instructions urge participants to share thoughts confidentially, emphasizing the positive impact on creating a more supportive university experience.\vspace{5mm} \\
+The second page [\ref{fig:q2}] is all about collecting basic personal information that aims to discern whether university challenges have a uniform impact on the mood of all students or if specific groups are more susceptible.\vspace{5mm} \\
+The third page [\ref{fig:q3}] of the survey digs into the academic experiences of participants, by asking a comprehensive set of questions aims to capture nuanced aspects of the academic experience and stressors that contribute to a holistic understanding of the challenges students may face.
+\begin{figure}[h!]
+    \centering
+    \subfloat[First]{\includegraphics[width=0.52\linewidth]{figures/images/1.png}\label{fig:q1}}
+    \hfill
+    \subfloat[Second]{\includegraphics[width=0.46\linewidth]{figures/images/2.png}\label{fig:q2}}
+    \caption{First and second page of the survey}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \subfloat[Part 1]{\includegraphics[width=0.49\linewidth]{figures/images/3.png}\label{fig:q3-1}}
+    \hfill
+    \subfloat[Part 2]{\includegraphics[width=0.46\linewidth]{figures/images/4.png}\label{fig:q3-2}}
+    \caption{Third page of the survey}
+    \label{fig:q3}
+\end{figure}
+\\The fourth page [\ref{fig:q4}] of the survey focuses on communication dynamics between students and professors. This section aims to uncover insights into the current state of communication between students and professors, allowing for a more detailed understanding of the communication challenges that may impact students' well-being.
+\begin{figure}[h!]
+    \centering
+    \subfloat[Part 1]{\includegraphics[width=0.48\linewidth]{figures/images/5.png}\label{fig:q4-1}}
+    \hfill
+    \subfloat[Part 2]{\includegraphics[width=0.49\linewidth]{figures/images/6.png}\label{fig:q4-2}}
+    % Leave space between 1,2 and 3 for subfloat labels
+    \vspace{0.5cm}
+    \subfloat[Part 3]{\includegraphics[width=0.60\linewidth]{figures/images/7.png}\label{fig:q4-3}}
+    \caption{Fourth page of the survey}
+    \label{fig:q4}
+\end{figure} \\ \\ \\
+The fifth page [\ref{fig:q5}] of the survey provides a valuable opportunity for participants to share their insights and contribute to the identification of actionable strategies for creating a more enriching and supportive academic environment.\vspace{5mm} \\
+The sixth and final page [\ref{fig:q6}] of the survey gives participants the opportunity to share any additional thoughts or concerns they may have.
+\begin{figure}[t!]
+    \centering
+    \subfloat[Fifth]{\includegraphics[width=0.46\linewidth]{figures/images/8.png}\label{fig:q5}}
+    \hfill
+    \subfloat[Sixth]{\includegraphics[width=0.50\linewidth]{figures/images/9.png}\label{fig:q6}}
+    \caption{Fifth and sixth page of the survey}
+\end{figure}
 
 \chapterfont{\LARGE \centering}
 \chaptertitlefont{\Large \centering}
