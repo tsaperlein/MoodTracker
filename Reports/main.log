@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Homebrew) (preloaded format=pdflatex 2023.9.21)  20 JAN 2024 04:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Homebrew) (preloaded format=pdflatex 2023.9.21)  20 JAN 2024 04:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/tsaperlein/Desktop/GitHub Projects/MoodTracker/Main thesis/main.tex"
-(/Users/tsaperlein/Desktop/GitHub Projects/MoodTracker/Main thesis/main.tex
+**"/Users/tsaperlein/Desktop/GitHub Projects/MoodTracker/Reports/main.tex"
+(/Users/tsaperlein/Desktop/GitHub Projects/MoodTracker/Reports/main.tex
 LaTeX2e <2022-11-01> patch level 1
 L3 programming layer <2023-02-22> (/usr/local/Cellar/texlive/20230313_2/share/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2022/07/02 v1.4n Standard LaTeX document class
@@ -875,12 +875,12 @@ Package logreq Info: Writing requests to 'main.run.xml'.
  ) 
 Here is how much of TeX's memory you used:
  26575 strings out of 476025
- 514406 string characters out of 5780533
+ 514394 string characters out of 5780533
  1863388 words of memory out of 5000000
  46654 multiletter control sequences out of 15000+600000
  533537 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,7n,91p,1947b,1791s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,7n,91p,1943b,1791s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/Cellar/texlive/20230313_2/share/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
 Output written on main.pdf (14 pages, 136635 bytes).
 PDF statistics:
