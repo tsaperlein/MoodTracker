@@ -15,6 +15,9 @@
 \usepackage{float}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{soul}
+\usepackage[section]{placeins}
+\usepackage{pgffor}
+\usepackage{amssymb} % for \approx
 \definecolor{HLColor}{RGB}{230,230,250}
 \sethlcolor{HLColor}
 \usepackage[
@@ -53,8 +56,8 @@ AM: 1072824}
 
 \section{Introduction to the Mood Tracker app}
 
-In the following, the basic principle of the app is presented in order to be able to better classify all procedures and results of the user research and problem identification in the topic field.\\
-The core premise of the application revolves around the identification of issues and concerns through regular anonymous surveys administered to university students. Furthermore, it aims to provide initial ideas and thoughts to improve the overall student environment. My Moodtracker app is specifically designed for universities interested in students satisfaction. Survey results are provided to professors in a completely anonymous format. Students can view their survey history and analyze how their answers have changed over time. In addition, there should still be a way for students to contact their supervisors directly to communicate individual ideas and suggestions.\\
+In the following, the basic principle of the app is presented in order to be able to better classify all procedures and results of the user research and problem identification in the topic field.\\ \\
+The core premise of the application revolves around the identification of issues and concerns through regular anonymous surveys administered to university students. Furthermore, it aims to provide initial ideas and thoughts to improve the overall student environment. My Moodtracker app is specifically designed for universities interested in students satisfaction. Survey results are provided to professors in a completely anonymous format. Students can view their survey history and analyze how their answers have changed over time. In addition, there should still be a way for students to contact their supervisors directly to communicate individual ideas and suggestions.\\ \\
 Finally, it's worth mentioning that although a majority of the features will be incorporated and additional ones may be introduced throughout the complete app development process, it's possible that not all of them will be included in the final prototype.
 
 \section{Preparatory Research}
@@ -74,7 +77,8 @@ Many qualitative studies have been conducted at different universities.
 The institution made sure to inform the students through researchers (intranet messages) and Heads of School. A total of 113 students signed up for interviews, selected through purposive sampling based on criteria like full-time status, well-being problems, and diverse representation. Participants were from various academies, study years, and genders. Interviews, lasting 28 to 52 minutes, explored student well-being and related factors. Consent was obtained, and interviews were video recorded. The semi-structured guide covered topics such as defining well-being and factors influencing it. Data collection continued until saturation, with 27 students interviewed.\vspace{5mm} \\
 \textbf{Analysis} \\
 Thematic analysis was used to interpret data, involving verbatim transcription, member checks, and independent coding by three researchers. Coding was initially done line by line using an open coding approach, with the possibility of applying multiple codes to a passage. Codes were then organized into categories based on data and literature concepts, forming themes. Categories, themes, and data allocation were verified in the final phase by two other researchers to ensure clarity and consistency. Discussions resolved any discrepancies until an agreement was reached.\vspace{5mm} \\
-\textbf{Results} \\
+\newpage
+\noindent \textbf{Results} \\
 Participated five male students, twenty-one female students, and one non-binary student, all aged between 17–24 years, participated. There was revealed a diverse range of self-reported well-being issues among the participating students. These included challenges such as inadequate support from the school, anxiety disorders, family-related issues, physical health problems, symptoms of depression, gender dysphoria, fatigue, and performance anxiety. Additionally, factors like stress, planning difficulties, study pressure, loneliness, perfectionism, and getting used to studying were frequently mentioned by the students. Some participants highlighted the impact of life phase-related problems, ADHD, and drug use on their well-being. The findings underscore the complexity and multifaceted nature of the well-being issues faced by students, emphasizing the need for a holistic approach in addressing these concerns, both within and beyond the academic environment.\vspace{5mm} \\
 \textbf{Students' opinions} \\
 They expressed diverse views on student well-being. Initially, some found it challenging to define, but as interviews progressed, themes emerged. Well-being was associated with managing stress, achieving balance in academic and personal life, and acknowledging the effort-achievement ratio. Stress and resilience were central themes, with students emphasizing the need to cope with challenges. Well-being was seen as a combination of mental, physical, and social aspects, with support from the university playing a crucial role. Students acknowledged the fluctuating nature of well-being and its significant impact on academic performance.\vspace{5mm} \\
@@ -94,47 +98,29 @@ In conclusion, the study sheds light on the mental well-being of Chinese college
 
 \subsubsection{Concluding Insights on Student Well-Being in Higher Education}
 
-In distilling insights from diverse university research studies on student well-being, a stark reality surfaces, unveiling the intricate challenges that students in higher education confront. The imperative of adopting a student perspective, as underscored by Douwes et al. \cite{research-1} and Liu et al. \cite{research-2}, emphasizes the urgency of comprehending well-being from the direct vantage point of those immersed in university life. Both investigations expose a disconcerting trend: students' psychological well-being undergoes discernible fluctuations amid the labyrinth of academic expectations, workload pressures, and examination stressors. Furthermore, the incorporation of established scales, such as the Short Warwick-Edinburgh Mental Well-Being Scale and the Perception of Academic Stress Scale, provides an unflinching framework, casting light on the prevailing issues of mental health and academic stress.
-\\"The student well-being model" proposed by Soutter et al. \cite{research-3} contributes significantly to the arsenal of tools for gauging student well-being. Drawing from empirical and theoretical research, the authors present a nuanced model considering diverse domains and categories that impact students' well-being. This framework stands as an indispensable instrument for educators, researchers, and policymakers, urging them to recognize and elevate student well-being in educational settings. Conversely, Hascher's \cite{research-4} research on quantitative and qualitative approaches to assess student well-being spotlights a concerning reality: a lack of a specific definition and assessment of well-being in the school context. The study introduces innovative tools, including a multi-faceted well-being questionnaire and emotion diaries, offering a holistic evaluation of well-being in school.
-\\These studies collectively underscore the pressing need to confront the unsettling status quo of students' well-being in higher education. The synthesis of empirical evidence and theoretical frameworks lays bare the interconnected nature of factors influencing well-being, spanning academic, emotional, and social dimensions. Strikingly, the research paints a picture where universities and educators appear oblivious or inert to the burgeoning well-being crisis. As educational institutions strive to foster supportive learning environments, the revelations from these studies should serve as a clarion call for substantive interventions and policies aimed at ameliorating the comprehensive well-being of students in higher education.
+In distilling insights from diverse university research studies on student well-being, a stark reality surfaces, unveiling the intricate challenges that students in higher education confront. The imperative of adopting a student perspective, as underscored by Douwes et al. \cite{research-1} and Liu et al. \cite{research-2}, emphasizes the urgency of comprehending well-being from the direct vantage point of those immersed in university life. Both investigations expose a disconcerting trend: students' psychological well-being undergoes discernible fluctuations amid the labyrinth of academic expectations, workload pressures, and examination stressors. Furthermore, the incorporation of established scales, such as the Short Warwick-Edinburgh Mental Well-Being Scale and the Perception of Academic Stress Scale, provides an unflinching framework, casting light on the prevailing issues of mental health and academic stress.\\ \\
+"The student well-being model" proposed by Soutter et al. \cite{research-3} contributes significantly to the arsenal of tools for gauging student well-being. Drawing from empirical and theoretical research, the authors present a nuanced model considering diverse domains and categories that impact students' well-being. This framework stands as an indispensable instrument for educators, researchers, and policymakers, urging them to recognize and elevate student well-being in educational settings. Conversely, Hascher's \cite{research-4} research on quantitative and qualitative approaches to assess student well-being spotlights a concerning reality: a lack of a specific definition and assessment of well-being in the school context. The study introduces innovative tools, including a multi-faceted well-being questionnaire and emotion diaries, offering a holistic evaluation of well-being in school.\\ \\
+These studies collectively underscore the pressing need to confront the unsettling status quo of students' well-being in higher education. The synthesis of empirical evidence and theoretical frameworks lays bare the interconnected nature of factors influencing well-being, spanning academic, emotional, and social dimensions. Strikingly, the research paints a picture where universities and educators appear oblivious or inert to the burgeoning well-being crisis. As educational institutions strive to foster supportive learning environments, the revelations from these studies should serve as a clarion call for substantive interventions and policies aimed at ameliorating the comprehensive well-being of students in higher education.
 
 
 \subsection{Survey as a Tool for User Research}
 
 My survey should help me identify the problems my application can solve and figure out how I can optimize its design to achieve the best result. I chose to design the survey with both quantitative and qualitative questions, such as rating scales and open-ended inquiries, in order to have a better understanding of the participants' experiences. It also has comprehensive range of questions addressing various aspects of the academic experience, making it well-rounded and insightful.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.9\linewidth]{figures/results/q11.png}
-    \caption{Enter Caption}
-    \label{fig:comments form}
-\end{figure}
-
 \subsubsection{Realization of the Survey}
 
-\subsubsection{Results of the Survey}
-
-\section{Comparative Analysis of Existing Mood-Tracking Apps}
-
-In my exploration of the most used mood-tracking apps of 2023, I encountered several noteworthy options with distinct strengths and weaknesses. \textbf{\href{https://www.getmoodfit.com/}{Moodfit}}, while lacking in consistency in interface appeal, presents valuable features such as charts and meditation exercises that could enrich the user experience in my app. \textbf{\href{https://worrywatch.com/}{Worry Watch}}, though limited to iOS and featuring a challenging interface, offers positive affirmations—an aspect that could inspire a focus on mental well-being in my application. Also offers exercises (breathing, meditation) with a variety of options/modifications that create a safe place for the user. \textbf{\href{https://www.moodtools.org/}{MoodTools}}, while maintaining a simple design, could benefit from a more refined frontend and interactive elements, which my app aims to incorporate for enhanced engagement. \textbf{\href{https://mobile.va.gov/app/ptsd-coach}{PTSD Coach}}, tailored for military service members, showcases an appealing interface and color palette, influencing my consideration for a visually pleasing design. \textbf{\href{https://emoodtracker.com/}{eMoods (Bipolar Mood Tracker)}}'s complex interface and subscription-based full version might prompt my app to emphasize user-friendly design and affordability. Also is a more specialized app, specific to bipolar disorder (hence the name). \textbf{\href{https://www.thriveport.com/products/moodkit/}{MoodKit}}, despite its outdated interface, provides password-protected journals and charts, influencing my app's focus on security and comprehensive mood tracking. \textbf{\href{https://daylio.net/}{Daylio}}'s simplicity and color scheme align with my app's objectives, while its inclusion of emoji answers could inspire a similar interactive approach.
-
-\section{Conclusion}
-
-Building upon the insights gathered from the aforementioned articles on students' moods in universities and our comprehensive survey aimed at uncovering the most pressing issues affecting their well-being, our mood-tracking application takes a pioneering approach. The information gleaned from these sources has been instrumental in shaping a solution that not only combines the best features from existing apps but also digs into the core challenges faced by students in the university environment.\vspace{5mm} \\
-The combination of these sources has enabled our application to transcend the limitations observed in current solutions. It aims to provide an unparalleled, user-friendly experience that not only visually captivates users but also serves as a powerful tool for understanding and anonymously tracking students' moods efficiently. Our solution is not merely an integration of features; it is a thoughtful response to the intricate interplay of factors influencing the emotional landscape of students in higher education.
-
-\section{Appendix - The survey as presented to the participants}
-
+Given the scope of my project, I've limited myself to a small number of participants. Nevertheless, I was able to gain valuable experience from mostly my department colleagues and also from other faculties/universities. The survey was conducted online, using Google Forms, and was distributed via social media. The survey was open for a week, and I received 11 responses. The survey was anonymous, and participants were informed that their responses would be used for research purposes only. The survey was divided into five sections, with a total of 17 questions (12 mandatory and 5 optional).\vspace{5mm} \\
+\textbf{Survey Components} \\
 The survey's first page [\ref{fig:q1}] introduces the research purpose, expresses gratitude to participants, and underscores the importance of their insights in understanding academic challenges. Clear instructions urge participants to share thoughts confidentially, emphasizing the positive impact on creating a more supportive university experience.\vspace{5mm} \\
-The second page [\ref{fig:q2}] is all about collecting basic personal information that aims to discern whether university challenges have a uniform impact on the mood of all students or if specific groups are more susceptible.\vspace{5mm} \\
-The third page [\ref{fig:q3}] of the survey digs into the academic experiences of participants, by asking a comprehensive set of questions aims to capture nuanced aspects of the academic experience and stressors that contribute to a holistic understanding of the challenges students may face.
+The second page [\ref{fig:q2}] is all about collecting basic personal information that aims to discern whether university challenges have a uniform impact on the mood of all students or if specific groups are more susceptible.
 \begin{figure}[h!]
     \centering
     \subfloat[First]{\includegraphics[width=0.52\linewidth]{figures/images/1.png}\label{fig:q1}}
     \hfill
     \subfloat[Second]{\includegraphics[width=0.46\linewidth]{figures/images/2.png}\label{fig:q2}}
     \caption{First and second page of the survey}
-\end{figure}
+\end{figure} \\
+The third page [\ref{fig:q3}] of the survey digs into the academic experiences of participants, by asking a comprehensive set of questions aims to capture nuanced aspects of the academic experience and stressors that contribute to a holistic understanding of the challenges students may face.
 \begin{figure}[h!]
     \centering
     \subfloat[Part 1]{\includegraphics[width=0.49\linewidth]{figures/images/3.png}\label{fig:q3-1}}
@@ -149,21 +135,131 @@ The third page [\ref{fig:q3}] of the survey digs into the academic experiences o
     \subfloat[Part 1]{\includegraphics[width=0.48\linewidth]{figures/images/5.png}\label{fig:q4-1}}
     \hfill
     \subfloat[Part 2]{\includegraphics[width=0.49\linewidth]{figures/images/6.png}\label{fig:q4-2}}
-    % Leave space between 1,2 and 3 for subfloat labels
-    \vspace{0.5cm}
-    \subfloat[Part 3]{\includegraphics[width=0.60\linewidth]{figures/images/7.png}\label{fig:q4-3}}
+\end{figure}
+\begin{figure}[h!]\ContinuedFloat
+    \centering
+    \subfloat[Part 3]{\includegraphics[width=0.49\linewidth]{figures/images/7.png}\label{fig:q4-3}}
     \caption{Fourth page of the survey}
     \label{fig:q4}
-\end{figure} \\ \\ \\
-The fifth page [\ref{fig:q5}] of the survey provides a valuable opportunity for participants to share their insights and contribute to the identification of actionable strategies for creating a more enriching and supportive academic environment.\vspace{5mm} \\
+\end{figure}
+\FloatBarrier
+\noindent The fifth page [\ref{fig:q5}] of the survey provides a valuable opportunity for participants to share their insights and contribute to the identification of actionable strategies for creating a more enriching and supportive academic environment.\vspace{5mm} \\
 The sixth and final page [\ref{fig:q6}] of the survey gives participants the opportunity to share any additional thoughts or concerns they may have.
-\begin{figure}[t!]
+\begin{figure}[h!]
     \centering
     \subfloat[Fifth]{\includegraphics[width=0.46\linewidth]{figures/images/8.png}\label{fig:q5}}
     \hfill
     \subfloat[Sixth]{\includegraphics[width=0.50\linewidth]{figures/images/9.png}\label{fig:q6}}
     \caption{Fifth and sixth page of the survey}
 \end{figure}
+
+\subsubsection{Results of the Survey}
+
+The results of the survey are presented in the following accompanied by a brief analysis of the findings.
+% ----- Personal information
+\begin{figure}
+    \foreach \i in {1,2}{
+        \centering
+        \subfloat[]{\includegraphics[width=0.9\linewidth]{figures/results/q\i.png}\label{fig:q\i-result}}
+        \vfill
+        \vspace{5mm}
+        }
+    \caption{Personal information}
+\end{figure}
+
+% ----- Academic experience
+\begin{figure}
+    \centering
+    \subfloat[]{\includegraphics[width=0.9\linewidth]{figures/results/q3.png}\label{fig:q3-result}}
+    \vspace{5mm}
+\end{figure}
+
+\begin{figure}\ContinuedFloat
+    \foreach \i in {4,5,6}{
+        \centering
+        \subfloat[]{\includegraphics[width=0.9\linewidth]{figures/results/q\i.png}\label{fig:q\i-result}}
+        \vfill
+        \vspace{5mm}
+    }
+\end{figure}
+
+\begin{figure}\ContinuedFloat
+    \foreach \i in {7,8}{
+        \centering
+        \subfloat[]{\includegraphics[width=0.9\linewidth]{figures/results/q\i.png}\label{fig:q\i-result}}
+        \vfill
+        \vspace{5mm}
+    }
+    \caption{Academic experience}
+\end{figure}
+
+% ----- Communication Dynamics
+\begin{figure}
+    \foreach \i in {9,10,11}{
+        \centering
+        \subfloat[]{\includegraphics[width=0.9\linewidth]{figures/results/q\i.png}\label{fig:q\i-result}}
+        \vfill
+        \vspace{5mm}
+    }
+\end{figure}
+
+\begin{figure}\ContinuedFloat
+    \foreach \i in {12,13}{
+        \centering
+        \subfloat[]{\includegraphics[width=0.9\linewidth]{figures/results/q\i.png}\label{fig:q\i-result}}
+        \vfill
+        \vspace{5mm}
+    }
+    \caption{Communication Dynamics}
+\end{figure}
+
+% ----- Improvements and Suggestions
+\begin{figure}
+    \foreach \i in {14,15}{
+        \centering
+        \subfloat[]{\includegraphics[width=0.9\linewidth]{figures/results/q\i.png}\label{fig:q\i-result}}
+        \vfill
+        \vspace{5mm}
+    }
+\end{figure}
+\begin{figure}\ContinuedFloat
+    \centering
+    \subfloat[]{\includegraphics[width=0.9\linewidth]{figures/results/q16.png}\label{fig:q16-result}}
+    \caption{Improvements and Suggestions}
+\end{figure}
+
+% ----- Additional Thoughts
+\begin{figure}[htpb]
+    \centering
+    \subfloat[]{\includegraphics[width=0.9\linewidth]{figures/results/q17.png}\label{fig:q17-result}}
+    \caption{Additional Thoughts}
+\end{figure}
+\FloatBarrier
+\noindent \textbf{Field and Year of Study of the participants} \\
+The majority of participants are enrolled in Electrical and Computer Engineering indicating a strong representation in this field. Business Engineering and Architecture each constitute of the respondents, showcasing a diverse academic landscape within the surveyed population. Also the fifth academic year is predominant, followed by the third and the sixth years. This distribution may suggest a concentration of survey participants in the latter stages of their academic journey.\vspace{5mm} \\
+\textbf{Academic Experience} \\
+A considerable number of respondents ($\approx$ 5/10 people) reported a satisfaction rating of 7/10 for their overall academic experience, while approximately 3/10 people reported a rating of 5/10, which means that they are neither satisfied nor dissatisfied. The bulk of participants also considered the workload to be quite substantial, with roughly 5/10 individuals rating it as an 8/10., highlighting the considerable challenges students face in managing their academic responsibilities. We can also observe that most people, around 8/10 people, take part in after-school activities, and they believe these activities are beneficial. This indicates that being involved in these extra activities not only helps with their studies but also supports overall personal growth. Additionally, 5 out of 10 people expressed dissatisfaction with the feedback mechanisms for communication with professors, indicating potential areas for improvement in this aspect.\\ \\
+Notably, a significant proportion of respondents ($\approx$ 9/10 people) identified limited office hours and cited a lack of response to emails as obstacles when trying to communicate with professors. Furthermore, the survey brought to light that  of students are not aware of or have not utilized mental health resources on campus, emphasizing the importance of enhancing awareness and accessibility to support services for the well-being of students. Furthermore, near half of the participants ($\approx$ 4/10 people) reported low numbers about the feedback they receive from their professors about assignments, assessments, and exams, underscoring the need for more comprehensive feedback mechanisms to support students' academic growth and development. According to the contestands, academic stress stems from diverse sources, including the pressure of exams, particularly retakes, heavy workloads, simultaneous deadlines for exams and projects, uncertainties about the future and chosen fields, and concerns about study methods.\vspace{5mm} \\
+\textbf{Communication Dynamics} \\
+The survey data highlights a significant reliance on feedback from surveys among students, with approximately 5/10 indicating a preference for this communication method over email, online platforms, and in-person office hours. However, despite this preference, half of the students express dissatisfaction with the current feedback mechanisms for communication with professors. This apparent contradiction suggests that while surveys may be a commonly used tool, there might be room for improvement in the effectiveness and responsiveness of the feedback channels.\\ \\
+Furthermore, the data indicates a concerning trend regarding student-professor interaction. A majority of students ($\approx$ 8/10) do not feel the need to communicate with their professors, attributing it to a lack of connection. This lack of connection may be influenced by factors such as limited office hours (voted by 10 out of 11 students) and a perceived lack of response to emails ($\approx$ 8/10). The overwhelming use of email as the primary mode of communication ($\approx$ 9/10) suggests that despite its prevalence, students may be facing challenges in establishing meaningful connections and receiving timely support from their professors. Addressing these issues could potentially enhance student engagement and overall satisfaction with the communication channels.\vspace{5mm} \\
+\textbf{Improvements and Suggestions} \\
+The students provided insightful suggestions for improving their academic experience. A common theme is the need for better support and the normalization of struggles. Students expressed a desire for more advertised support systems and a less stressful environment, suggesting that school hours should be treated as work hours, allowing for a balance between academic and personal time. Another prevalent suggestion is for more transparency in scheduling and a shift towards hands-on learning, with exams conducted through projects rather than traditional methods. Students also emphasized the importance of better organization, materials, and professor approachability, with a call for a rethinking of the teaching process, including more hands-on experiences and the incorporation of young educators. In terms of feedback, students advocated for more active participation and consideration of survey results, hoping for a systematic and regular feedback process that leads to tangible improvements. Lastly, they suggested the implementation of features such as more frequent feedback, increased use of existing tools like Zoom and Skype, and availability of online office hours through apps for better student engagement. These suggestions collectively highlight the students' desire for a more supportive, practical, and engaging academic environment.\vspace{5mm} \\
+\textbf{Translated Text from German in [\ref{fig:q17-result}]} \\
+\textit{"At my university there are at least a few offers that support students with mental health problems and offer help with certain problems. Some of these offers are provided by the university itself and some are organized as university groups. Although this primarily has to do with the students independently of the teachers, it certainly offers a good opportunity to strengthen the well-being of students. Above all, the advertising and awareness of the offers would have to be increased in order to make the topic of mental well-being much less taboo."} \vspace{5mm} \\
+\textbf{Additional Thoughts} \\
+The students express a variety of perspectives on their satisfaction with university settings. One student appreciates the mental health support services available at their university, emphasizing the importance of raising awareness to destigmatize discussions around well-being. Another underscores the need to foster a sense of community among students to enhance their overall happiness in the university environment. On the other hand, some students highlight practical concerns, such as the desire for more office hours for both teachers and secretaries, improved infrastructure, and larger amphitheatres. Additionally, there is a shared sentiment that the university authorities may not fully grasp the challenges faced by the student body, whether in terms of their numbers or the need for responsive actions. These diverse perspectives shed light on various dimensions of student satisfaction, from mental health support to community building and infrastructure improvements, suggesting that a holistic approach is necessary for an optimal university experience.
+
+
+\section{Comparative Analysis of Existing Mood-Tracking Apps}
+
+In my exploration of the most used mood-tracking apps of 2023, I encountered several noteworthy options with distinct strengths and weaknesses. \textbf{\href{https://www.getmoodfit.com/}{Moodfit}}, while lacking in consistency in interface appeal, presents valuable features such as charts and meditation exercises that could enrich the user experience in my app. \textbf{\href{https://worrywatch.com/}{Worry Watch}}, though limited to iOS and featuring a challenging interface, offers positive affirmations—an aspect that could inspire a focus on mental well-being in my application. Also offers exercises (breathing, meditation) with a variety of options/modifications that create a safe place for the user. \textbf{\href{https://www.moodtools.org/}{MoodTools}}, while maintaining a simple design, could benefit from a more refined frontend and interactive elements, which my app aims to incorporate for enhanced engagement. \textbf{\href{https://mobile.va.gov/app/ptsd-coach}{PTSD Coach}}, tailored for military service members, showcases an appealing interface and color palette, influencing my consideration for a visually pleasing design. \textbf{\href{https://emoodtracker.com/}{eMoods (Bipolar Mood Tracker)}}'s complex interface and subscription-based full version might prompt my app to emphasize user-friendly design and affordability. Also is a more specialized app, specific to bipolar disorder (hence the name). \textbf{\href{https://www.thriveport.com/products/moodkit/}{MoodKit}}, despite its outdated interface, provides password-protected journals and charts, influencing my app's focus on security and comprehensive mood tracking. \textbf{\href{https://daylio.net/}{Daylio}}'s simplicity and color scheme align with my app's objectives, while its inclusion of emoji answers could inspire a similar interactive approach.
+
+\section{Conclusion}
+
+Building upon the insights gathered from the aforementioned articles on students' moods in universities and my comprehensive survey aimed at uncovering the most pressing issues affecting their well-being, my mood-tracking application takes a pioneering approach. The information gleaned from these sources has been instrumental in shaping a solution that not only combines the best features from existing apps but also digs into the core challenges faced by students in the university environment.\\ \\
+The combination of these sources has enabled my application to transcend the limitations observed in current solutions. It aims to provide an unparalleled, user-friendly experience that not only visually captivates users but also serves as a powerful tool for understanding and anonymously tracking students' moods efficiently. My solution is not merely an integration of features; it is a thoughtful response to the intricate interplay of factors influencing the emotional landscape of students in higher education.\\ \\
+Moreover, students generally perceive the academic demands as notably intense and burdensome. This insight underscores the demanding nature of the academic experience, where students grapple with a rigorous curriculum, facing significant hurdles in their pursuit of academic success.
 
 \chapterfont{\LARGE \centering}
 \chaptertitlefont{\Large \centering}
