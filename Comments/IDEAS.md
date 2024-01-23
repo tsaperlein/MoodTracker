@@ -64,3 +64,14 @@ Take notes about:
 - Notification every day
 - Option to create custom reminders
 - Preset functions that would automatically alert the user if absence of activity is detected
+
+## 12. Capture the user's attention (clicks, swipes, etc.)
+- Phone usage patterns
+- Cognitive performance
+- Time of day (of the app usage)
+
+## 13. Wristband feature
+- Tracking motor activity and sleep movements (Parkison's and PTSD)
+- Predicting sleep patterns
+- Classifying user activity
+- Providing information about phone orientation
