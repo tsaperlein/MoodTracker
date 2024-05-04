@@ -2,7 +2,6 @@
 
 I am doing a user research for apps that can track your mood. The main idea of my app is that i want to track the mood of the students and send it anonymously to the professors. An app with this specific topic doesn't exist. I will give some feedback about the apps that i found and i want to write a paragraph about my opinions about the other apps and at what will my app do better.
 ## Similar applications
-
 ### Moodfit
 Not so good interface, maybe some useful features that can be implemented in my app (like charts, meditation exercised).
 

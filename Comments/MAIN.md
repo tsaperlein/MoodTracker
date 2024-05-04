@@ -63,7 +63,3 @@ Students and professors of universities and colleges.
 # After the User Test
 - The user will be asked to fill a survey
 - Small interview with the user
-
-# General mood questionnaire
-
-# MFQ (Mood and Feelings Questionnarie)
