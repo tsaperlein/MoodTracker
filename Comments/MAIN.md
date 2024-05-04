@@ -63,3 +63,12 @@ Students and professors of universities and colleges.
 # After the User Test
 - The user will be asked to fill a survey
 - Small interview with the user
+---
+# Answer Possibilities
+1) Pre-defined text that the users could select
+2) Free text that the user could type in
+3) Colors to select that represented their mood
+4) Pictures, including taking a picture or choosing one in the app to represent their mood
+5) Recorded audio
+6) Emojis or similar image to pick that represents their mood
+7) Ratings; 21 of the apps allowed the users to apply the degree/intensity of a particular mood.
