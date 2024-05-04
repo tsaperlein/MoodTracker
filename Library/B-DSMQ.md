@@ -26,4 +26,3 @@ The B-DSMQ is a psychometric tool designed to measure social mentality, specific
 6. **Calculations and Interpretation**: The BSM score is calculated as the difference between PSM and NSM (BSM = PSM - NSM), representing the overall balance of positive and negative social mentality. A higher BSM score indicates a more positive overall social mentality.
 
 8. **Reliability and Validity**: The questionnaire's reliability and validity have been confirmed through previous studies, including assessments of internal consistency (Cronbach's alpha) to ensure the questionnaire's accuracy and consistency in measuring social mentality.
-## Procedure
