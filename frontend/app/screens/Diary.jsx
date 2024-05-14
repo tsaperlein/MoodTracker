@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
-export default function Home() {
+export default function Diary() {
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
+      <Text>Diary</Text>
     </View>
   );
 }

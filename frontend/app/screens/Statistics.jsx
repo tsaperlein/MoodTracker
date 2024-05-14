@@ -1,20 +1,18 @@
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 
-const Journal = () => {
+export default function Statistics() {
   return (
     <View style={styles.container}>
-      <Text>Journal</Text>
+      <Text>Statistics</Text>
     </View>
   );
-};
-
-export default Journal;
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'gray',
     alignItems: 'center',
     justifyContent: 'center',
   },
