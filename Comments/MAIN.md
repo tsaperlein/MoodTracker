@@ -72,3 +72,24 @@ Students and professors of universities and colleges.
 5) Recorded audio
 6) Emojis or similar image to pick that represents their mood
 7) Ratings; 21 of the apps allowed the users to apply the degree/intensity of a particular mood.
+# Color Selection
+## **Best Colours to Use in Healthcare App Design**
+The best colours to use in healthcare app design will vary depending on the target audience and the specific needs of the app. Even so, some of the most popular colours for healthcare apps include:
+### **1. Blue**
+Blue is known to evoke feelings of trust and security, making it a popular choice for healthcare app UX design. 
+
+The application of blue in healthcare applications can make users feel more at ease and comfortable when monitoring their health. Furthermore, the relaxing impact of the hue blue might be especially beneficial for individuals who are nervous or disturbed.
+### **2. Green**
+Nature, health, and healing are all associated with the colour green because those colours are the colour of plants and trees.
+
+Many medicinal plants and drugs are likewise green in hue. Green is a relaxing colour that can aid in the reduction of tension and anxiety. It is also a revitalising colour that helps boost mood and energy levels.
+### **3. White**
+White is often associated with cleanliness and purity. White is a good choice for healthcare apps that need to create a sense of cleanliness and sterility. 
+
+But, if you are designing a healthcare app that wants to create a warm and inviting atmosphere, you might consider using other colours in addition to white.
+### **4. Pink**
+Pink is a colour that has been used to represent various meanings throughout history. In Western cultures, it is often associated with love, compassion, and empathy, while in Eastern cultures, it is sometimes seen as a symbol of good health and fortune.
+
+Adding pink shades to the healthcare app development can create a calming and comforting environment for patients and healthcare professionals.
+### **5. Yellow**
+Yellow is a cheerful hue. Since it is the colour of the sun, it conjures up images of pleasant weather and joyful times.
