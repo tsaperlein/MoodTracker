@@ -141,7 +141,7 @@ export default function Profile({ navigation }) {
                 margin={'3%'}
                 fontSize={18}
                 fontFamily={Platform.OS === 'ios' ? 'outfitMedium' : 'robotoBold'}
-                action={() => navigation.replace('SignIn')}
+                action={() => navigation.replace('Sign In')}
               />
             </View>
             <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: '4%' }}>

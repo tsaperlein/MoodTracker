@@ -165,7 +165,7 @@ export default function SignUp() {
             <Text style={{ color: colors.blue100 }}>Already have an account?</Text>
             <TouchableOpacity
               style={{ marginLeft: '1%' }}
-              onPress={() => navigation.replace('SignIn')}
+              onPress={() => navigation.replace('Sign In')}
             >
               <Text style={{ color: colors.blue400, fontWeight: '600' }}>Sign In</Text>
             </TouchableOpacity>
