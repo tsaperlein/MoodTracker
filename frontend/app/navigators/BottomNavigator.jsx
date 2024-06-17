@@ -1,20 +1,24 @@
-import { View, Text, StyleSheet, Platform } from 'react-native';
 import React from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
 
 // Colors
 import colors from '../config/colors';
 // Icons
 import { Ionicons, FontAwesome6, MaterialCommunityIcons } from '@expo/vector-icons';
+
 // Screens
-import Home from '../screens/Home';
-import Questionnaires from '../screens/Questionnaires';
-import AddNote from '../screens/AddNote';
-import Diary from '../screens/Diary';
-import Statistics from '../screens/Statistics';
+import Home from '../screens/main/Home';
+import Questionnaires from '../screens/main/Questionnaires';
+import AddNote from '../screens/main/AddNote';
+import Diary from '../screens/main/Diary';
+import Statistics from '../screens/main/Statistics';
 
 // Bottom Navigation
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const BottomTabNavigator = createBottomTabNavigator();
+
+// Bottom Tab Bar Height
+const bottomTabBarHeight = (Dimensions.get('window').height * 8) / 100;
 
 const getIconComponent = (iconLibrary) => {
   switch (iconLibrary) {
@@ -52,10 +56,10 @@ const tabBarItemOptions = ({ iconLibrary, focusedIcon, unfocusedIcon, iconSize }
   },
 });
 
-const BottomNavigator = () => {
+export default function BottomNavigator() {
   return (
     <BottomTabNavigator.Navigator
-      initialRouteName="home"
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
         tabBarStyle: styles.tabContainer,
@@ -66,7 +70,7 @@ const BottomNavigator = () => {
       }}
     >
       <BottomTabNavigator.Screen
-        name="home"
+        name="Home"
         component={Home}
         options={tabBarItemOptions({
           focusedIcon: 'home-variant',
@@ -75,17 +79,17 @@ const BottomNavigator = () => {
         })}
       />
       <BottomTabNavigator.Screen
-        name="questionnares"
-        component={Questionnaires}
+        name="Add Note"
+        component={AddNote}
         options={tabBarItemOptions({
-          focusedIcon: 'clipboard-list',
-          unfocusedIcon: 'clipboard-list-outline',
-          iconSize: 34,
+          focusedIcon: 'pencil',
+          unfocusedIcon: 'pencil-outline',
+          iconSize: 32,
         })}
       />
       <BottomTabNavigator.Screen
-        name="add-note"
-        component={AddNote}
+        name="Questionnaires"
+        component={Questionnaires}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -96,9 +100,9 @@ const BottomNavigator = () => {
                 },
               ]}
             >
-              <Ionicons
-                name={focused ? 'pencil' : 'pencil-outline'}
-                size={32}
+              <MaterialCommunityIcons
+                name={focused ? 'clipboard-list' : 'clipboard-list-outline'}
+                size={34}
                 color={focused ? colors.blue300 : colors.blue100}
               />
             </View>
@@ -106,7 +110,7 @@ const BottomNavigator = () => {
         }}
       />
       <BottomTabNavigator.Screen
-        name="diary"
+        name="Diary"
         component={Diary}
         options={tabBarItemOptions({
           focusedIcon: 'notebook',
@@ -115,7 +119,7 @@ const BottomNavigator = () => {
         })}
       />
       <BottomTabNavigator.Screen
-        name="statistics"
+        name="Statistics"
         component={Statistics}
         options={tabBarItemOptions({
           focusedIcon: 'stats-chart',
@@ -126,19 +130,20 @@ const BottomNavigator = () => {
       />
     </BottomTabNavigator.Navigator>
   );
-};
+}
 
 const styles = StyleSheet.create({
   tabContainer: {
-    backgroundColor: colors.blue200,
     position: 'absolute',
     width: '90%',
-    height: '8%',
+    height: bottomTabBarHeight,
     borderRadius: 28,
     bottom: '3%',
     left: '5%',
     borderTopWidth: 0,
     zIndex: 2,
+    overflow: 'hidden',
+    backgroundColor: 'rgba(0, 0, 0, 0.95)',
   },
   tabBarItem: {
     width: '75%',
@@ -148,5 +153,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-export default BottomNavigator;

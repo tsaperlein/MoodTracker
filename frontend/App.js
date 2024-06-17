@@ -3,14 +3,16 @@ import { StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
-// Main Navigator
-import MainNavigator from './app/navigation/MainNavigator';
+// import { Provider } from 'react-redux';
+// import store from './store'; // Import your Redux store
 
-// Start Navigator
-import StartNavigator from './app/navigation/StartNavigator';
+// Navigator Components
+import MainNavigator from './app/navigators/MainNavigator';
+import StartNavigator from './app/navigators/StartNavigator';
+import SurveyNavigator from './app/navigators/SurveyNavigator';
 
 // App Loading Screen
-import AppLoading from './app/screens/AppLoading';
+import AppLoading from './app/screens/extras/AppLoading';
 
 const getFonts = () => {
   return Font.loadAsync({
@@ -63,10 +65,4 @@ export default function App() {
   return <StartNavigator />;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create({});
