@@ -13,6 +13,7 @@ export default function Button({
   fontSize,
   fontFamily,
   action,
+  disabled = false,
 }) {
   return (
     <TouchableOpacity
@@ -25,8 +26,10 @@ export default function Button({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: borderRadius,
+        opacity: disabled ? 0.5 : 1, // Dim the button when disabled
       }}
       onPress={action}
+      disabled={disabled}
     >
       <Text style={{ color: color, fontSize: fontSize, fontFamily: fontFamily }}>{text}</Text>
     </TouchableOpacity>

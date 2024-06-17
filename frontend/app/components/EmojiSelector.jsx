@@ -49,11 +49,12 @@ function Emoji({ mood, selected, onPress }) {
   );
 }
 
-export default function EmojiSelector() {
+export default function EmojiSelector({ setEmojiSelected }) {
   const [selectedMood, setSelectedMood] = useState(null);
 
   const handlePress = (mood) => {
-    setSelectedMood(mood === selectedMood ? null : mood); // Deselect if the same mood is pressed
+    setEmojiSelected(mood === selectedMood ? false : true);
+    setSelectedMood(mood === selectedMood ? null : mood);
   };
 
   return (
