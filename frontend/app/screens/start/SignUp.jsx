@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   TextInput,
@@ -11,22 +11,22 @@ import {
 } from 'react-native';
 
 // Colors
-import colors from '../config/colors';
+import colors from '../../config/colors';
 // Shadow
-import createShadow from '../config/shadowStyle';
+import createShadow from '../../config/shadowStyle';
 // Icons
 import { FontAwesome } from '@expo/vector-icons';
-
-// Header Height
-const headerHEIGHT = (Dimensions.get('window').height * 12) / 100;
-
-// Animations
-import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 
 // Navigation
 import { useNavigation } from '@react-navigation/native';
 
-export default function SignIn() {
+// Animations
+import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
+
+// Header Height
+const headerHEIGHT = (Dimensions.get('window').height * 12) / 100;
+
+export default function SignUp() {
   const navigation = useNavigation();
 
   return (
@@ -38,7 +38,7 @@ export default function SignIn() {
           position: 'absolute',
           resizeMode: 'cover',
         }}
-        source={require('../assets/images/blueGreenWaves.png')}
+        source={require('../../assets/images/blueGreenWaves.png')}
       />
       <View
         style={{
@@ -52,11 +52,33 @@ export default function SignIn() {
             entering={FadeInUp.delay(100).duration(1000).springify()}
             style={styles.title}
           >
-            Sign In
+            Sign Up
           </Animated.Text>
         </View>
 
         <View style={styles.inputContainer}>
+          <Animated.View style={styles.input} entering={FadeInDown.duration(1000).springify()}>
+            <TextInput
+              style={{
+                color: colors.blue700,
+                fontFamily: Platform.OS === 'ios' ? 'outfit' : 'roboto',
+              }}
+              placeholder="First Name*"
+              placeholderTextColor={colors.blue600a70}
+              autoCapitalize="none"
+            />
+          </Animated.View>
+          <Animated.View style={styles.input} entering={FadeInDown.duration(1000).springify()}>
+            <TextInput
+              style={{
+                color: colors.blue700,
+                fontFamily: Platform.OS === 'ios' ? 'outfit' : 'roboto',
+              }}
+              placeholder="Last Name*"
+              placeholderTextColor={colors.blue600a70}
+              autoCapitalize="none"
+            />
+          </Animated.View>
           <Animated.View
             style={styles.input}
             entering={FadeInDown.delay(200).duration(1000).springify()}
@@ -66,10 +88,24 @@ export default function SignIn() {
                 color: colors.blue700,
                 fontFamily: Platform.OS === 'ios' ? 'outfit' : 'roboto',
               }}
-              placeholder="Email"
+              placeholder="Email*"
               placeholderTextColor={colors.blue600a70}
               keyboardType="email-address"
               autoCapitalize="none"
+            />
+          </Animated.View>
+          <Animated.View
+            style={styles.input}
+            entering={FadeInDown.delay(300).duration(1000).springify()}
+          >
+            <TextInput
+              style={{
+                color: colors.blue700,
+                fontFamily: Platform.OS === 'ios' ? 'outfit' : 'roboto',
+              }}
+              placeholder="Password*"
+              placeholderTextColor={colors.blue600a70}
+              secureTextEntry
             />
           </Animated.View>
           <Animated.View
@@ -81,7 +117,7 @@ export default function SignIn() {
                 color: colors.blue700,
                 fontFamily: Platform.OS === 'ios' ? 'outfit' : 'roboto',
               }}
-              placeholder="Password"
+              placeholder="Confirm Password*"
               placeholderTextColor={colors.blue600a70}
               secureTextEntry
             />
@@ -98,59 +134,40 @@ export default function SignIn() {
                   fontFamily: Platform.OS === 'ios' ? 'outfitBold' : 'roboto',
                 }}
               >
-                Login
+                Sign Up
               </Text>
             </TouchableOpacity>
           </Animated.View>
-          <Animated.View
-            entering={FadeInDown.delay(550).duration(1000).springify()}
-            style={{ marginBottom: '3%' }}
-          >
+          <Animated.View entering={FadeInDown.delay(600).duration(1000).springify()}>
             <Text
               style={{
-                color: colors.blue300,
+                color: colors.white,
                 fontFamily: Platform.OS === 'ios' ? 'fjallaOne' : 'roboto',
               }}
             >
               - OR -
             </Text>
           </Animated.View>
-          <Animated.View entering={FadeInDown.delay(600).duration(1000).springify()}>
-            <View>
-              <FontAwesome.Button name="google" backgroundColor="#4285F4">
-                Continue With Google
-              </FontAwesome.Button>
-            </View>
-          </Animated.View>
-        </View>
-
-        <View style={styles.optionsContainer}>
           <Animated.View
             entering={FadeInDown.delay(700).duration(1000).springify()}
+            style={{ margin: '3%' }}
+          >
+            <FontAwesome.Button name="google" backgroundColor="#4285F4">
+              Sign Up With Google
+            </FontAwesome.Button>
+          </Animated.View>
+        </View>
+        <View style={styles.optionsContainer}>
+          <Animated.View
+            entering={FadeInDown.delay(800).duration(1000).springify()}
             style={{ flexDirection: 'row' }}
           >
-            <Text style={{ color: colors.blue100 }}>Don't have an account?</Text>
+            <Text style={{ color: colors.blue100 }}>Already have an account?</Text>
             <TouchableOpacity
               style={{ marginLeft: '1%' }}
-              onPress={() => navigation.replace('SignUp')}
+              onPress={() => navigation.replace('SignIn')}
             >
-              <Text style={{ color: colors.blue400, fontWeight: '600' }}>Sign Up</Text>
-            </TouchableOpacity>
-          </Animated.View>
-          <Animated.View
-            entering={FadeInDown.delay(750).duration(1000).springify()}
-            style={{
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: '4%',
-            }}
-          >
-            <Text style={{ color: colors.blue100, marginBottom: '0.5%' }}>
-              Forgot your password?
-            </Text>
-            <TouchableOpacity>
-              <Text style={{ color: colors.blue400, fontWeight: '600' }}>Reset Password</Text>
+              <Text style={{ color: colors.blue400, fontWeight: '600' }}>Sign In</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -167,24 +184,23 @@ const styles = StyleSheet.create({
   },
   labelContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
     fontSize: 40,
     color: colors.purple800,
     fontFamily: Platform.OS === 'ios' ? 'outfitBold' : 'robotoBold',
-    paddingBottom: '5%',
   },
   inputContainer: {
-    flex: 0.8,
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
   input: {
     width: '90%',
-    margin: '4%',
+    margin: '3%',
     padding: '3%',
     borderRadius: 10,
     backgroundColor: colors.blue500a50,
@@ -194,10 +210,11 @@ const styles = StyleSheet.create({
     borderColor: colors.blue400,
   },
   buttonContainer: {
-    flex: 0.8,
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: '10%',
   },
   loginButton: {
     margin: '3%',
