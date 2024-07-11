@@ -68,7 +68,8 @@ const initialList = [
   },
 ];
 
-export default function SurveyNavigator() {
+export default function SurveyNavigator({ route }) {
+  const { mode } = route.params;
   const totalQuestions = initialList.length;
   return (
     <Stack.Navigator initialRouteName="Q1" screenOptions={headerOptions}>
@@ -86,6 +87,7 @@ export default function SurveyNavigator() {
               number={index + 1}
               totalQuestions={totalQuestions}
               questionText={item.question}
+              mode={mode}
             />
           )}
         </Stack.Screen>

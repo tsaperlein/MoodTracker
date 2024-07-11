@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// EmojiSelector.js
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Pressable, Animated } from 'react-native';
 
 // Colors
@@ -15,10 +16,11 @@ const moodConfig = {
   happy: { icon: 'laugh-beam', color: 'green' },
 };
 
-function Emoji({ mood, selected, onPress }) {
+function Emoji({ mood, selected, onPress, disabled }) {
   const [scale] = useState(new Animated.Value(1));
 
   const handlePress = () => {
+    if (disabled) return;
     Animated.sequence([
       Animated.timing(scale, {
         toValue: 1.2,
@@ -49,12 +51,22 @@ function Emoji({ mood, selected, onPress }) {
   );
 }
 
-export default function EmojiSelector({ setEmojiSelected }) {
-  const [selectedMood, setSelectedMood] = useState(null);
+export default function EmojiSelector({ setEmojiSelected, initialMood, disabled }) {
+  const [selectedMood, setSelectedMood] = useState(initialMood);
+
+  useEffect(() => {
+    setSelectedMood(initialMood);
+  }, [initialMood]);
 
   const handlePress = (mood) => {
-    setEmojiSelected(mood === selectedMood ? false : true);
-    setSelectedMood(mood === selectedMood ? null : mood);
+    if (disabled) return;
+    if (selectedMood === mood) {
+      setSelectedMood(null);
+      setEmojiSelected(null);
+    } else {
+      setSelectedMood(mood);
+      setEmojiSelected(mood);
+    }
   };
 
   return (
@@ -65,6 +77,7 @@ export default function EmojiSelector({ setEmojiSelected }) {
           mood={mood}
           selected={selectedMood === mood}
           onPress={() => handlePress(mood)}
+          disabled={disabled}
         />
       ))}
     </View>

@@ -1,29 +1,25 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableWithoutFeedback,
-  KeyboardAvoidingView,
-  Keyboard,
-  Dimensions,
-  Platform,
-  Alert,
-} from 'react-native';
+// SurveyQuestion.js
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, Platform, Alert } from 'react-native';
 
 // Colors
 import colors from '../../config/colors';
 
 // Components
-import Button from '../../components/Button';
 import EmojiSelector from '../../components/EmojiSelector';
 import KeyWordSelector from '../../components/KeyWordSelector';
+import SurveyButtons from '../../components/SurveyButtons';
 import ScreenLayout from '../Layout';
 
-export default function SurveyQuestion({ navigation, number, totalQuestions, questionText }) {
-  const [emojiSelected, setEmojiSelected] = useState(false);
-  const [skipConfirmation, setSkipConfirmation] = useState(false);
+// Mock data import
+import { surveyAnswers } from '../../assets/mockData';
+
+const emojiMap = ['awful', 'sad', 'neutral', 'good', 'happy'];
+
+export default function SurveyQuestion({ navigation, number, totalQuestions, questionText, mode }) {
+  const [emojiSelected, setEmojiSelected] = useState(null);
+  const [comment, setComment] = useState('');
+  const [keywords, setKeywords] = useState([]);
 
   const handleSkip = () => {
     Alert.alert(
@@ -37,142 +33,77 @@ export default function SurveyQuestion({ navigation, number, totalQuestions, que
         {
           text: 'Skip',
           onPress: () =>
-            navigation.navigate(`Q${number < totalQuestions ? number + 1 : 'Completion'}`),
+            navigation.navigate(number < totalQuestions ? `Q${number + 1}` : 'Completion'),
         },
       ],
       { cancelable: false }
     );
   };
 
+  useEffect(() => {
+    if (mode === 'past') {
+      const answer = surveyAnswers[number];
+      if (answer) {
+        setEmojiSelected(emojiMap[answer.emoji - 1]);
+        setComment(answer.comment);
+        setKeywords(answer.keywords);
+      }
+    }
+  }, [mode, number]);
+
   return (
     <ScreenLayout footer={false} backgroundColor={colors.blue900}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={{ width: '100%', height: '100%' }}
-        >
-          <View
-            style={{
-              flex: 1 / 15,
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: colors.blue800,
-            }}
-          >
-            <Text
-              style={{
-                color: colors.blue400,
-                fontSize: 20,
-                fontFamily: Platform.OS === 'ios' ? 'outfit' : 'robotoBold',
-              }}
-            >
-              Question {number}
-            </Text>
+      <View style={{ width: '100%', height: '100%' }}>
+        <View style={styles.questionTitleContainer}>
+          <Text style={styles.questionTitle}>Question {number}</Text>
+        </View>
+        <View style={{ flex: 11 / 15, alignItems: 'center', justifyContent: 'center' }}>
+          <View style={[{ flex: 1 / 6 }, styles.field]}>
+            <Text style={styles.questionText}>{questionText}</Text>
           </View>
-          <View style={{ flex: 11 / 15, alignItems: 'center', justifyContent: 'center' }}>
-            <View
-              style={{
-                flex: 1 / 6,
-                width: '100%',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Text style={styles.questionText}>{questionText}</Text>
-            </View>
-            <View
-              style={{
-                flex: 1 / 6,
-                width: '100%',
-                backgroundColor: colors.blue800a70,
-              }}
-            >
-              <EmojiSelector setEmojiSelected={setEmojiSelected} />
-            </View>
-            <View
-              style={{
-                flex: 2 / 6,
-                width: '100%',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <KeyWordSelector />
-            </View>
-            <View
-              style={{
-                flex: 2 / 6,
-                width: '100%',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <View style={styles.input}>
+          <View style={[{ flex: 1 / 6, backgroundColor: colors.blue800a70 }, styles.field]}>
+            <EmojiSelector
+              setEmojiSelected={setEmojiSelected}
+              initialMood={emojiSelected}
+              disabled={mode === 'past'}
+            />
+          </View>
+          <View style={[{ flex: 2 / 6 }, styles.field]}>
+            <KeyWordSelector
+              initialKeywords={keywords}
+              setSelectedKeywords={setKeywords}
+              disabled={mode === 'past'}
+            />
+          </View>
+          <View style={[{ flex: 2 / 6 }, styles.field]}>
+            <View style={styles.input}>
+              {mode === 'current' ? (
                 <TextInput
-                  style={{
-                    color: colors.blue300,
-                    height: '100%',
-                    width: '100%',
-                    textAlignVertical: 'top',
-                    paddingTop: 0,
-                    paddingBottom: 0,
-                  }}
+                  style={styles.inputStyle}
                   placeholder="Comment freely..."
                   placeholderTextColor={colors.blue400a70}
                   autoCapitalize="none"
                   multiline={true}
                   numberOfLines={10}
                   maxLength={1000}
+                  value={comment}
+                  onChangeText={setComment}
                 />
-              </View>
+              ) : (
+                <Text style={styles.answerText}>{comment}</Text>
+              )}
             </View>
           </View>
-          <View
-            style={{
-              flex: 3 / 15,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Button
-              text="Skip"
-              buttonColor={colors.blue500}
-              color={colors.blue100}
-              padding={'3%'}
-              margin={'3%'}
-              fontFamily={Platform.OS === 'ios' ? 'outfitBold' : 'robotoBold'}
-              fontSize={16}
-              action={handleSkip}
-            />
-            {number < totalQuestions ? (
-              <Button
-                text="Continue"
-                buttonColor={colors.blue200}
-                color={colors.blue600}
-                padding={'3%'}
-                margin={'3%'}
-                fontFamily={Platform.OS === 'ios' ? 'outfitBold' : 'robotoBold'}
-                fontSize={16}
-                action={() => navigation.navigate(`Q${number + 1}`)}
-                disabled={!emojiSelected}
-              />
-            ) : (
-              <Button
-                text="Submit"
-                buttonColor={colors.blue600}
-                color={'white'}
-                padding={'3%'}
-                margin={'3%'}
-                fontSize={16}
-                fontFamily={Platform.OS === 'ios' ? 'outfitBold' : 'robotoBold'}
-                action={() => navigation.navigate('Completion')}
-                disabled={!emojiSelected}
-              />
-            )}
-          </View>
-        </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
+        </View>
+        <SurveyButtons
+          navigation={navigation}
+          number={number}
+          totalQuestions={totalQuestions}
+          mode={mode}
+          emojiSelected={emojiSelected}
+          handleSkip={handleSkip}
+        />
+      </View>
     </ScreenLayout>
   );
 }
@@ -184,6 +115,22 @@ const styles = StyleSheet.create({
     fontFamily: Platform.OS === 'ios' ? 'outfitBold' : 'robotoBold',
     textAlign: 'justify',
   },
+  field: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  questionTitleContainer: {
+    flex: 1 / 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.blue800,
+  },
+  questionTitle: {
+    color: colors.blue400,
+    fontSize: 20,
+    fontFamily: Platform.OS === 'ios' ? 'outfit' : 'robotoBold',
+  },
   input: {
     flex: 1,
     width: '90%',
@@ -194,5 +141,20 @@ const styles = StyleSheet.create({
     fontSize: 15,
     borderWidth: 2,
     borderColor: colors.purple400,
+  },
+  inputStyle: {
+    height: '100%',
+    width: '100%',
+    textAlignVertical: 'top',
+    paddingTop: 0,
+    paddingBottom: 0,
+    color: colors.blue300,
+    fontSize: 18,
+    fontFamily: Platform.OS === 'ios' ? 'outfit' : 'robotoBold',
+  },
+  answerText: {
+    color: colors.blue300,
+    fontSize: 18,
+    fontFamily: Platform.OS === 'ios' ? 'outfit' : 'robotoBold',
   },
 });

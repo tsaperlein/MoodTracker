@@ -1,50 +1,58 @@
-import React, { useState } from 'react';
+// KeyWordSelector.js
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Animated, Platform, Pressable } from 'react-native';
 
 // Colors
 import colors from '../config/colors';
 
 // Keywords
-const keywords = ['happy', 'funny', 'excited', 'amused', 'down'];
+const keywordsList = ['happy', 'funny', 'excited', 'amused', 'down'];
 
-export default function KeyWordSelector() {
-  const [selectedKeywords, setSelectedKeywords] = useState([]);
+export default function KeyWordSelector({
+  initialKeywords = [],
+  disabled = false,
+  setSelectedKeywords,
+}) {
+  const [selectedKeywords, setSelectedKeywordsState] = useState(initialKeywords);
   const [scales, setScales] = useState(
-    keywords.reduce((acc, keyword) => {
+    keywordsList.reduce((acc, keyword) => {
       acc[keyword] = new Animated.Value(1);
       return acc;
     }, {})
   );
 
-  const handlePress = (keyword) => {
-    const isSelected = selectedKeywords.includes(keyword);
+  useEffect(() => {
+    setSelectedKeywordsState(initialKeywords);
+  }, [initialKeywords]);
 
+  const handlePress = (keyword) => {
+    if (disabled) return;
+
+    const isSelected = selectedKeywords.includes(keyword);
     if (isSelected) {
-      // Shrink the deselected keyword
       Animated.timing(scales[keyword], {
         toValue: 1,
         duration: 200,
         useNativeDriver: true,
       }).start();
-
-      // Remove the keyword from the selection
-      setSelectedKeywords(selectedKeywords.filter((k) => k !== keyword));
+      const updatedKeywords = selectedKeywords.filter((k) => k !== keyword);
+      setSelectedKeywordsState(updatedKeywords);
+      setSelectedKeywords(updatedKeywords);
     } else {
-      // Scale up the newly selected keyword
       Animated.timing(scales[keyword], {
         toValue: 1.1,
         duration: 200,
         useNativeDriver: true,
       }).start();
-
-      // Add the keyword to the selection
-      setSelectedKeywords([...selectedKeywords, keyword]);
+      const updatedKeywords = [...selectedKeywords, keyword];
+      setSelectedKeywordsState(updatedKeywords);
+      setSelectedKeywords(updatedKeywords);
     }
   };
 
   return (
     <View style={styles.container}>
-      {keywords.map((keyword) => (
+      {keywordsList.map((keyword) => (
         <Animated.View
           key={keyword}
           style={[
@@ -79,8 +87,8 @@ const styles = StyleSheet.create({
     height: '20%',
     margin: '2%',
     borderRadius: 20,
-    borderWidth: 1.5, // Use numeric value for borderWidth
-    borderColor: 'transparent', // Default border color
+    borderWidth: 1.5,
+    borderColor: 'transparent',
   },
   keyWordButton: {
     height: '100%',
