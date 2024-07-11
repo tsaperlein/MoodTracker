@@ -1,18 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions, Platform } from 'react-native';
-
-// Colors
-import colors from '../../config/colors';
 
 // Components
-import ScreenLayout from '../Layout';
+import VerticalStack from '../../components/VerticalStack';
 
 export default function Diary() {
-  return (
-    <ScreenLayout footer={true}>
-      <Text>Diary</Text>
-    </ScreenLayout>
-  );
+  return <VerticalStack />;
 }
-
-const styles = StyleSheet.create({});
