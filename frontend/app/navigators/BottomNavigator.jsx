@@ -9,9 +9,7 @@ import { Ionicons, FontAwesome6, MaterialCommunityIcons } from '@expo/vector-ico
 // Screens
 import Home from '../screens/main/Home';
 import Questionnaires from '../screens/main/Questionnaires';
-import AddNote from '../screens/main/AddNote';
 import Diary from '../screens/main/Diary';
-import Statistics from '../screens/main/Statistics';
 
 // Bottom Navigation
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -73,41 +71,21 @@ export default function BottomNavigator() {
         name="Home"
         component={Home}
         options={tabBarItemOptions({
-          focusedIcon: 'home-variant',
-          unfocusedIcon: 'home-variant-outline',
-          iconSize: 34,
-        })}
-      />
-      <BottomTabNavigator.Screen
-        name="Add Note"
-        component={AddNote}
-        options={tabBarItemOptions({
-          focusedIcon: 'pencil',
-          unfocusedIcon: 'pencil-outline',
+          iconLibrary: 'Ionicons',
+          focusedIcon: 'home',
+          unfocusedIcon: 'home-outline',
           iconSize: 32,
         })}
       />
       <BottomTabNavigator.Screen
         name="Questionnaires"
         component={Questionnaires}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View
-              style={[
-                styles.tabBarItem,
-                {
-                  backgroundColor: colors.blue800,
-                },
-              ]}
-            >
-              <MaterialCommunityIcons
-                name={focused ? 'clipboard-list' : 'clipboard-list-outline'}
-                size={34}
-                color={focused ? colors.blue300 : colors.blue100}
-              />
-            </View>
-          ),
-        }}
+        options={tabBarItemOptions({
+          iconLibrary: 'FontAwesome6',
+          focusedIcon: 'clipboard-list',
+          unfocusedIcon: 'clipboard-list',
+          iconSize: 34,
+        })}
       />
       <BottomTabNavigator.Screen
         name="Diary"
@@ -115,17 +93,7 @@ export default function BottomNavigator() {
         options={tabBarItemOptions({
           focusedIcon: 'notebook',
           unfocusedIcon: 'notebook-outline',
-          iconSize: 32,
-        })}
-      />
-      <BottomTabNavigator.Screen
-        name="Statistics"
-        component={Statistics}
-        options={tabBarItemOptions({
-          focusedIcon: 'stats-chart',
-          unfocusedIcon: 'stats-chart-outline',
-          iconSize: 30,
-          iconLibrary: 'Ionicons',
+          iconSize: 34,
         })}
       />
     </BottomTabNavigator.Navigator>
@@ -146,9 +114,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.95)',
   },
   tabBarItem: {
-    width: '75%',
+    width: '88%',
     height: '80%',
-    borderRadius: 18,
+    borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },
