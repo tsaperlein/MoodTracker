@@ -7,8 +7,6 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
 } from 'react-native';
 
 // Layout
@@ -51,110 +49,108 @@ export default function Profile({ navigation }) {
 
   return (
     <ScreenLayout footer={false} backgroundColor={colors.blue900}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={{ width: '100%', height: '100%' }}>
-          <View
-            style={{
-              flex: 2 / 5,
-              width: '100%',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexDirection: 'column',
-            }}
-          >
-            <View style={{ flex: 1 / 2, alignItems: 'center', justifyContent: 'center' }}>
-              <Avatar
-                rounded
-                source={require('../../assets/images/tsaperlein.png')}
-                containerStyle={styles.avatarStyle}
-              />
-              {EditMode && (
-                <TouchableOpacity
-                  style={[
-                    styles.avatarStyle,
-                    {
-                      position: 'absolute',
-                      backgroundColor: 'rgba(0,0,0,0.3)',
-                    },
-                  ]}
-                  onPress={() => console.log('Image Change!')}
-                >
-                  <FontAwesome6 name="edit" size={40} color={colors.blue200} />
-                </TouchableOpacity>
-              )}
-            </View>
-            <View style={styles.userInfoContainer}>
-              <LabelContainer text={'Alexandros Tsaparas'} keyboardType="default" />
-              <LabelContainer text={'+306948753087'} keyboardType="phone-pad" />
-              <LabelContainer text={'alextsaparas@icloud.com'} keyboardType="email-address" />
-            </View>
+      <View style={{ width: '100%', height: '100%' }}>
+        <View
+          style={{
+            flex: 2 / 5,
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+          }}
+        >
+          <View style={{ flex: 1 / 2, alignItems: 'center', justifyContent: 'center' }}>
+            <Avatar
+              rounded
+              source={require('../../assets/images/tsaperlein.png')}
+              containerStyle={styles.avatarStyle}
+            />
+            {EditMode && (
+              <TouchableOpacity
+                style={[
+                  styles.avatarStyle,
+                  {
+                    position: 'absolute',
+                    backgroundColor: 'rgba(0,0,0,0.3)',
+                  },
+                ]}
+                onPress={() => console.log('Image Change!')}
+              >
+                <FontAwesome6 name="edit" size={40} color={colors.blue200} />
+              </TouchableOpacity>
+            )}
           </View>
-          <View
-            style={{
-              flex: 2 / 5,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <ScoreIndicator />
+          <View style={styles.userInfoContainer}>
+            <LabelContainer text={'Alexandros Tsaparas'} keyboardType="default" />
+            <LabelContainer text={'+306948753087'} keyboardType="phone-pad" />
+            <LabelContainer text={'alextsaparas@icloud.com'} keyboardType="email-address" />
           </View>
+        </View>
+        <View
+          style={{
+            flex: 2 / 5,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <ScoreIndicator />
+        </View>
+        <View
+          style={{
+            flex: 1 / 5,
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}
+        >
           <View
             style={{
-              flex: 1 / 5,
-              alignItems: 'center',
-              justifyContent: 'flex-start',
+              flexDirection: 'row',
             }}
           >
-            <View
-              style={{
-                flexDirection: 'row',
-              }}
-            >
-              {EditMode ? (
-                <Button
-                  text="Save Changes"
-                  buttonColor={colors.blue400a70}
-                  color={colors.blue100}
-                  padding={'3%'}
-                  margin={'3%'}
-                  fontSize={18}
-                  fontFamily={Platform.OS === 'ios' ? 'outfitMedium' : 'robotoBold'}
-                  action={() => setEditMode(false)}
-                />
-              ) : (
-                <Button
-                  text="Edit Profile"
-                  buttonColor={colors.green400a70}
-                  color={colors.green100}
-                  padding={'3%'}
-                  margin={'3%'}
-                  fontSize={18}
-                  fontFamily={Platform.OS === 'ios' ? 'outfitMedium' : 'robotoBold'}
-                  action={() => setEditMode(true)}
-                />
-              )}
+            {EditMode ? (
               <Button
-                text="Log Out"
-                buttonColor={colors.red400a70}
-                color={colors.red100}
+                text="Save Changes"
+                buttonColor={colors.blue400a70}
+                color={colors.blue100}
                 padding={'3%'}
                 margin={'3%'}
                 fontSize={18}
                 fontFamily={Platform.OS === 'ios' ? 'outfitMedium' : 'robotoBold'}
-                action={() => navigation.replace('Sign In')}
+                action={() => setEditMode(false)}
               />
-            </View>
-            <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: '4%' }}>
-              <Text style={{ color: colors.blue100, marginBottom: '0.5%' }}>
-                Forgot your password?
-              </Text>
-              <TouchableOpacity>
-                <Text style={{ color: colors.blue400, fontWeight: '600' }}>Reset Password</Text>
-              </TouchableOpacity>
-            </View>
+            ) : (
+              <Button
+                text="Edit Profile"
+                buttonColor={colors.green400a70}
+                color={colors.green100}
+                padding={'3%'}
+                margin={'3%'}
+                fontSize={18}
+                fontFamily={Platform.OS === 'ios' ? 'outfitMedium' : 'robotoBold'}
+                action={() => setEditMode(true)}
+              />
+            )}
+            <Button
+              text="Log Out"
+              buttonColor={colors.red400a70}
+              color={colors.red100}
+              padding={'3%'}
+              margin={'3%'}
+              fontSize={18}
+              fontFamily={Platform.OS === 'ios' ? 'outfitMedium' : 'robotoBold'}
+              action={() => navigation.replace('Sign In')}
+            />
+          </View>
+          <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: '4%' }}>
+            <Text style={{ color: colors.blue100, marginBottom: '0.5%' }}>
+              Forgot your password?
+            </Text>
+            <TouchableOpacity>
+              <Text style={{ color: colors.blue400, fontWeight: '600' }}>Reset Password</Text>
+            </TouchableOpacity>
           </View>
         </View>
-      </TouchableWithoutFeedback>
+      </View>
     </ScreenLayout>
   );
 }
