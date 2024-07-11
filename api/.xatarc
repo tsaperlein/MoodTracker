@@ -1,0 +1,7 @@
+{
+  "databaseURL": "https://Alexandros-Tsaparas-s-workspace-k2n6ga.eu-central-1.xata.sh/db/Mood_Tracker",
+  "codegen": {
+    "output": "src/xata.js",
+    "moduleType": "esm"
+  }
+}
