@@ -1,0 +1,64 @@
+I want to create all the necessary functions for the api requests, but I will tell you the functionality of the application and I want you to tell me all the functions that I will need.
+
+This is the postgres database:
+
+User {
+	id integer pk increments
+	first_name varchar
+	last_name varchar
+	email varchar unique
+	password varchar
+	streak_count smallint def(0)
+	created_at date
+}
+
+Survey {
+	id int pk increments
+	posted_at timestamp
+	version integer def(0)
+	completion_datetime timestamp null
+	user_id integer *>* User.id
+}
+
+WelcomeMood {
+	id smallint pk increments
+	type varchar
+}
+
+Quote {
+	id int pk increments
+	level varchar
+	text text
+	author varchar null
+}
+
+Answer {
+	id int pk increments
+	option varchar
+	comment text
+	survey_id integer *> Survey.id
+	question_id integer *> Question.id
+}
+
+Question {
+	id int pk increments
+	text text
+}
+
+Assigns {
+	datetime timestamp
+	user_id integer *> User.id
+	quote_id integer *> Quote.id
+}
+
+Chooses {
+	datetime timestamp
+	user_id integer *> User.id
+	welcome_mood_id integer *> WelcomeMood.id
+}
+
+The basic idea:
+Then he can answer the survey that will contain of some questions and the answers can have 2 types (optio or comment), after that it will create the answer set in the database. The it will be shown in the previous survey page. So i want to know the information about the previous surveys. I also want to get the information of the user, except of the password and the created_at. I also want to get the quote that is assigned to a specific user. I also want to get the information about all the welcome moods of a specific user. The survey will be created by itself, giving it version 0 and choosing random number of questions (13 or 6-7 or 4-4-5). The next version (in the case of 6-7 or 4-4-5 questions) will have again random questions, different from the ones in version 0. The next version (only for 4-4-5) will have the remainding questions of the total number of questions. After that create a new survey starting again with no questions and version 0.
+
+The basic idea:
+The user will go inside the application and optionally give the WelcomeMood. Then he can answer the survey that will contain of some questions and the answers can have 2 types (optio or comment), after that it will create the answer set in the database. The it will be shown in the previous survey page. So i want to know the information about the previous surveys. I also want to get the information of the user, except of the password and the created_at. I also want to get the quote that is assigned to a specific user. I also want to get the information about all the welcome moods of a specific user. I want to set the version of the survey depending on if it contains the first patch of question (version=1), the second (v=2) or the third(v=3). And after it finishes it resets back to 1. I also want to know the information about the questions of the survey, from all the patches of a specific survey. I also want to create a user in the sign up page, that has hashed first_name, hashed last_name and hashed password, so all the information will be hidden. Also in the sign in, depending on the data (email and password), i will try to find the user in the database, and if I find him, i will connect to the app.

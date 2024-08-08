@@ -4,10 +4,11 @@
     "outDir": "build",
     "rootDir": "src/",
     "allowSyntheticDefaultImports": true,
-    "module": "ES6",
+    "strict": true,
     "target": "ES6",
     "lib": ["esnext"],
     "moduleResolution": "Node",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "module": "ES6"
   }
 }

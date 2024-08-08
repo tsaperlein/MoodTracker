@@ -1,0 +1,457 @@
+{
+  "tables": [
+    {
+      "name": "Answer",
+      "columns": [
+        {
+          "name": "comment",
+          "type": "text",
+          "notNull": false,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "question_id",
+          "type": "link",
+          "link": {
+            "table": "Question"
+          },
+          "notNull": false,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "survey_id",
+          "type": "link",
+          "link": {
+            "table": "Survey"
+          },
+          "notNull": false,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "type",
+          "type": "text",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "xata_createdat",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "xata_id",
+          "type": "text",
+          "notNull": true,
+          "unique": true,
+          "defaultValue": "('rec_'::text || (xata_private.xid())::text)"
+        },
+        {
+          "name": "xata_updatedat",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "xata_version",
+          "type": "int",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "0"
+        }
+      ]
+    },
+    {
+      "name": "Assigns",
+      "columns": [
+        {
+          "name": "datetime",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "quote_id",
+          "type": "link",
+          "link": {
+            "table": "Quote"
+          },
+          "notNull": false,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "user_id",
+          "type": "link",
+          "link": {
+            "table": "User"
+          },
+          "notNull": false,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "xata_createdat",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "xata_id",
+          "type": "text",
+          "notNull": true,
+          "unique": true,
+          "defaultValue": "('rec_'::text || (xata_private.xid())::text)"
+        },
+        {
+          "name": "xata_updatedat",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "xata_version",
+          "type": "int",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "0"
+        }
+      ]
+    },
+    {
+      "name": "Chooses",
+      "columns": [
+        {
+          "name": "datetime",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "user_id",
+          "type": "link",
+          "link": {
+            "table": "User"
+          },
+          "notNull": false,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "welcome_mood_id",
+          "type": "link",
+          "link": {
+            "table": "WelcomeMood"
+          },
+          "notNull": false,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "xata_createdat",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "xata_id",
+          "type": "text",
+          "notNull": true,
+          "unique": true,
+          "defaultValue": "('rec_'::text || (xata_private.xid())::text)"
+        },
+        {
+          "name": "xata_updatedat",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "xata_version",
+          "type": "int",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "0"
+        }
+      ]
+    },
+    {
+      "name": "Question",
+      "columns": [
+        {
+          "name": "text",
+          "type": "text",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "xata_createdat",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "xata_id",
+          "type": "text",
+          "notNull": true,
+          "unique": true,
+          "defaultValue": "('rec_'::text || (xata_private.xid())::text)"
+        },
+        {
+          "name": "xata_updatedat",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "xata_version",
+          "type": "int",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "0"
+        }
+      ]
+    },
+    {
+      "name": "Quote",
+      "columns": [
+        {
+          "name": "author",
+          "type": "text",
+          "notNull": false,
+          "unique": false,
+          "defaultValue": "'null'::text"
+        },
+        {
+          "name": "level",
+          "type": "text",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "text",
+          "type": "text",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "xata_createdat",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "xata_id",
+          "type": "text",
+          "notNull": true,
+          "unique": true,
+          "defaultValue": "('rec_'::text || (xata_private.xid())::text)"
+        },
+        {
+          "name": "xata_updatedat",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "xata_version",
+          "type": "int",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "0"
+        }
+      ]
+    },
+    {
+      "name": "Survey",
+      "columns": [
+        {
+          "name": "completion_time",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "posted_at",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "user_id",
+          "type": "link",
+          "link": {
+            "table": "User"
+          },
+          "notNull": false,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "xata_createdat",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "xata_id",
+          "type": "text",
+          "notNull": true,
+          "unique": true,
+          "defaultValue": "('rec_'::text || (xata_private.xid())::text)"
+        },
+        {
+          "name": "xata_updatedat",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "xata_version",
+          "type": "int",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "0"
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "columns": [
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "email",
+          "type": "text",
+          "notNull": true,
+          "unique": true,
+          "defaultValue": null
+        },
+        {
+          "name": "first_name",
+          "type": "text",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "last_name",
+          "type": "text",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "password",
+          "type": "text",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": null
+        },
+        {
+          "name": "streak_count",
+          "type": "int",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "'0'::bigint"
+        },
+        {
+          "name": "xata_createdat",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "xata_id",
+          "type": "text",
+          "notNull": true,
+          "unique": true,
+          "defaultValue": "('rec_'::text || (xata_private.xid())::text)"
+        },
+        {
+          "name": "xata_updatedat",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "xata_version",
+          "type": "int",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "0"
+        }
+      ]
+    },
+    {
+      "name": "WelcomeMood",
+      "columns": [
+        {
+          "name": "type",
+          "type": "text",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "'nothing'::text"
+        },
+        {
+          "name": "xata_createdat",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "xata_id",
+          "type": "text",
+          "notNull": true,
+          "unique": true,
+          "defaultValue": "('rec_'::text || (xata_private.xid())::text)"
+        },
+        {
+          "name": "xata_updatedat",
+          "type": "datetime",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "now()"
+        },
+        {
+          "name": "xata_version",
+          "type": "int",
+          "notNull": true,
+          "unique": false,
+          "defaultValue": "0"
+        }
+      ]
+    }
+  ]
+}
