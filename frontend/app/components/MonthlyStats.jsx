@@ -1,24 +1,34 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator, Dimensions } from 'react-native';
 
 // Colors
 import colors from '../config/colors';
-// Mood Config
-import { monthData } from '../assets/moodDateData';
+// Fonts
+import fonts from '../config/fonts';
 
 // Components
 import MoodPieChart from './MoodPieChart';
 
-export default function MonthlyStats({ action }) {
+const height = Dimensions.get('window').height;
+
+export default function MonthlyStats({ data, loading }) {
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={colors.white} />
+      </View>
+    );
+  }
+
   return (
-    <TouchableOpacity style={styles.container} onPress={action}>
-      <View style={{ flex: 1 / 6, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ fontSize: 20, fontFamily: 'outfitMedium' }}>Stats of the Month</Text>
+    <View style={styles.container}>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Last 10 surveys</Text>
       </View>
-      <View style={{ flex: 5 / 6 }}>
-        <MoodPieChart data={monthData} chartColor={colors.blue700} size={80} />
+      <View style={{ flex: 6 }}>
+        <MoodPieChart data={data} chartColor={colors.blue800} size={height / 11} />
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 
@@ -27,6 +37,21 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    color: colors.blue800,
+    fontSize: 20,
+    fontFamily: fonts.bold,
+  },
+  loadingContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
