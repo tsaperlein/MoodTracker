@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Platform } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 // Colors
 import colors from '../config/colors';
+// Fonts
+import fonts from '../config/fonts';
 
 // Components
 import Button from './Button';
@@ -12,30 +14,11 @@ export default function SurveyButtons({
   number,
   totalQuestions,
   mode,
-  emojiSelected,
-  handleSkip,
+  answerSelected,
+  onSubmit,
 }) {
   return (
-    <View
-      style={{
-        flex: 3 / 15,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      {mode === 'current' && (
-        <Button
-          text="Skip"
-          buttonColor={colors.blue500}
-          color={colors.blue100}
-          padding={'3%'}
-          margin={'3%'}
-          fontFamily={Platform.OS === 'ios' ? 'outfitBold' : 'robotoBold'}
-          fontSize={16}
-          action={handleSkip}
-        />
-      )}
+    <View style={styles.buttonContainer}>
       {mode === 'past' && (
         <Button
           text="Exit"
@@ -43,8 +26,8 @@ export default function SurveyButtons({
           color={colors.blue100}
           padding={'3%'}
           margin={'3%'}
-          fontFamily={Platform.OS === 'ios' ? 'outfitBold' : 'robotoBold'}
-          fontSize={16}
+          fontFamily={fonts.bold}
+          fontSize={18}
           action={() => navigation.navigate('Questionnaires')}
         />
       )}
@@ -55,10 +38,10 @@ export default function SurveyButtons({
           color={colors.blue600}
           padding={'3%'}
           margin={'3%'}
-          fontFamily={Platform.OS === 'ios' ? 'outfitBold' : 'robotoBold'}
-          fontSize={16}
+          fontFamily={fonts.bold}
+          fontSize={18}
           action={() => navigation.navigate(`Q${number + 1}`)}
-          disabled={mode === 'current' && !emojiSelected}
+          disabled={mode === 'current' && !answerSelected}
         />
       ) : mode === 'current' ? (
         <Button
@@ -67,12 +50,21 @@ export default function SurveyButtons({
           color={'white'}
           padding={'3%'}
           margin={'3%'}
-          fontSize={16}
-          fontFamily={Platform.OS === 'ios' ? 'outfitBold' : 'robotoBold'}
-          action={() => navigation.navigate('Completion')}
-          disabled={!emojiSelected}
+          fontFamily={fonts.bold}
+          fontSize={18}
+          action={onSubmit}
+          disabled={!answerSelected}
         />
       ) : null}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    flex: 3,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
