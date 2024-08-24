@@ -1,3 +1,5 @@
+// CONTROLLER - Survey
+
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -166,7 +168,7 @@ async function createDailySurvey(req, res) {
   }
 }
 
-async function findLatestSurveyAndVersion(userId) {
+async function findLatestSurvey(userId) {
   try {
     const latestSurvey = await client.db.Survey.filter({ user_id: userId })
       .sort("survey_id", "desc")
@@ -177,6 +179,7 @@ async function findLatestSurveyAndVersion(userId) {
         message: "No surveys found for this user.",
         surveyId: null,
         latestVersion: null,
+        postedAt: null,
       };
     }
 
@@ -190,7 +193,8 @@ async function findLatestSurveyAndVersion(userId) {
 
     return {
       surveyId: latestSurveyId,
-      latestVersion: latestVersion.version,
+      version: latestVersion.version,
+      postedAt: latestVersion.posted_at,
     };
   } catch (error) {
     console.error(
@@ -201,10 +205,10 @@ async function findLatestSurveyAndVersion(userId) {
   }
 }
 
-async function getLatestSurveyAndVersion(req, res) {
+async function getLatestSurvey(req, res) {
   try {
     const { user_id } = req.params;
-    const result = await findLatestSurveyAndVersion(user_id);
+    const result = await findLatestSurvey(user_id);
 
     if (!result.surveyId) {
       return res.status(404).json({ message: result.message });
@@ -216,42 +220,63 @@ async function getLatestSurveyAndVersion(req, res) {
   }
 }
 
-// New function to get the questions for the latest survey version
-async function getDailySurveyQuestions(req, res) {
+async function getSurvey(req, res) {
+  try {
+    const { user_id, survey_id } = req.params;
+    const survey = await client.db.Survey.filter({
+      user_id: user_id,
+      id: survey_id,
+    }).getFirst();
+
+    const surveyData = {
+      surveyId: survey.survey_id,
+      version: survey.version,
+      postedAt: survey.posted_at,
+    };
+
+    return res.status(200).json(surveyData);
+  } catch (error) {
+    console.error(
+      "Error finding the latest survey and version:",
+      error.message
+    );
+    throw new Error("Internal server error");
+  }
+}
+
+async function getPreviousSurveys(req, res) {
   try {
     const { user_id } = req.params;
 
-    const { surveyId, latestVersion, message } =
-      await findLatestSurveyAndVersion(user_id);
-
-    if (!surveyId || !latestVersion) {
-      return res.status(404).json({ message });
-    }
-
-    const answers = await client.db.Answer.filter({
-      "survey_id.id": surveyId,
-    })
-      .select(["question_id.text"])
+    // Fetch all surveys for the user
+    const surveys = await client.db.Survey.filter({ user_id: user_id })
+      .sort("posted_at", "desc")
       .getAll();
 
-    if (!answers || answers.length === 0) {
-      return res.status(404).json({
-        message: `No questions found for survey version ${latestVersion}.`,
-      });
+    if (!surveys || surveys.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No surveys found for this user." });
     }
 
-    const questions = answers.map((answer) => answer.question_id.text);
+    // Group surveys by survey_id and sort them by version within each group
+    const groupedSurveys = surveys.reduce((acc, survey) => {
+      if (!acc[survey.survey_id]) {
+        acc[survey.survey_id] = [];
+      }
+      acc[survey.survey_id].push(survey);
+      return acc;
+    }, {});
 
-    return res.status(200).json({
-      surveyId: surveyId,
-      version: latestVersion,
-      questions,
-    });
+    // Convert grouped surveys into an array of survey groups sorted by survey_id
+    const surveyGroups = Object.keys(groupedSurveys).map((surveyId) => ({
+      surveyId,
+      versions: groupedSurveys[surveyId].sort((a, b) => b.version - a.version),
+    }));
+
+    return res.status(200).json(surveyGroups);
   } catch (error) {
-    console.error(
-      "Error fetching survey questions for the latest version:",
-      error
-    );
+    console.error("Error fetching previous surveys:", error);
     return res
       .status(500)
       .json({ message: "Internal server error", error: error.message });
@@ -260,7 +285,8 @@ async function getDailySurveyQuestions(req, res) {
 
 export {
   createDailySurvey,
-  findLatestSurveyAndVersion,
-  getLatestSurveyAndVersion,
-  getDailySurveyQuestions,
+  findLatestSurvey,
+  getLatestSurvey,
+  getSurvey,
+  getPreviousSurveys,
 };
