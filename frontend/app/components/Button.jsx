@@ -26,7 +26,7 @@ export default function Button({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: borderRadius,
-        opacity: disabled ? 0.5 : 1, // Dim the button when disabled
+        opacity: disabled ? 0.5 : 1,
       }}
       onPress={action}
       disabled={disabled}
