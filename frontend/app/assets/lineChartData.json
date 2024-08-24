@@ -1,8 +1,0 @@
-{
-  "labels": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-  "datasets": [
-    {
-      "data": ["sad", "neutral", "happy", "awful", "good", "sad", "neutral"]
-    }
-  ]
-}
