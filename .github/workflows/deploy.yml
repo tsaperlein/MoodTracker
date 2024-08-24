@@ -13,22 +13,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Navigate to API directory
-        run: cd api
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "16" # Specify the version of Node.js you need
 
       - name: Install dependencies
-        run: |
-          cd api
-          npm install
+        run: npm install
+        working-directory: ./api
 
       - name: Start the server
-        run: |
-          cd api
-          npm run start:dev
+        run: npm run start:dev
+        working-directory: ./api
         env:
           PORT: ${{ secrets.PORT }} # You can set your PORT environment variable in GitHub Secrets if needed
