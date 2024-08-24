@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 
 // Colors
 import colors from '../config/colors';
+// Fonts
+import fonts from '../config/fonts';
 // Icons
 import { FontAwesome6 } from '@expo/vector-icons';
 
@@ -10,33 +12,34 @@ import { FontAwesome6 } from '@expo/vector-icons';
 import DailyMood from './DailyMood';
 import { BlurView } from 'expo-blur';
 
+// Authorization Services
+import { AuthContext } from 'context/AuthContext';
+
+// Controller
+import { useWeeklyStatsController } from '../controllers/weeklyStatsController';
+
 export default function WeeklyStats({ action }) {
+  const { authData } = useContext(AuthContext);
+  const { moodsWithAdditional } = useWeeklyStatsController(authData);
+
   return (
     <View style={{ flex: 1 }}>
-      <View style={{ flex: 1 / 6, justifyContent: 'center', padding: '2%', paddingBottom: 0 }}>
-        <Text style={{ fontSize: 20, fontFamily: 'outfitMedium' }}>Stats of the Week</Text>
+      <View style={styles.labelContainer}>
+        <Text style={styles.label}>Welcome Moods of the week</Text>
       </View>
-      <View style={{ flex: 5 / 6 }}>
+      <View style={styles.scrollViewContainer}>
         <ScrollView
           horizontal
           contentContainerStyle={styles.scrollViewContent}
           showsHorizontalScrollIndicator={false}
         >
-          <DailyMood mood="awful" />
-          <DailyMood mood="sad" />
-          <DailyMood mood="neutral" />
-          <DailyMood mood="good" />
-          <DailyMood mood="happy" />
-          <DailyMood mood="neutral" />
-          <DailyMood mood="good" />
-          <DailyMood mood="nothing" />
+          {moodsWithAdditional.map((mood, index) => (
+            <DailyMood key={index} mood={mood.type} datetime={mood.datetime} />
+          ))}
         </ScrollView>
       </View>
       <BlurView intensity={30} style={styles.arrowButtonContainer}>
-        <TouchableOpacity
-          style={{ height: '100%', widht: '100%', justifyContent: 'center', alignItems: 'center' }}
-          onPress={action}
-        >
+        <TouchableOpacity style={styles.arrowButton} onPress={action}>
           <FontAwesome6 name="circle-arrow-right" size={60} color="black" />
         </TouchableOpacity>
       </BlurView>
@@ -45,19 +48,25 @@ export default function WeeklyStats({ action }) {
 }
 
 const styles = StyleSheet.create({
+  labelContainer: {
+    flex: 1 / 6,
+    justifyContent: 'center',
+    padding: '2%',
+    paddingBottom: 0,
+  },
+  label: {
+    color: colors.blue800,
+    fontSize: 21,
+    fontFamily: fonts.bold,
+  },
+  scrollViewContainer: {
+    flex: 5 / 6,
+  },
   scrollViewContent: {
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: '2%',
-  },
-  text: {
-    width: 100,
-    height: 50,
-    backgroundColor: colors.blue100,
-    margin: 10,
-    textAlign: 'center',
-    lineHeight: 50,
   },
   arrowButtonContainer: {
     position: 'absolute',
@@ -68,5 +77,11 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     overflow: 'hidden',
+  },
+  arrowButton: {
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
