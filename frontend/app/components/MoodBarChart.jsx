@@ -1,62 +1,71 @@
-import React, { useState, useEffect } from 'react';
-import { View, Dimensions } from 'react-native';
+import React from 'react';
+import { View, Dimensions, Text, StyleSheet } from 'react-native';
 
 // Colors
 import colors from '../config/colors';
-// Icons
-import { FontAwesome6, MaterialIcons } from '@expo/vector-icons';
-// Mood Config
-import moodConfig from '../config/moodConfig';
+// Fonts
+import fonts from '../config/fonts';
 
 // Components
 import { BarChart } from 'react-native-gifted-charts';
 
+// Utilities
+import { getRatioOutcome } from '../utils/ratioUtil';
+
+// Bar width and height
+const barWidth = (Dimensions.get('window').width * 0.7) / 7 - 14;
+const height = (Dimensions.get('window').height * 30) / 100;
+
 export default function MoodBarChart({ data }) {
-  const barWidth = (Dimensions.get('window').width * 0.6) / 7 - 7;
-
-  const height = (Dimensions.get('window').height * 30) / 100;
-
   return (
     <BarChart
       height={height}
-      maxValue={5}
+      maxValue={26}
       data={data}
       yAxisThickness={0}
       xAxisThickness={0}
       hideYAxisText
       hideRules
       barWidth={barWidth}
-      barInnerComponent={(item) => {
-        const mood = Object.values(moodConfig).find((m) => m.value === item.value);
-        return (
-          <View
-            style={{
-              flex: 1,
-              width: '100%',
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-              backgroundColor: mood ? mood.backgroundColor : 'transparent',
-              borderRadius: 20,
-              paddingTop: '10%',
-            }}
-          >
-            {mood && mood.icon !== 'face-retouching-off' ? (
-              <FontAwesome6 name={mood.icon} size={barWidth / 1.2} color={mood.color} />
-            ) : (
-              <MaterialIcons
-                name={'face-retouching-off'}
-                size={barWidth / 1.2}
-                color={mood.color}
-              />
-            )}
-          </View>
-        );
-      }}
+      barInnerComponent={(item) => (
+        <View
+          style={[
+            styles.textContainer,
+            {
+              backgroundColor: getRatioOutcome(item.value, 26, 'color'),
+            },
+          ]}
+        >
+          <Text style={styles.text}>{item.value}</Text>
+        </View>
+      )}
       roundedTop
       roundedBottom
-      xAxisLabelTextStyle={{ color: colors.blue200, fontFamily: 'outfitBold' }}
       disablePress
       disableScroll={false}
+      xAxisLabelTextStyle={styles.xAxisLabelTextStyle}
+      rotateLabel={true}
     />
   );
 }
+
+const styles = StyleSheet.create({
+  textContainer: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    borderRadius: 20,
+    paddingTop: '20%',
+  },
+  text: {
+    color: colors.black,
+    fontSize: 20,
+    fontFamily: 'outfitMedium',
+  },
+  xAxisLabelTextStyle: {
+    color: colors.white,
+    fontSize: 11,
+    fontFamily: fonts.medium,
+  },
+});
