@@ -1,17 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Platform } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
 
 // Colors
 import colors from '../config/colors';
+// Fonts
+import fonts from '../config/fonts';
 
-export default function PreviousSurvey({ navigation, date }) {
+// Window Height
+const height = Dimensions.get('window').height;
+
+export default function PreviousSurvey({ navigation, date, surveyId }) {
   return (
-    <View style={{ height: 70, marginVertical: '1%' }}>
+    <View style={styles.container}>
       <TouchableOpacity
-        style={styles.container}
-        onPress={() => navigation.navigate("Today's Survey", { mode: 'past' })}
+        style={styles.button}
+        onPress={() => navigation.navigate('Survey Navigator', { mode: 'past', surveyId })}
       >
-        <Text style={styles.labelStyle}>{date}</Text>
+        <Text style={styles.label}>{date}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -19,16 +24,22 @@ export default function PreviousSurvey({ navigation, date }) {
 
 const styles = StyleSheet.create({
   container: {
+    height: height / 14,
+    marginVertical: '1%',
+  },
+  button: {
     flex: 1,
-    padding: '3%',
-    overflow: 'hidden',
-    backgroundColor: colors.blue600a50,
+    backgroundColor: colors.blue300a50,
     alignItems: 'flex-start',
     justifyContent: 'center',
+    marginHorizontal: '2%',
+    padding: '3%',
+    borderRadius: 20,
+    overflow: 'hidden',
   },
-  labelStyle: {
+  label: {
     color: colors.blue100,
-    fontSize: 20,
-    fontFamily: Platform.OS === 'ios' ? 'outfitMedium' : 'robotoBold',
+    fontSize: 19,
+    fontFamily: fonts.medium,
   },
 });
