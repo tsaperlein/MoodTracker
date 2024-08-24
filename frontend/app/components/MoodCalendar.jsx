@@ -1,48 +1,54 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 
 // Colors
 import colors from '../config/colors';
+// Fonts
+import fonts from '../config/fonts';
 // Icons
 import { FontAwesome6, MaterialIcons } from '@expo/vector-icons';
-// Mood Config
-import moodConfig from '../config/moodConfig';
+
+// Mood Configuration
+import { moodConfig } from '../config/moodConfig';
 
 // Components
 import { Calendar } from 'react-native-calendars';
 
-import mockMonthData from '../assets/mockMonthData'; // Update this path accordingly
+// Window Width and Height
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
-const getMoodFromValue = (value) => {
-  return Object.keys(moodConfig).find((key) => moodConfig[key].value === value);
-};
+// Controller
+import { useCalendarController } from '../controllers/calendarController';
 
 const MoodIcon = ({ moodStyle }) => {
   if (moodStyle.icon === 'face-retouching-off') {
-    return <MaterialIcons name={moodStyle.icon} size={16} color={moodStyle.color} />;
+    return <MaterialIcons name={moodStyle.icon} size={16} color={moodStyle.calendar.color} />;
   }
-  return <FontAwesome6 name={moodStyle.icon} size={16} color={moodStyle.color} />;
+  return <FontAwesome6 name={moodStyle.icon} size={16} color={moodStyle.calendar.color} />;
 };
 
-const CustomDayComponent = ({ date, state, marking }) => {
+const CustomDayComponent = ({ date, state, mood }) => {
   const today = new Date().toISOString().slice(0, 10) === date.dateString;
   const isExtraDay = state === 'disabled';
-  const mood = marking?.mood !== undefined && moodConfig[getMoodFromValue(marking.mood)];
-  const moodStyle = mood || { backgroundColor: colors.blue500, color: 'black', icon: null };
+
+  const moodStyle = mood
+    ? moodConfig[mood]
+    : { icon: null, calendar: { backgroundColor: colors.blue400a50, color: colors.blue900 } };
 
   const containerStyle = [
     styles.dayContainer,
     {
-      backgroundColor: isExtraDay ? colors.blue300a50 : moodStyle.backgroundColor,
-      borderWidth: today ? '2%' : 0,
-      borderColor: today ? colors.black : 'transparent',
+      backgroundColor: isExtraDay ? colors.blue200a70 : moodStyle.calendar.backgroundColor,
+      borderWidth: today ? 2 : 0,
+      borderColor: today ? colors.blue900 : 'transparent',
     },
   ];
 
   const textStyle = {
     textAlign: 'center',
-    color: isExtraDay ? colors.blue200 : today ? 'black' : moodStyle.color,
-    fontFamily: today ? 'outfitBold' : 'outfit',
+    color: isExtraDay ? colors.blue100 : today ? colors.blue900 : moodStyle.calendar.color,
+    fontFamily: today ? fonts.bold : fonts.original,
   };
 
   return (
@@ -57,38 +63,35 @@ const CustomDayComponent = ({ date, state, marking }) => {
   );
 };
 
-export default function MoodCalendar({ moodFilter }) {
-  const [markedDates, setMarkedDates] = useState({});
-
-  useEffect(() => {
-    setMarkedDates(mockMonthData);
-  }, []);
+export default function MoodCalendar({ moodFilter, onMonthChange }) {
+  const { markedDates } = useCalendarController();
 
   const filteredDates = moodFilter
     ? Object.fromEntries(
-        Object.entries(markedDates).filter(
-          ([date, { mood }]) => getMoodFromValue(mood) === moodFilter
-        )
+        Object.entries(markedDates).filter(([date, { mood }]) => mood === moodFilter)
       )
     : markedDates;
+
+  const calendarTheme = {
+    calendarBackground: colors.blue300,
+    textSectionTitleColor: colors.blue800,
+    monthTextColor: colors.blue800,
+    textDayHeaderFontFamily: fonts.original,
+    textDayHeaderFontSize: 15,
+    textMonthFontFamily: fonts.medium,
+    textMonthFontSize: 24,
+  };
 
   return (
     <View style={styles.container}>
       <Calendar
-        style={{ backgroundColor: colors.blue400, padding: '3%' }}
-        dayComponent={({ date, state, marking }) => (
-          <CustomDayComponent date={date} state={state} marking={marking} />
-        )}
-        markedDates={filteredDates}
-        theme={{
-          calendarBackground: colors.blue400,
-          textSectionTitleColor: colors.blue900,
-          monthTextColor: colors.blue900,
-          textDayHeaderFontFamily: 'outfit',
-          textDayHeaderFontSize: 15,
-          textMonthFontFamily: 'outfitMedium',
-          textMonthFontSize: 24,
+        style={styles.calendar}
+        dayComponent={({ date, state }) => {
+          const mood = filteredDates[date.dateString]?.mood;
+          return <CustomDayComponent date={date} state={state} mood={mood} />;
         }}
+        markedDates={filteredDates}
+        theme={calendarTheme}
         renderArrow={(direction) =>
           direction === 'right' ? (
             <FontAwesome6 name="arrow-right" size={20} color={colors.blue900} />
@@ -96,6 +99,7 @@ export default function MoodCalendar({ moodFilter }) {
             <FontAwesome6 name="arrow-left" size={20} color={colors.blue900} />
           )
         }
+        onMonthChange={onMonthChange}
       />
     </View>
   );
@@ -108,15 +112,18 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   dayContainer: {
+    width: width / 12,
+    height: height / 21,
     justifyContent: 'center',
     alignItems: 'center',
-    width: 35,
-    height: 45,
-    paddingHorizontal: '12%',
     borderRadius: 10,
   },
   iconContainer: {
     marginTop: '2%',
+    padding: '2%',
+  },
+  calendar: {
+    backgroundColor: colors.blue300,
     padding: '2%',
   },
 });
