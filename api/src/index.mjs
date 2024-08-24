@@ -13,7 +13,7 @@ import quoteRoutes from "./routes/quote.mjs";
 
 dotenv.config();
 
-const { PORT } = process.env;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(express.json({ limit: "50mb" }));
@@ -25,7 +25,7 @@ app.use(initRoutes);
 app.use(authRoutes);
 
 // User
-// app.use(userRoutes);
+app.use(userRoutes);
 
 // Survey
 app.use(surveyRoutes);
@@ -37,7 +37,7 @@ app.use(answerRoutes);
 app.use(questionRoutes);
 
 // Welcome Mood
-// app.use(welcomeMoodRoutes);
+app.use(welcomeMoodRoutes);
 
 // Quote
 // app.use(quoteRoutes);
