@@ -10,7 +10,7 @@ import fonts from '../config/fonts';
 import { BarChart } from 'react-native-gifted-charts';
 
 // Utilities
-import { getRatioOutcome } from '../utils/ratioUtil';
+import { getRatioOutcome } from '../utils/ratioUtils';
 
 // Bar width and height
 const barWidth = (Dimensions.get('window').width * 0.7) / 7 - 14;

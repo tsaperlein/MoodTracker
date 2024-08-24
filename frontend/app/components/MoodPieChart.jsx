@@ -13,7 +13,7 @@ import { moodConfig } from '../config/moodConfig';
 import { PieChart } from 'react-native-gifted-charts';
 
 // Utilities
-import { getRatioOutcome } from '../utils/ratioUtil';
+import { getRatioOutcome } from '../utils/ratioUtils';
 
 // Window Height
 const height = Dimensions.get('window').height;
