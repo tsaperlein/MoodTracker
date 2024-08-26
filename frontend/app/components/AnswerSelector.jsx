@@ -28,7 +28,7 @@ export default function AnswerSelector({ text, selected, onPress, disabled }) {
     onPress();
   };
 
-  const textColor = selected ? colors.blue200 : colors.blue700;
+  const textColor = selected ? colors.blue200 : colors.blue500;
   const backgroundColor = selected ? colors.blue500 : 'transparent';
 
   return (
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   optionText: {
-    fontSize: 18,
+    fontSize: 19,
     fontFamily: fonts.bold,
   },
 });
