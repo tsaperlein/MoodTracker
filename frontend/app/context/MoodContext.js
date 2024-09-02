@@ -6,6 +6,8 @@ import { fetchLatestWelcomeMood } from 'services/welcomeMood';
 // Authorization Services
 import { AuthContext } from 'context/AuthContext';
 
+import { adjustToGreeceTime, areSameDay } from '../utils/datetime.mjs';
+
 export const MoodContext = createContext();
 
 export const MoodProvider = ({ children }) => {
@@ -21,7 +23,9 @@ export const MoodProvider = ({ children }) => {
         if (result.success && result.data && result.data.datetime) {
           const latestMoodDate = new Date(result.data.datetime);
           const today = new Date();
-          const isToday = latestMoodDate.toDateString() === today.toDateString();
+
+          // Use the areSameDay utility function for comparison
+          const isToday = areSameDay(latestMoodDate, adjustToGreeceTime(today));
           setHasChosenMood(isToday);
         } else {
           setHasChosenMood(false);
