@@ -1,22 +1,24 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 // Colors
-import colors from '../config/colors';
+import colors from '../constants/colors';
 // Icons
 import { Ionicons, FontAwesome6, MaterialCommunityIcons } from '@expo/vector-icons';
 
 // Screens
 import Home from '../screens/main/Home';
 import Questionnaires from '../screens/main/Questionnaires';
-import Diary from '../screens/main/Diary';
 
 // Bottom Navigation
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const BottomTabNavigator = createBottomTabNavigator();
 
+// Window height
+import { HEIGHT } from '../constants/dimensions';
+
 // Bottom Tab Bar Height
-const bottomTabBarHeight = (Dimensions.get('window').height * 8) / 100;
+const bottomTabBarHeight = (HEIGHT * 8) / 100;
 
 const getIconComponent = (iconLibrary) => {
   switch (iconLibrary) {
@@ -40,14 +42,14 @@ const tabBarItemOptions = ({ iconLibrary, focusedIcon, unfocusedIcon, iconSize }
         style={[
           styles.tabBarItem,
           {
-            backgroundColor: focused ? colors.blue300 : null,
+            backgroundColor: focused ? colors.blue200 : null,
           },
         ]}
       >
         <IconComponent
           name={focused ? focusedIcon : unfocusedIcon}
           size={iconSize}
-          color={focused ? colors.blue800 : colors.gray400}
+          color={focused ? colors.blue600 : colors.gray100}
         />
       </View>
     );
@@ -87,15 +89,6 @@ export default function BottomNavigator() {
           iconSize: 34,
         })}
       />
-      <BottomTabNavigator.Screen
-        name="Diary"
-        component={Diary}
-        options={tabBarItemOptions({
-          focusedIcon: 'notebook',
-          unfocusedIcon: 'notebook-outline',
-          iconSize: 34,
-        })}
-      />
     </BottomTabNavigator.Navigator>
   );
 }
@@ -103,19 +96,19 @@ export default function BottomNavigator() {
 const styles = StyleSheet.create({
   tabContainer: {
     position: 'absolute',
-    width: '90%',
+    width: '80%',
     height: bottomTabBarHeight,
     borderRadius: 28,
-    bottom: '3%',
-    left: '5%',
+    bottom: HEIGHT < 800 ? '1%' : '3%',
+    left: '10%',
     borderTopWidth: 0,
     zIndex: 2,
     overflow: 'hidden',
-    backgroundColor: 'rgba(0, 0, 0, 0.95)',
+    backgroundColor: colors.blue300,
   },
   tabBarItem: {
     width: '88%',
-    height: '80%',
+    height: '78%',
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
