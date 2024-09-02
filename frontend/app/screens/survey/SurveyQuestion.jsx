@@ -1,55 +1,45 @@
-// SurveyQuestion.js
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Platform, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 
 // Colors
-import colors from '../../config/colors';
+import colors from '../../constants/colors';
+// Border
+import { border } from '../../config/borderConfig';
+// Fonts
+import fonts from '../../constants/fonts';
 
-// Components
-import EmojiSelector from '../../components/EmojiSelector';
-import KeyWordSelector from '../../components/KeyWordSelector';
-import SurveyButtons from '../../components/SurveyButtons';
+// Layout
 import ScreenLayout from '../Layout';
 
-// Mock data import
-import { surveyAnswers } from '../../assets/mockData';
+// Components
+import AnswerSelector from '../../components/AnswerSelector';
+import SurveyButtons from '../../components/SurveyButtons';
 
-const emojiMap = ['awful', 'sad', 'neutral', 'good', 'happy'];
+export default function SurveyQuestion({
+  navigation,
+  number,
+  totalQuestions,
+  question,
+  mode,
+  onAnswerUpdate,
+  onSubmit,
+}) {
+  const [comment, setComment] = useState(question.comment || '');
+  const [selectedAnswer, setSelectedAnswer] = useState(question.type || null);
 
-export default function SurveyQuestion({ navigation, number, totalQuestions, questionText, mode }) {
-  const [emojiSelected, setEmojiSelected] = useState(null);
-  const [comment, setComment] = useState('');
-  const [keywords, setKeywords] = useState([]);
+  useEffect(() => {
+    setComment(question.comment || '');
+    setSelectedAnswer(question.type || null);
+  }, [question]);
 
-  const handleSkip = () => {
-    Alert.alert(
-      'Skip Question',
-      'Are you sure you want to skip this question?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Skip',
-          onPress: () =>
-            navigation.navigate(number < totalQuestions ? `Q${number + 1}` : 'Completion'),
-        },
-      ],
-      { cancelable: false }
-    );
+  const handleSelect = (answer) => {
+    setSelectedAnswer(answer);
+    onAnswerUpdate(question.id, answer, comment);
   };
 
   useEffect(() => {
-    if (mode === 'past') {
-      const answer = surveyAnswers[number];
-      if (answer) {
-        setEmojiSelected(emojiMap[answer.emoji - 1]);
-        setComment(answer.comment);
-        setKeywords(answer.keywords);
-      }
-    }
-  }, [mode, number]);
+    onAnswerUpdate(question.id, selectedAnswer, comment);
+  }, [comment, selectedAnswer]);
 
   return (
     <ScreenLayout footer={false} backgroundColor={colors.blue900}>
@@ -57,26 +47,34 @@ export default function SurveyQuestion({ navigation, number, totalQuestions, que
         <View style={styles.questionTitleContainer}>
           <Text style={styles.questionTitle}>Question {number}</Text>
         </View>
-        <View style={{ flex: 11 / 15, alignItems: 'center', justifyContent: 'center' }}>
-          <View style={[{ flex: 1 / 6 }, styles.field]}>
-            <Text style={styles.questionText}>{questionText}</Text>
+        <View style={styles.topContainer}>
+          <View style={[{ flex: 1 }, styles.field]}>
+            <Text style={styles.questionText}>{question.text}</Text>
           </View>
-          <View style={[{ flex: 1 / 6, backgroundColor: colors.blue800a70 }, styles.field]}>
-            <EmojiSelector
-              setEmojiSelected={setEmojiSelected}
-              initialMood={emojiSelected}
-              disabled={mode === 'past'}
-            />
+          <View style={[{ flex: 1, backgroundColor: colors.blue800a70 }, styles.field]}>
+            <View style={styles.optionsContainer}>
+              <AnswerSelector
+                text="Not True"
+                selected={selectedAnswer === 'Not True'}
+                onPress={() => handleSelect('Not True')}
+                disabled={mode === 'past'}
+              />
+              <AnswerSelector
+                text="Sometimes"
+                selected={selectedAnswer === 'Sometimes'}
+                onPress={() => handleSelect('Sometimes')}
+                disabled={mode === 'past'}
+              />
+              <AnswerSelector
+                text="True"
+                selected={selectedAnswer === 'True'}
+                onPress={() => handleSelect('True')}
+                disabled={mode === 'past'}
+              />
+            </View>
           </View>
-          <View style={[{ flex: 2 / 6 }, styles.field]}>
-            <KeyWordSelector
-              initialKeywords={keywords}
-              setSelectedKeywords={setKeywords}
-              disabled={mode === 'past'}
-            />
-          </View>
-          <View style={[{ flex: 2 / 6 }, styles.field]}>
-            <View style={styles.input}>
+          <View style={[{ flex: 3, paddingTop: '5%' }, styles.field]}>
+            <View style={[styles.input, border(2)]}>
               {mode === 'current' ? (
                 <TextInput
                   style={styles.inputStyle}
@@ -100,8 +98,8 @@ export default function SurveyQuestion({ navigation, number, totalQuestions, que
           number={number}
           totalQuestions={totalQuestions}
           mode={mode}
-          emojiSelected={emojiSelected}
-          handleSkip={handleSkip}
+          answerSelected={selectedAnswer}
+          onSubmit={onSubmit}
         />
       </View>
     </ScreenLayout>
@@ -112,8 +110,9 @@ const styles = StyleSheet.create({
   questionText: {
     color: colors.blue300,
     fontSize: 20,
-    fontFamily: Platform.OS === 'ios' ? 'outfitBold' : 'robotoBold',
+    fontFamily: fonts.medium,
     textAlign: 'justify',
+    marginHorizontal: '5%',
   },
   field: {
     width: '100%',
@@ -121,15 +120,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   questionTitleContainer: {
-    flex: 1 / 15,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.blue800,
+    backgroundColor: colors.blue800a70,
   },
   questionTitle: {
-    color: colors.blue400,
+    color: colors.blue500,
     fontSize: 20,
-    fontFamily: Platform.OS === 'ios' ? 'outfit' : 'robotoBold',
+    fontFamily: fonts.bold,
+  },
+  optionsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: '100%',
+  },
+  topContainer: {
+    flex: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   input: {
     flex: 1,
@@ -137,9 +147,8 @@ const styles = StyleSheet.create({
     padding: '3%',
     borderRadius: 10,
     backgroundColor: colors.blue800a50,
-    fontFamily: Platform.OS === 'ios' ? 'outfit' : 'robotoBold',
+    fontFamily: fonts.original,
     fontSize: 15,
-    borderWidth: 2,
     borderColor: colors.purple400,
   },
   inputStyle: {
@@ -150,11 +159,11 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     color: colors.blue300,
     fontSize: 18,
-    fontFamily: Platform.OS === 'ios' ? 'outfit' : 'robotoBold',
+    fontFamily: fonts.original,
   },
   answerText: {
     color: colors.blue300,
     fontSize: 18,
-    fontFamily: Platform.OS === 'ios' ? 'outfit' : 'robotoBold',
+    fontFamily: fonts.original,
   },
 });

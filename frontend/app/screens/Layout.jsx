@@ -2,7 +2,6 @@ import React from 'react';
 import {
   View,
   StyleSheet,
-  Dimensions,
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
@@ -10,30 +9,31 @@ import {
 } from 'react-native';
 
 // Colors
-import colors from '../config/colors';
+import colors from '../constants/colors';
+
+// Window height
+import { HEIGHT } from '../constants/dimensions';
 
 // Header and Bottom Tab Bar Heights
-const headerHeight = (Dimensions.get('window').height * 12.5) / 100;
-const bottomTabBarHeight = (Dimensions.get('window').height * 12) / 100;
+const headerHeight = (HEIGHT * 12.5) / 100;
+const bottomTabBarHeight = (HEIGHT * 12) / 100;
 
 export default function ScreenLayout({
   children,
   footer = true,
-  backgroundColor = colors.blue500,
-  screenName = null, // Add screenName as a prop
+  backgroundColor = colors.blue400,
+  screenName = null,
 }) {
   const content = (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ width: '100%', height: '100%' }}
+      style={styles.content}
     >
       <View
         style={[
           styles.container,
           {
-            height: footer
-              ? Dimensions.get('window').height - headerHeight - bottomTabBarHeight
-              : Dimensions.get('window').height - headerHeight,
+            height: footer ? HEIGHT - headerHeight - bottomTabBarHeight : HEIGHT - headerHeight,
             top: headerHeight,
           },
         ]}
@@ -44,7 +44,7 @@ export default function ScreenLayout({
   );
 
   return (
-    <View style={{ flex: 1, backgroundColor: backgroundColor }}>
+    <View style={{ flex: 1, backgroundColor }}>
       {screenName !== 'Home' ? (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>{content}</TouchableWithoutFeedback>
       ) : (
@@ -55,6 +55,10 @@ export default function ScreenLayout({
 }
 
 const styles = StyleSheet.create({
+  content: {
+    width: '100%',
+    height: '100%',
+  },
   container: {
     width: '100%',
     alignItems: 'center',

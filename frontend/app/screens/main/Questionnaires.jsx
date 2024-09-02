@@ -1,164 +1,113 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
   View,
   TouchableHighlight,
   Image,
-  Platform,
   Animated,
+  ActivityIndicator,
+  RefreshControl,
 } from 'react-native';
 
 // Colors
-import colors from '../../config/colors';
+import colors from '../../constants/colors';
+// Fonts
+import fonts from '../../constants/fonts';
+
+// Layout
+import ScreenLayout from '../Layout';
 
 // Components
-import ScreenLayout from '../Layout';
 import PreviousSurvey from '../../components/PreviousSurvey';
 
+// Window height
+import { HEIGHT } from '../../constants/dimensions';
+
+// Controller
+import useQuestionnairesController from '../../controllers/questionnairesController';
+
 export default function Questionnaires({ navigation }) {
-  const scrollY = useRef(new Animated.Value(0)).current;
-
-  const height = scrollY.interpolate({
-    inputRange: [0, 200],
-    outputRange: ['25%', '10%'],
-    extrapolate: 'clamp',
-  });
-
-  const marginBottom = scrollY.interpolate({
-    inputRange: [0, 200],
-    outputRange: ['3%', '0%'],
-    extrapolate: 'clamp',
-  });
-
-  const width = scrollY.interpolate({
-    inputRange: [0, 200],
-    outputRange: ['90%', '100%'],
-    extrapolate: 'clamp',
-  });
-
-  const borderRadius = scrollY.interpolate({
-    inputRange: [0, 200],
-    outputRange: ['40', '0'],
-    extrapolate: 'clamp',
-  });
-
-  const surveys = [
-    { weekText: 'This week', date: 'Thursday, 13th of June' },
-    { weekText: 'This week', date: 'Friday, 14th of June' },
-    { weekText: 'This week', date: 'Saturday, 15th of June' },
-    { weekText: 'This week', date: 'Sunday, 16th of June' },
-    { weekText: 'Previous week', date: 'Thursday, 6th of June' },
-    { weekText: 'Previous week', date: 'Friday, 7th of June' },
-    { weekText: 'Two weeks ago', date: 'Saturday, 1st of June' },
-    { weekText: 'Two weeks ago', date: 'Sunday, 2nd of June' },
-    { weekText: 'This week', date: 'Thursday, 13th of June' },
-    { weekText: 'This week', date: 'Friday, 14th of June' },
-    { weekText: 'This week', date: 'Saturday, 15th of June' },
-    { weekText: 'This week', date: 'Sunday, 16th of June' },
-    { weekText: 'Previous week', date: 'Thursday, 6th of June' },
-    { weekText: 'Previous week', date: 'Friday, 7th of June' },
-    { weekText: 'Two weeks ago', date: 'Saturday, 1st of June' },
-    { weekText: 'Two weeks ago', date: 'Sunday, 2nd of June' },
-    { weekText: 'This week', date: 'Thursday, 13th of June' },
-    { weekText: 'This week', date: 'Friday, 14th of June' },
-    { weekText: 'This week', date: 'Saturday, 15th of June' },
-    { weekText: 'This week', date: 'Sunday, 16th of June' },
-  ];
-
-  const groupSurveysByWeek = (surveys) => {
-    return surveys.reduce((groups, survey) => {
-      const week = survey.weekText;
-      if (!groups[week]) {
-        groups[week] = [];
-      }
-      groups[week].push(survey);
-      return groups;
-    }, {});
-  };
-
-  const surveyGroups = groupSurveysByWeek(surveys);
+  const {
+    scrollY,
+    surveys,
+    loading,
+    height,
+    marginBottom,
+    width,
+    borderRadius,
+    formatDateToLongForm,
+    calculateTimeDifference,
+    getSurveyGroupLabel,
+    refreshing,
+    onRefresh,
+  } = useQuestionnairesController();
 
   return (
     <ScreenLayout footer={true}>
       <View style={styles.container}>
         <Animated.View
           style={{
-            height: height,
-            width: width,
-            marginBottom: marginBottom,
-            borderRadius: borderRadius,
+            height,
+            width,
+            marginBottom,
             overflow: 'hidden',
             alignItems: 'center',
             justifyContent: 'center',
+            borderRadius,
           }}
         >
           <TouchableHighlight
-            style={{ width: '100%', height: '100%' }}
-            onPress={() => navigation.navigate("Today's Survey", { mode: 'current' })}
+            style={styles.imageContainer}
+            onPress={() => navigation.navigate('Survey Navigator', { mode: 'current' })}
           >
-            <View style={{ width: '100%', height: '100%' }}>
+            <View style={styles.imageContainer}>
               <Image
-                style={{
-                  height: '100%',
-                  width: '100%',
-                  position: 'absolute',
-                  resizeMode: 'cover',
-                }}
-                source={require('../../assets/images/todaysSurvey.png')}
+                style={styles.image}
+                source={require('../../assets/images/todaysSurvey-4.png')}
               />
-              <Animated.View
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  backgroundColor: 'rgba(0,0,0,0.3)',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Text
-                  style={{
-                    color: colors.blue200,
-                    fontSize: 26,
-                    fontFamily: Platform.OS === 'ios' ? 'outfitMedium' : 'robotoBold',
-                  }}
-                >
-                  Today's Survey
-                </Text>
+              <Animated.View style={styles.dailySurveyContainer}>
+                <Text style={styles.dailySurveyText}>Today's Survey</Text>
               </Animated.View>
             </View>
           </TouchableHighlight>
         </Animated.View>
-        <Animated.ScrollView
-          style={{ flex: 0.8, backgroundColor: colors.blue500a50, width: '100%' }}
-          onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
-            useNativeDriver: false,
-          })}
-          scrollEventThrottle={16}
-        >
-          {Object.keys(surveyGroups).map((week, index) => (
-            <View key={index} style={{ marginBottom: '2%' }}>
-              <Text
-                style={{
-                  color: colors.blue900,
-                  fontSize: 18,
-                  margin: '2%',
-                  fontFamily: Platform.OS === 'ios' ? 'outfitMedium' : 'robotoBold',
-                }}
-              >
-                {week}
-              </Text>
-              {surveyGroups[week].map((survey, idx) => (
-                <PreviousSurvey
-                  key={idx}
-                  weekText={survey.weekText}
-                  navigation={navigation}
-                  date={survey.date}
-                />
-              ))}
-            </View>
-          ))}
-        </Animated.ScrollView>
+        {loading ? (
+          <View style={styles.activityIndicatorStyle}>
+            <ActivityIndicator size="large" color={colors.blue900} />
+          </View>
+        ) : surveys.length === 0 ? (
+          <View style={styles.noSurveysContainer}>
+            <Text style={styles.noSurveysText}>No previous surveys</Text>
+          </View>
+        ) : (
+          <Animated.ScrollView
+            style={{ flex: 1, width: '100%' }}
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+            onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
+              useNativeDriver: false,
+            })}
+            scrollEventThrottle={20}
+          >
+            {surveys.map((surveyGroup, index) => (
+              <View key={index} style={{ marginBottom: '1%' }}>
+                <Text style={styles.surveysLabel}>{getSurveyGroupLabel(surveyGroup)}</Text>
+                {surveyGroup.versions.map((survey, idx) => (
+                  <PreviousSurvey
+                    key={idx}
+                    navigation={navigation}
+                    postedAt={formatDateToLongForm(survey.posted_at)}
+                    completionTime={calculateTimeDifference(
+                      survey.posted_at,
+                      survey.completion_time
+                    )}
+                    surveyId={survey.id}
+                  />
+                ))}
+              </View>
+            ))}
+          </Animated.ScrollView>
+        )}
       </View>
     </ScreenLayout>
   );
@@ -168,7 +117,53 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    margin: '1%',
+    margin: '2%',
     alignItems: 'center',
+  },
+  imageContainer: {
+    width: '100%',
+    height: '100%',
+  },
+  image: {
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+    resizeMode: 'cover',
+  },
+  dailySurveyContainer: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0,0,0,0.15)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  dailySurveyText: {
+    color: colors.white,
+    fontSize: HEIGHT < 800 ? 40 : 45,
+    fontFamily: fonts.fjalla,
+  },
+  surveysLabel: {
+    color: colors.blue700,
+    fontSize: 21,
+    margin: '2%',
+    fontFamily: fonts.bold,
+    textAlign: 'center',
+  },
+  activityIndicatorStyle: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noSurveysContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noSurveysText: {
+    color: colors.blue200,
+    fontSize: 26,
+    fontFamily: fonts.bold,
+    textAlign: 'center',
   },
 });

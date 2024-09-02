@@ -1,100 +1,61 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, Text, ActivityIndicator } from 'react-native';
 
 // Colors
-import colors from '../../config/colors';
-// Icons
-import { FontAwesome6, MaterialIcons } from '@expo/vector-icons';
-// Mood Config
-import moodConfig from '../../config/moodConfig';
+import colors from '../../constants/colors';
+// Fonts
+import fonts from '../../constants/fonts';
 
 // Components
 import MoodBarChart from '../../components/MoodBarChart';
 import MoodPieChart from '../../components/MoodPieChart';
+import EmotionLegend from '../../components/EmotionLegend';
+import InformationLabel from '../../components/InformationLabel';
+import Button from '../../components/Button';
 
-// Mood Data
-import { weekData, monthData, yearData } from '../../assets/moodDateData';
+// Navigation
+import { useNavigation } from '@react-navigation/native';
 
-// Button for either "Week", "Month" or "Year"
-function PeriodButton({ period, selectedPeriod, setSelectedPeriod }) {
-  return (
-    <TouchableOpacity
-      style={[styles.optionButton, selectedPeriod === period && styles.selectedOption]}
-      onPress={() => setSelectedPeriod(period)}
-    >
-      <Text style={styles.optionText}>{period}</Text>
-    </TouchableOpacity>
-  );
-}
+// Controller
+import { useGraphData } from '../../controllers/graphController';
 
-const renderLegendIcon = (mood) => {
-  const IconComponent =
-    moodConfig[mood].icon == 'face-retouching-off' ? MaterialIcons : FontAwesome6;
-  return (
-    <IconComponent
-      name={moodConfig[mood].icon}
-      size={20}
-      color={moodConfig[mood].color}
-      style={{ marginHorizontal: '5%' }}
-    />
-  );
-};
-
-const renderLegendComponent = () => {
-  return (
-    <View style={styles.legendContainer}>
-      {Object.keys(moodConfig).map((mood, index) => (
-        <View key={`${mood}-${index}`} style={styles.legendItem}>
-          {renderLegendIcon(mood)}
-          <Text style={{ color: moodConfig[mood].color, fontFamily: 'outfitBold' }}>
-            {`${mood.charAt(0).toUpperCase() + mood.slice(1)}`}
-          </Text>
-        </View>
-      ))}
-    </View>
-  );
-};
-
-export default function Graph({ route }) {
-  const { period = 'Week' } = route.params || {};
-  const [selectedPeriod, setSelectedPeriod] = useState(period);
-
-  useEffect(() => {
-    setSelectedPeriod(period);
-  }, [period]);
+export default function Graph() {
+  const { data, loading } = useGraphData({ screen: 'Graph' });
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <View style={styles.buttonsContainer}>
-        <Text style={styles.thisText}>This</Text>
-        <PeriodButton
-          selectedPeriod={selectedPeriod}
-          setSelectedPeriod={setSelectedPeriod}
-          period="Week"
-        />
-        <PeriodButton
-          selectedPeriod={selectedPeriod}
-          setSelectedPeriod={setSelectedPeriod}
-          period="Month"
-        />
-        <PeriodButton
-          selectedPeriod={selectedPeriod}
-          setSelectedPeriod={setSelectedPeriod}
-          period="Year"
-        />
-      </View>
+      <InformationLabel text="All surveys" />
       <View style={styles.contentContainer}>
-        <View style={{ flex: 1 / 2 }}>
-          {selectedPeriod === 'Week' && <MoodBarChart data={weekData} />}
-          {selectedPeriod === 'Month' && <MoodBarChart data={monthData} />}
-          {selectedPeriod === 'Year' && <MoodBarChart data={yearData} />}
-        </View>
-        <View style={{ flex: 1 / 2 }}>
-          {selectedPeriod === 'Week' && <MoodPieChart data={weekData} />}
-          {selectedPeriod === 'Month' && <MoodPieChart data={monthData} />}
-          {selectedPeriod === 'Year' && <MoodPieChart data={yearData} />}
-          {renderLegendComponent()}
-        </View>
+        {loading ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color={colors.white} />
+          </View>
+        ) : data && data.length > 0 ? (
+          <View style={{ flex: 1, width: '100%' }}>
+            <View style={{ flex: 1 }}>
+              <MoodBarChart data={data} />
+            </View>
+            <View style={{ flex: 1 }}>
+              <MoodPieChart data={data} />
+              <EmotionLegend />
+            </View>
+          </View>
+        ) : (
+          <View style={styles.noSurveysContainer}>
+            <Text style={styles.noSurveysText}>You need 3 completed surveys</Text>
+            <Button
+              buttonColor={colors.blue400}
+              padding={16}
+              text="Complete a survey"
+              color={colors.blue100}
+              borderRadius={20}
+              fontSize={20}
+              fontFamily={fonts.bold}
+              action={() => navigation.navigate('Questionnaires')}
+            />
+          </View>
+        )}
       </View>
     </View>
   );
@@ -105,63 +66,36 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     padding: '4%',
+    paddingBottom: '6%',
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: colors.blue900,
   },
-  buttonsContainer: {
+  loadingContainer: {
     flex: 1,
-    width: '80%',
-    flexDirection: 'row',
+    backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  thisText: {
-    fontSize: 18,
-    fontFamily: 'outfitBold',
-    color: colors.blue400,
-    marginRight: '3%',
-  },
   contentContainer: {
-    flex: 10,
+    flex: 15,
     width: '100%',
     backgroundColor: colors.blue800a50,
     borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
     overflow: 'hidden',
   },
-  optionButton: {
-    flex: 1 / 3,
-    paddingVertical: '4%',
-    borderRadius: 20,
-    backgroundColor: 'transparent',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  optionText: {
-    fontSize: 18,
-    fontFamily: 'outfitMedium',
-    color: colors.blue200,
-  },
-  selectedOption: {
-    backgroundColor: colors.blue600,
-  },
-  legendContainer: {
+  noSurveysContainer: {
     flex: 1,
-    backgroundColor: colors.blue300,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignContent: 'center',
-    flexWrap: 'wrap',
-  },
-  legendItem: {
-    flexDirection: 'row',
+    width: '90%',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
-    justifyContent: 'center',
-    margin: '2%',
   },
-  centerLabel: {
-    fontSize: 20,
+  noSurveysText: {
     color: colors.blue200,
-    fontFamily: 'outfitBold',
+    fontSize: 26,
+    fontFamily: fonts.bold,
+    textAlign: 'center',
   },
 });

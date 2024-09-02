@@ -1,48 +1,56 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 
 // Colors
-import colors from '../../config/colors';
-// Icons
-import { FontAwesome6, MaterialIcons } from '@expo/vector-icons';
-// Mood Config
-import moodConfig from '../../config/moodConfig';
+import colors from '../../constants/colors';
 
 // Components
 import MoodCalendar from '../../components/MoodCalendar';
+import InformationLabel from '../../components/InformationLabel';
+import CalendarOptions from '../../components/CalendarOptions';
 
-function CalendarResults({ moodFilter, onFilterToggle }) {
-  return (
-    <View style={styles.resultsContainer}>
-      {Object.entries(moodConfig).map(([mood, { icon, color }]) => (
-        <TouchableOpacity
-          key={mood}
-          style={[styles.statContainer, moodFilter === mood && styles.selectedStatContainer]}
-          onPress={() => onFilterToggle(mood)}
-        >
-          {mood === 'nothing' ? (
-            <MaterialIcons name={icon} size={28} color={color} />
-          ) : (
-            <FontAwesome6 name={icon} size={28} color={color} />
-          )}
-          <Text style={styles.statText}>8 Days</Text>
-        </TouchableOpacity>
-      ))}
-    </View>
-  );
-}
+// Window width
+import { WIDTH } from '../../constants/dimensions';
+
+// Controller
+import { useCalendarController } from '../../controllers/calendarController';
 
 export default function Calendar() {
   const [moodFilter, setMoodFilter] = useState(null);
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
+  const [moodCounts, setMoodCounts] = useState({});
+
+  const { loading } = useCalendarController(currentMonth, setMoodCounts);
 
   const handleFilterToggle = (mood) => {
     setMoodFilter((prevMood) => (prevMood === mood ? null : mood));
   };
 
+  const handleMonthChange = (month) => {
+    setCurrentMonth(month.month);
+  };
+
+  if (loading) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color={colors.white} />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <MoodCalendar moodFilter={moodFilter} />
-      <CalendarResults moodFilter={moodFilter} onFilterToggle={handleFilterToggle} />
+      <InformationLabel text="All Welcome Moods" />
+      <View style={styles.contentContainer}>
+        <View style={styles.moodCalendarContainer}>
+          <MoodCalendar moodFilter={moodFilter} onMonthChange={handleMonthChange} />
+        </View>
+        <CalendarOptions
+          moodFilter={moodFilter}
+          onFilterToggle={handleFilterToggle}
+          moodCounts={moodCounts}
+        />
+      </View>
     </View>
   );
 }
@@ -56,42 +64,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.blue900,
   },
-  resultsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+  contentContainer: {
+    flex: 15,
     width: '100%',
-    alignContent: 'center',
-    justifyContent: 'space-evenly',
-  },
-  statContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    backgroundColor: colors.blue700a50,
-    padding: '4%',
-    margin: '3%',
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: 'transparent',
-  },
-  selectedStatContainer: {
-    borderColor: colors.blue500,
-    backgroundColor: colors.blue600a50,
-  },
-  statText: {
-    fontSize: 18,
-    color: colors.blue100,
-    fontFamily: 'outfitMedium',
-    marginVertical: '5%',
-  },
-  dayContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '8%',
-    paddingHorizontal: '12%',
-    borderRadius: 10,
   },
-  iconContainer: {
-    marginTop: '2%',
-    padding: '2%',
+  moodCalendarContainer: {
+    flex: 2,
+    width: WIDTH < 400 ? '90%' : '100%',
+  },
+  loading: {
+    flex: 1,
+    backgroundColor: colors.blue900,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

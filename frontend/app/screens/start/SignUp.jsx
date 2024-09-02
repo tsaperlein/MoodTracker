@@ -1,52 +1,60 @@
-import React from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import {
   View,
   TextInput,
   Text,
   StyleSheet,
   Image,
-  Dimensions,
-  Platform,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 
 // Colors
-import colors from '../../config/colors';
+import colors from '../../constants/colors';
+// Fonts
+import fonts from '../../constants/fonts';
+// Border
+import { border } from '../../config/borderConfig';
 // Shadow
-import createShadow from '../../config/shadowStyle';
-// Icons
-import { FontAwesome } from '@expo/vector-icons';
-
-// Navigation
-import { useNavigation } from '@react-navigation/native';
+import createShadow from '../../config/shadowConfig';
 
 // Animations
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 
-// Header Height
-const headerHEIGHT = (Dimensions.get('window').height * 12) / 100;
+// Authorization Services
+import { AuthContext } from 'context/AuthContext';
 
-export default function SignUp() {
-  const navigation = useNavigation();
+// Controller Functions
+import { onSignUpPress } from '../../controllers/signInUpController';
+
+// Header Height
+import { headerHEIGHT } from '../../constants/dimensions';
+
+export default function SignUp({ navigation, showMessage }) {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const { signUp } = useContext(AuthContext);
+
+  const ref_input = useRef();
+  const ref_input2 = useRef();
+  const ref_input3 = useRef();
+  const ref_input4 = useRef();
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      scrollEnabled={false}
+      keyboardShouldPersistTaps="never"
+    >
       <Image
-        style={{
-          height: '100%',
-          width: '100%',
-          position: 'absolute',
-          resizeMode: 'cover',
-        }}
+        style={styles.backgroundImage}
         source={require('../../assets/images/blueGreenWaves.png')}
       />
-      <View
-        style={{
-          top: headerHEIGHT,
-          width: '100%',
-          height: '100%',
-        }}
-      >
+      <View style={styles.signContainer}>
         <View style={styles.labelContainer}>
           <Animated.Text
             entering={FadeInUp.delay(100).duration(1000).springify()}
@@ -57,104 +65,124 @@ export default function SignUp() {
         </View>
 
         <View style={styles.inputContainer}>
-          <Animated.View style={styles.input} entering={FadeInDown.duration(1000).springify()}>
-            <TextInput
-              style={{
-                color: colors.blue700,
-                fontFamily: Platform.OS === 'ios' ? 'outfit' : 'roboto',
-              }}
-              placeholder="First Name*"
-              placeholderTextColor={colors.blue600a70}
-              autoCapitalize="none"
-            />
-          </Animated.View>
-          <Animated.View style={styles.input} entering={FadeInDown.duration(1000).springify()}>
-            <TextInput
-              style={{
-                color: colors.blue700,
-                fontFamily: Platform.OS === 'ios' ? 'outfit' : 'roboto',
-              }}
-              placeholder="Last Name*"
-              placeholderTextColor={colors.blue600a70}
-              autoCapitalize="none"
-            />
-          </Animated.View>
-          <Animated.View
-            style={styles.input}
-            entering={FadeInDown.delay(200).duration(1000).springify()}
+          <ScrollView
+            contentContainerStyle={{ alignItems: 'center' }}
+            automaticallyAdjustKeyboardInsets={true}
+            scrollEnabled={false}
           >
-            <TextInput
-              style={{
-                color: colors.blue700,
-                fontFamily: Platform.OS === 'ios' ? 'outfit' : 'roboto',
-              }}
-              placeholder="Email*"
-              placeholderTextColor={colors.blue600a70}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
-          </Animated.View>
-          <Animated.View
-            style={styles.input}
-            entering={FadeInDown.delay(300).duration(1000).springify()}
-          >
-            <TextInput
-              style={{
-                color: colors.blue700,
-                fontFamily: Platform.OS === 'ios' ? 'outfit' : 'roboto',
-              }}
-              placeholder="Password*"
-              placeholderTextColor={colors.blue600a70}
-              secureTextEntry
-            />
-          </Animated.View>
-          <Animated.View
-            style={styles.input}
-            entering={FadeInDown.delay(400).duration(1000).springify()}
-          >
-            <TextInput
-              style={{
-                color: colors.blue700,
-                fontFamily: Platform.OS === 'ios' ? 'outfit' : 'roboto',
-              }}
-              placeholder="Confirm Password*"
-              placeholderTextColor={colors.blue600a70}
-              secureTextEntry
-            />
-          </Animated.View>
+            <Animated.View
+              style={[styles.input, border(2)]}
+              entering={FadeInDown.duration(1000).springify()}
+            >
+              <TextInput
+                style={styles.textInput}
+                placeholder="First Name*"
+                placeholderTextColor={colors.blue700a70}
+                autoCapitalize="none"
+                value={firstName}
+                onChangeText={setFirstName}
+                returnKeyType="next"
+                onSubmitEditing={() => ref_input.current.focus()}
+              />
+            </Animated.View>
+            <Animated.View
+              style={[styles.input, border(2)]}
+              entering={FadeInDown.duration(1000).springify()}
+            >
+              <TextInput
+                style={styles.textInput}
+                placeholder="Last Name*"
+                placeholderTextColor={colors.blue700a70}
+                autoCapitalize="none"
+                value={lastName}
+                onChangeText={setLastName}
+                returnKeyType="next"
+                onSubmitEditing={() => ref_input2.current.focus()}
+                ref={ref_input}
+              />
+            </Animated.View>
+            <Animated.View
+              style={[styles.input, border(2)]}
+              entering={FadeInDown.delay(200).duration(1000).springify()}
+            >
+              <TextInput
+                style={styles.textInput}
+                placeholder="Email*"
+                placeholderTextColor={colors.blue700a70}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                value={email}
+                onChangeText={setEmail}
+                returnKeyType="next"
+                onSubmitEditing={() => ref_input3.current.focus()}
+                ref={ref_input2}
+              />
+            </Animated.View>
+            <Animated.View
+              style={[styles.input, border(2)]}
+              entering={FadeInDown.delay(300).duration(1000).springify()}
+            >
+              <TextInput
+                style={styles.textInput}
+                placeholder="Password*"
+                placeholderTextColor={colors.blue700a70}
+                secureTextEntry
+                value={password}
+                onChangeText={setPassword}
+                returnKeyType="next"
+                onSubmitEditing={() => ref_input4.current.focus()}
+                ref={ref_input3}
+              />
+            </Animated.View>
+            <Animated.View
+              style={[styles.input, border(2)]}
+              entering={FadeInDown.delay(400).duration(1000).springify()}
+            >
+              <TextInput
+                style={styles.textInput}
+                placeholder="Confirm Password*"
+                placeholderTextColor={colors.blue700a70}
+                secureTextEntry
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                returnKeyType="done"
+                onSubmitEditing={() =>
+                  onSignUpPress(
+                    firstName,
+                    lastName,
+                    email,
+                    password,
+                    confirmPassword,
+                    signUp,
+                    showMessage,
+                    navigation
+                  )
+                }
+                ref={ref_input4}
+              />
+            </Animated.View>
+          </ScrollView>
         </View>
 
         <View style={styles.buttonContainer}>
           <Animated.View entering={FadeInDown.delay(500).duration(1000).springify()}>
-            <TouchableOpacity style={styles.loginButton}>
-              <Text
-                style={{
-                  fontSize: 17,
-                  color: colors.white,
-                  fontFamily: Platform.OS === 'ios' ? 'outfitBold' : 'roboto',
-                }}
-              >
-                Sign Up
-              </Text>
-            </TouchableOpacity>
-          </Animated.View>
-          <Animated.View entering={FadeInDown.delay(600).duration(1000).springify()}>
-            <Text
-              style={{
-                color: colors.white,
-                fontFamily: Platform.OS === 'ios' ? 'fjallaOne' : 'roboto',
-              }}
+            <TouchableOpacity
+              style={styles.signButton}
+              onPress={() =>
+                onSignUpPress(
+                  firstName,
+                  lastName,
+                  email,
+                  password,
+                  confirmPassword,
+                  signUp,
+                  showMessage,
+                  navigation
+                )
+              }
             >
-              - OR -
-            </Text>
-          </Animated.View>
-          <Animated.View
-            entering={FadeInDown.delay(700).duration(1000).springify()}
-            style={{ margin: '3%' }}
-          >
-            <FontAwesome.Button name="google" backgroundColor="#4285F4">
-              Sign Up With Google
-            </FontAwesome.Button>
+              <Text style={styles.signText}>Sign Up</Text>
+            </TouchableOpacity>
           </Animated.View>
         </View>
         <View style={styles.optionsContainer}>
@@ -167,12 +195,12 @@ export default function SignUp() {
               style={{ marginLeft: '1%' }}
               onPress={() => navigation.replace('Sign In')}
             >
-              <Text style={{ color: colors.blue400, fontWeight: '600' }}>Sign In</Text>
+              <Text style={styles.option}>Sign In</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -182,6 +210,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  backgroundImage: {
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+    resizeMode: 'cover',
+  },
+  signContainer: {
+    top: headerHEIGHT,
+    width: '100%',
+    height: '100%',
+  },
   labelContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -189,14 +228,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 40,
-    color: colors.purple800,
-    fontFamily: Platform.OS === 'ios' ? 'outfitBold' : 'robotoBold',
+    color: colors.green800a70,
+    fontFamily: fonts.bold,
   },
   inputContainer: {
-    flex: 1,
+    flex: 2.5,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
   },
   input: {
     width: '90%',
@@ -204,25 +242,36 @@ const styles = StyleSheet.create({
     padding: '3%',
     borderRadius: 10,
     backgroundColor: colors.blue500a50,
-    fontFamily: Platform.OS === 'ios' ? 'outfit' : 'robotoBold',
+    fontFamily: fonts.original,
     fontSize: 15,
-    borderWidth: '2%',
     borderColor: colors.blue400,
+    aspectRatio: 8 / 1,
+  },
+  textInput: {
+    color: colors.blue700,
+    fontFamily: fonts.original,
   },
   buttonContainer: {
-    flex: 1,
-    flexDirection: 'column',
+    flex: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: '10%',
   },
-  loginButton: {
+  signButton: {
     margin: '3%',
-    backgroundColor: colors.green500,
+    backgroundColor: colors.green600,
     borderRadius: 10,
     paddingVertical: '3%',
     paddingHorizontal: '6%',
-    ...createShadow({ color: colors.green600 }),
+    ...createShadow({ color: colors.green800 }),
+  },
+  signText: {
+    fontSize: 18,
+    color: colors.green100,
+    fontFamily: fonts.bold,
+  },
+  orButton: {
+    color: colors.blue300,
+    fontFamily: fonts.fjalla,
   },
   optionsContainer: {
     flex: 1,
@@ -230,7 +279,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: '5%',
   },
-  options: {
-    flexDirection: 'row',
+  option: {
+    color: colors.blue400,
+    fontWeight: '600',
   },
 });
