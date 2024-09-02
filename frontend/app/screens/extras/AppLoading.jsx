@@ -1,22 +1,37 @@
 import React from 'react';
-import { ActivityIndicator, SafeAreaView, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 // Colors
 import colors from '../../config/colors';
 
-export default function AppLoading() {
+// Animations Screens
+import LottieView from 'lottie-react-native';
+
+export default function AppLoading({ backgroundColor = colors.blue400, mode = 'dark' }) {
   return (
-    <SafeAreaView style={styles.loadingContainer}>
-      <ActivityIndicator size="large" color={colors.orange400} />
-      <Text>Loading...</Text>
-    </SafeAreaView>
+    <View style={[styles.container, { backgroundColor }]}>
+      <LottieView
+        source={
+          mode === 'dark'
+            ? require('../../assets/lottie-animations/black-dino-animation.json')
+            : require('../../assets/lottie-animations/white-dino-animation.json')
+        }
+        autoPlay
+        loop={true}
+        style={styles.animation}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  loadingContainer: {
+  container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  animation: {
+    width: '80%',
+    height: '30%',
   },
 });
