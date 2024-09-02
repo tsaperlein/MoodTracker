@@ -1,97 +1,97 @@
-import React from 'react';
-import { StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import React, { useContext } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 // Colors
-import colors from '../config/colors';
-// Icons
-import { Ionicons } from '@expo/vector-icons';
+import colors from '../constants/colors';
+// Fonts
+import fonts from '../constants/fonts';
 
-// Navigation
-import { useNavigation } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-const Stack = createNativeStackNavigator();
+// Screens
+import AppLoading from '../screens/extras/AppLoading';
+import NoSurvey404 from '../screens/extras/NoSurvey404';
 
 // Components
 import SurveyQuestion from '../screens/survey/SurveyQuestion';
 import CompletionAnimation from '../screens/extras/Completion';
+import GoBackButton from '../components/GoBackButton';
 
-const headerOptions = {
-  headerTitle: '12th of October',
-  animationEnabled: false,
-  headerTransparent: true,
-  headerBackTitleVisible: false,
-  headerTintColor: colors.blue400,
-  headerTitleStyle: {
-    fontSize: 20,
-    fontFamily: Platform.OS === 'ios' ? 'outfitBold' : 'robotoBold',
-  },
-};
+// Navigation
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
 
-const CloseButton = () => {
-  const navigation = useNavigation();
-  return (
-    <TouchableOpacity style={{ position: 'absolute' }} onPress={() => navigation.goBack()}>
-      <Ionicons name="close" size={30} color={colors.blue300} />
-    </TouchableOpacity>
-  );
-};
+// Authorization Services
+import { AuthContext } from 'context/AuthContext';
 
-const BackButton = () => {
-  const navigation = useNavigation();
-  return (
-    <TouchableOpacity style={{ position: 'absolute' }} onPress={() => navigation.goBack()}>
-      <Ionicons name="arrow-back" size={30} color={colors.blue300} />
-    </TouchableOpacity>
-  );
-};
+// Controller
+import { useSurveyController } from '../controllers/surveyController';
 
-const initialList = [
-  {
-    id: '1',
-    question: 'How was your time until now?',
-    comment: 'Feeling great, no problem at all',
-  },
-  {
-    id: '2',
-    question: 'Did you accomplish any new goals?',
-    comment: 'Feeling great, no problem at all',
-  },
-  {
-    id: '3',
-    question: 'How exhausted and sad are you feeling?',
-    comment: 'Feeling great, no problem at all',
-  },
-  {
-    id: '4',
-    question: 'Any more motivation for the rest of the day?',
-    comment: 'Feeling great, no problem at all',
-  },
-];
+export default function SurveyNavigator({ route, navigation }) {
+  const { mode, surveyId = null } = route.params;
+  const { authData } = useContext(AuthContext);
+  const {
+    questions,
+    loading,
+    formattedDate,
+    answers,
+    handleAnswerUpdate,
+    handleSubmit,
+    surveyScore,
+    isNextSurveyReady,
+  } = useSurveyController(authData, mode, surveyId);
 
-export default function SurveyNavigator({ route }) {
-  const { mode } = route.params;
-  const totalQuestions = initialList.length;
-  return (
-    <Stack.Navigator initialRouteName="Q1" screenOptions={headerOptions}>
-      {initialList.map((item, index) => (
-        <Stack.Screen
-          key={item.id}
-          name={`Q${item.id}`}
-          options={{
-            headerLeft: () => (item.id === '1' ? <CloseButton /> : <BackButton />),
-          }}
-        >
-          {(props) => (
-            <SurveyQuestion
-              {...props}
-              number={index + 1}
-              totalQuestions={totalQuestions}
-              questionText={item.question}
-              mode={mode}
-            />
-          )}
-        </Stack.Screen>
-      ))}
+  if (loading) return <AppLoading backgroundColor={colors.blue900} mode="light" />;
+
+  console.log(mode, isNextSurveyReady);
+
+  return mode === 'current' && isNextSurveyReady ? (
+    <NoSurvey404 />
+  ) : (
+    <Stack.Navigator
+      initialRouteName="Q1"
+      screenOptions={{
+        headerTitle: formattedDate,
+        animationEnabled: false,
+        headerTransparent: true,
+        headerTitleAlign: 'center',
+        headerBackTitleVisible: false,
+        headerTintColor: colors.blue400,
+        headerTitleStyle: {
+          fontSize: 20,
+          fontFamily: fonts.bold,
+        },
+        headerRight: () =>
+          mode === 'past' && (
+            <View style={styles.scoreContainer}>
+              <Text style={styles.scoreText}>{`${surveyScore} points`}</Text>
+            </View>
+          ),
+      }}
+    >
+      {questions.map((question, index) => {
+        const buttonMode = index === 0 ? 'close' : 'back';
+        return (
+          <Stack.Screen
+            key={index}
+            name={`Q${index + 1}`}
+            options={{
+              headerLeft: () => <GoBackButton mode={buttonMode} />,
+            }}
+          >
+            {(props) => (
+              <SurveyQuestion
+                {...props}
+                number={index + 1}
+                totalQuestions={questions.length}
+                question={question}
+                mode={mode}
+                answers={answers}
+                onAnswerUpdate={handleAnswerUpdate}
+                onSubmit={() => handleSubmit(navigation)}
+              />
+            )}
+          </Stack.Screen>
+        );
+      })}
       <Stack.Screen
         name="Completion"
         options={{ headerShown: false }}
@@ -101,4 +101,35 @@ export default function SurveyNavigator({ route }) {
   );
 }
 
-const styles = StyleSheet.create();
+const styles = StyleSheet.create({
+  scoreContainer: {
+    backgroundColor: colors.blue700,
+    padding: 10,
+    borderRadius: 10,
+  },
+  scoreText: {
+    color: colors.blue100,
+    fontSize: 16,
+    fontFamily: fonts.bold,
+  },
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: colors.blue900,
+  },
+  centered: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorContainer: {
+    alignSelf: 'center',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  errorText: {
+    color: colors.blue300,
+    fontSize: 20,
+    fontFamily: fonts.bold,
+  },
+});
