@@ -1,52 +1,107 @@
-import React from 'react';
-import { StyleSheet, View, Text, Dimensions, Platform } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 
 // Colors
-import colors from '../config/colors';
+import colors from '../constants/colors';
+// Fonts
+import fonts from '../constants/fonts';
 
 // Screens
 import SignIn from '../screens/start/SignIn';
 import SignUp from '../screens/start/SignUp';
+import ResetPassword from '../screens/password/ResePassword';
+import PasswordReset from '../screens/password/PasswordReset';
+import Welcome from '../screens/start/Welcome';
+import Connecting from '../screens/extras/Connecting';
+
+// Components
+import FlashMessage, { showMessage } from 'react-native-flash-message';
+
+// Main Navigator
+import MainNavigator from './MainNavigator';
 
 // Navigation
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 
-// Navigator Components
-import MainNavigator from './MainNavigator';
-
-// Header Height
-const headerHEIGHT = (Dimensions.get('window').height * 12) / 100;
-
-// Header Options
-const headerOptions = {
-  headerTitle: () => (
-    <View style={{ justifyContent: 'center' }}>
-      <Text style={styles.appName}>Mood Tracker</Text>
-    </View>
-  ),
-  headerTransparent: true,
-  headerStyle: {
-    height: headerHEIGHT,
-    borderBottomWidth: 0,
-  },
-  headerBackVisible: false,
-};
+// Authorization Services
+import { AuthContext } from 'context/AuthContext';
+// Mood Services
+import { MoodContext } from 'context/MoodContext';
 
 export default function StartNavigator() {
+  const { authData } = useContext(AuthContext);
+  const { hasChosenMood, checkMoodStatus } = useContext(MoodContext);
+  const [showConnecting, setShowConnecting] = useState(false);
+  const [appNameColor, setAppNameColor] = useState(colors.blue600);
+
+  useEffect(() => {
+    if (authData) {
+      const handleMoodCheck = async () => {
+        setShowConnecting(true);
+        await checkMoodStatus();
+        setTimeout(() => {
+          setShowConnecting(false);
+        }, 3000);
+      };
+
+      handleMoodCheck();
+    }
+  }, [authData ? authData.id : authData]);
+
+  if (showConnecting) {
+    return <Connecting />;
+  }
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Sign In" screenOptions={headerOptions}>
-        <Stack.Screen name="Sign In" component={SignIn} />
-        <Stack.Screen name="Sign Up" component={SignUp} />
-        <Stack.Screen
-          name="Main Navigator"
-          component={MainNavigator}
-          options={{ headerShown: false }}
-        />
+    <View style={{ flex: 1 }}>
+      <Stack.Navigator
+        screenOptions={{
+          headerTitleAlign: 'center',
+          headerTitle: () => (
+            <View style={{ justifyContent: 'center' }}>
+              <Text style={[styles.appName, { color: appNameColor }]}>Mood Tracker</Text>
+            </View>
+          ),
+          headerTransparent: true,
+          headerBackVisible: false,
+        }}
+      >
+        {authData ? (
+          hasChosenMood ? (
+            <Stack.Screen
+              name="Main Navigator"
+              component={MainNavigator}
+              options={{ headerShown: false }}
+            />
+          ) : (
+            <Stack.Screen name="Welcome">
+              {(props) => <Welcome {...props} setAppNameColor={setAppNameColor} />}
+            </Stack.Screen>
+          )
+        ) : (
+          <>
+            <Stack.Screen name="Sign In">
+              {(props) => <SignIn {...props} showMessage={showMessage} />}
+            </Stack.Screen>
+            <Stack.Screen name="Sign Up">
+              {(props) => <SignUp {...props} showMessage={showMessage} />}
+            </Stack.Screen>
+            <Stack.Screen
+              name="ResetPassword"
+              component={ResetPassword}
+              options={{ title: 'Reset Password' }}
+            />
+            <Stack.Screen
+              name="PasswordReset"
+              component={PasswordReset}
+              options={{ title: 'Set New Password' }}
+            />
+          </>
+        )}
       </Stack.Navigator>
-    </NavigationContainer>
+      <FlashMessage position="top" />
+    </View>
   );
 }
 
@@ -54,6 +109,12 @@ const styles = StyleSheet.create({
   appName: {
     color: colors.blue600,
     fontSize: 32,
-    fontFamily: Platform.OS === 'ios' ? 'outfitBold' : 'robotoBold',
+    fontFamily: fonts.bold,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.blue500,
   },
 });
