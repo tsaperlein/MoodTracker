@@ -1,15 +1,14 @@
-import fs from "fs/promises";
-import path from "path";
-import { fileURLToPath } from "url";
-
-import { adjustToGreeceTime } from "../utils/dateUtils.mjs";
-
 import dotenv from "dotenv";
 dotenv.config();
 
 import { getXataClient } from "../xata.mjs";
-
 const client = getXataClient();
+
+import fs from "fs/promises";
+import path from "path";
+import { fileURLToPath } from "url";
+
+import { adjustToGreeceTime } from "../utils/datetime.mjs";
 
 const userId = "rec_cr4fq1r0t56dbdseiu3g";
 const moodTypes = ["nothing", "awful", "sad", "neutral", "good", "happy"];
@@ -108,7 +107,7 @@ async function generateSurveysAndAnswers() {
         completionTime
       );
 
-      currentDate.setDate(currentDate.getDate() + 1); // Move to the next day
+      currentDate.setDate(currentDate.getUTCDate() + 1); // Move to the next day
     }
 
     surveyId += 1; // Increment surveyId only after creating all 3 versions for it
@@ -136,7 +135,7 @@ async function populateChooses() {
         user_id: userId,
         welcome_mood_id: moodId,
       });
-      currentDate.setDate(currentDate.getDate() + 1); // Move to the next day
+      currentDate.setDate(currentDate.getUTCDate() + 1); // Move to the next day
     }
     console.log("Chooses table populated.");
   } catch (error) {
@@ -183,30 +182,31 @@ async function createQuestions() {
   }
 }
 
-async function createQuotes() {
+async function createMessages() {
   try {
     // Get the directory name using import.meta.url and URL
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
 
-    // Read the quotes.json file
-    const filePath = path.join(__dirname, "../data/quotes.json");
+    // Read the messages.json file
+    const filePath = path.join(__dirname, "../data/messages.json");
     const data = await fs.readFile(filePath, "utf8");
 
     // Parse the JSON data
-    const { quotes } = JSON.parse(data);
+    const { messages } = JSON.parse(data);
 
-    // Iterate over the quotes and create entries in the database
-    for (const quote of quotes) {
-      await client.db.Quote.create({
-        author: quote.author,
-        level: quote.level,
-        text: quote.text,
+    // Iterate over the messages and create entries in the database
+    for (const message of messages) {
+      await client.db.Message.create({
+        author: message.author,
+        level: message.level,
+        text: message.text,
+        type: message.type,
       });
     }
-    console.log("Quotes table populated.");
+    console.log("Messages table populated.");
   } catch (error) {
-    console.error("Error populating Quotes table:", error);
+    console.error("Error populating Messages table:", error);
   }
 }
 
@@ -217,7 +217,7 @@ async function initDB(req, res) {
 
     // // Create Questions and Quotes
     // await createQuestions();
-    // await createQuotes();
+    await createMessages();
 
     // // Create Chooses entries for the specific user
     // await populateChooses();
