@@ -1,22 +1,37 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 // Colors
-import colors from '../config/colors';
+import colors from '../constants/colors';
 // Fonts
-import fonts from '../config/fonts';
+import fonts from '../constants/fonts';
+// Icons
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 // Window Height
-const height = Dimensions.get('window').height;
+import { HEIGHT } from '../constants/dimensions';
 
-export default function PreviousSurvey({ navigation, date, surveyId }) {
+export default function PreviousSurvey({
+  navigation,
+  postedAt,
+  completionTime = '1d 2h',
+  surveyId,
+}) {
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('Survey Navigator', { mode: 'past', surveyId })}
       >
-        <Text style={styles.label}>{date}</Text>
+        <View style={styles.postedAtContainer}>
+          <Text style={styles.postedAt}>{postedAt}</Text>
+        </View>
+        <View style={styles.rightSideContainer}>
+          <View style={styles.completedTimeContainer}>
+            <MaterialCommunityIcons name="timer-sand-complete" size={24} color={colors.blue600} />
+            <Text style={styles.completedTime}>{completionTime}</Text>
+          </View>
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -24,22 +39,44 @@ export default function PreviousSurvey({ navigation, date, surveyId }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: height / 14,
+    height: HEIGHT / 14,
     marginVertical: '1%',
   },
   button: {
     flex: 1,
+    flexDirection: 'row',
     backgroundColor: colors.blue300a50,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginHorizontal: '2%',
     padding: '3%',
     borderRadius: 20,
     overflow: 'hidden',
   },
-  label: {
+  postedAtContainer: {
+    flex: 1,
+  },
+  postedAt: {
     color: colors.blue100,
     fontSize: 19,
+    fontFamily: fonts.medium,
+  },
+  rightSideContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  completedTimeContainer: {
+    backgroundColor: colors.blue300,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: '2%',
+    paddingHorizontal: '4%',
+    borderRadius: 10,
+  },
+  completedTime: {
+    color: colors.blue600,
+    fontSize: 18,
     fontFamily: fonts.medium,
   },
 });
