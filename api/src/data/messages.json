@@ -1,0 +1,352 @@
+{
+  "messages": [
+    {
+      "text": "You’ve made it this far. Keep up the great work!",
+      "author": "Anonymous",
+      "level": "good",
+      "type": "quote"
+    },
+    {
+      "text": "Every day, in every way, you’re getting better and better.",
+      "author": "Émile Coué",
+      "level": "good",
+      "type": "quote"
+    },
+    {
+      "text": "Celebrate your progress, no matter how small.",
+      "author": "Anonymous",
+      "level": "good",
+      "type": "quote"
+    },
+    {
+      "text": "Success is the sum of small efforts, repeated day in and day out.",
+      "author": "Robert Collier",
+      "level": "good",
+      "type": "quote"
+    },
+    {
+      "text": "The only way to achieve the impossible is to believe it is possible.",
+      "author": "Charles Kingsleigh",
+      "level": "good",
+      "type": "quote"
+    },
+    {
+      "text": "Your hard work is paying off. Keep going!",
+      "author": "Anonymous",
+      "level": "good",
+      "type": "quote"
+    },
+    {
+      "text": "You are capable of amazing things.",
+      "author": "Anonymous",
+      "level": "good",
+      "type": "quote"
+    },
+    {
+      "text": "The future belongs to those who believe in the beauty of their dreams.",
+      "author": "Eleanor Roosevelt",
+      "level": "good",
+      "type": "quote"
+    },
+    {
+      "text": "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+      "author": "Winston Churchill",
+      "level": "good",
+      "type": "quote"
+    },
+    {
+      "text": "Your efforts are appreciated. Keep shining!",
+      "author": "Anonymous",
+      "level": "good",
+      "type": "quote"
+    },
+    {
+      "text": "Life is not about waiting for the storm to pass but about learning to dance in the rain.",
+      "author": "Vivian Greene",
+      "level": "mid",
+      "type": "quote"
+    },
+    {
+      "text": "Do not be discouraged by your failures. Learn from them and keep moving forward.",
+      "author": "Anonymous",
+      "level": "mid",
+      "type": "quote"
+    },
+    {
+      "text": "The only way out is through.",
+      "author": "Robert Frost",
+      "level": "mid",
+      "type": "quote"
+    },
+    {
+      "text": "You are never too old to set another goal or to dream a new dream.",
+      "author": "C.S. Lewis",
+      "level": "mid",
+      "type": "quote"
+    },
+    {
+      "text": "It’s not whether you get knocked down; it’s whether you get up.",
+      "author": "Vince Lombardi",
+      "level": "mid",
+      "type": "quote"
+    },
+    {
+      "text": "It’s never too late to be what you might have been.",
+      "author": "George Eliot",
+      "level": "mid",
+      "type": "quote"
+    },
+    {
+      "text": "Courage doesn’t always roar. Sometimes courage is the quiet voice at the end of the day saying, ‘I will try again tomorrow.’",
+      "author": "Mary Anne Radmacher",
+      "level": "mid",
+      "type": "quote"
+    },
+    {
+      "text": "When you feel like quitting, think about why you started.",
+      "author": "Anonymous",
+      "level": "mid",
+      "type": "quote"
+    },
+    {
+      "text": "You are stronger than you know. Never underestimate your power to heal and grow.",
+      "author": "Anonymous",
+      "level": "mid",
+      "type": "quote"
+    },
+    {
+      "text": "The struggle you’re in today is developing the strength you need for tomorrow.",
+      "author": "Robert Tew",
+      "level": "mid",
+      "type": "quote"
+    },
+    {
+      "text": "When everything seems to be going wrong, remember that airplanes take off against the wind, not with it.",
+      "author": "Henry Ford",
+      "level": "bad",
+      "type": "quote"
+    },
+    {
+      "text": "It’s okay to be a glowstick: sometimes we need to break before we shine.",
+      "author": "Anonymous",
+      "level": "bad",
+      "type": "quote"
+    },
+    {
+      "text": "The only thing we have to fear is fear itself.",
+      "author": "Franklin D. Roosevelt",
+      "level": "bad",
+      "type": "quote"
+    },
+    {
+      "text": "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+      "author": "Nelson Mandela",
+      "level": "bad",
+      "type": "quote"
+    },
+    {
+      "text": "Tough times never last, but tough people do.",
+      "author": "Robert H. Schuller",
+      "level": "bad",
+      "type": "quote"
+    },
+    {
+      "text": "Although the world is full of suffering, it is also full of the overcoming of it.",
+      "author": "Helen Keller",
+      "level": "bad",
+      "type": "quote"
+    },
+    {
+      "text": "Healing takes courage, and we all have courage, even if we have to dig a little to find it.",
+      "author": "Tori Amos",
+      "level": "bad",
+      "type": "quote"
+    },
+    {
+      "text": "The human capacity for burden is like bamboo—far more flexible than you’d ever believe at first glance.",
+      "author": "Jodi Picoult",
+      "level": "bad",
+      "type": "quote"
+    },
+    {
+      "text": "The bravest thing I ever did was continuing my life when I wanted to die.",
+      "author": "Juliette Lewis",
+      "level": "bad",
+      "type": "quote"
+    },
+    {
+      "text": "Just when the caterpillar thought the world was over, it became a butterfly.",
+      "author": "Anonymous",
+      "level": "bad",
+      "type": "quote"
+    },
+    {
+      "text": "You may encounter many defeats, but you must not be defeated.",
+      "author": "Maya Angelou",
+      "level": "bad",
+      "type": "quote"
+    },
+    {
+      "text": "Great job taking care of your mental health! Keep up the good work.",
+      "author": "Anonymous",
+      "level": "good",
+      "type": "advice"
+    },
+    {
+      "text": "Consider practicing some mindfulness exercises to stay connected with your emotions.",
+      "author": "Anonymous",
+      "level": "mid",
+      "type": "advice"
+    },
+    {
+      "text": "It looks like you might be experiencing some low moods. How about trying a few simple exercises to challenge negative thoughts?",
+      "author": "Anonymous",
+      "level": "mid",
+      "type": "advice"
+    },
+    {
+      "text": "Talking to someone you trust can really help. Sharing your feelings is a great first step.",
+      "author": "Anonymous",
+      "level": "mid",
+      "type": "advice"
+    },
+    {
+      "text": "Your results suggest you might be going through a tough time. It’s important to reach out for help.",
+      "author": "Anonymous",
+      "level": "bad",
+      "type": "advice"
+    },
+    {
+      "text": "If you’re feeling overwhelmed, taking small steps like practicing relaxation techniques can help.",
+      "author": "Anonymous",
+      "level": "bad",
+      "type": "advice"
+    },
+    {
+      "text": "Please talk to someone right away if you're feeling like things are too much to handle. Your safety and well-being are the top priority.",
+      "author": "Anonymous",
+      "level": "bad",
+      "type": "advice"
+    },
+    {
+      "text": "Remember to take breaks and give yourself time to relax.",
+      "author": "Anonymous",
+      "level": "good",
+      "type": "advice"
+    },
+    {
+      "text": "Try to focus on what you can control and let go of what you can’t.",
+      "author": "Anonymous",
+      "level": "mid",
+      "type": "advice"
+    },
+    {
+      "text": "Stay connected with friends and family. Social support is crucial.",
+      "author": "Anonymous",
+      "level": "mid",
+      "type": "advice"
+    },
+    {
+      "text": "It’s okay to ask for help. Reach out to someone you trust.",
+      "author": "Anonymous",
+      "level": "mid",
+      "type": "advice"
+    },
+    {
+      "text": "Keep a journal to express your thoughts and feelings. It can be very therapeutic.",
+      "author": "Anonymous",
+      "level": "mid",
+      "type": "advice"
+    },
+    {
+      "text": "Engage in activities that bring you joy and fulfillment.",
+      "author": "Anonymous",
+      "level": "good",
+      "type": "advice"
+    },
+    {
+      "text": "Set small, achievable goals to help you stay motivated.",
+      "author": "Anonymous",
+      "level": "good",
+      "type": "advice"
+    },
+    {
+      "text": "Practice self-compassion. Be kind to yourself.",
+      "author": "Anonymous",
+      "level": "mid",
+      "type": "advice"
+    },
+    {
+      "text": "Remember that setbacks are a part of growth. Keep moving forward.",
+      "author": "Anonymous",
+      "level": "mid",
+      "type": "advice"
+    },
+    {
+      "text": "Take care of your body. Regular exercise and a balanced diet can improve your mood.",
+      "author": "Anonymous",
+      "level": "good",
+      "type": "advice"
+    },
+    {
+      "text": "Don’t be afraid to say no when you need to prioritize your own well-being.",
+      "author": "Anonymous",
+      "level": "mid",
+      "type": "advice"
+    },
+    {
+      "text": "Stay positive and focus on the good things in your life.",
+      "author": "Anonymous",
+      "level": "good",
+      "type": "advice"
+    },
+    {
+      "text": "Remember that it’s okay to make mistakes. What’s important is how you learn from them.",
+      "author": "Anonymous",
+      "level": "mid",
+      "type": "advice"
+    },
+    {
+      "text": "Take things one step at a time. You don’t have to do everything at once.",
+      "author": "Anonymous",
+      "level": "mid",
+      "type": "advice"
+    },
+    {
+      "text": "Keep a positive mindset. Your attitude can make a big difference.",
+      "author": "Anonymous",
+      "level": "good",
+      "type": "advice"
+    },
+    {
+      "text": "Allow yourself to feel emotions without judgment. It's okay to feel sad or anxious.",
+      "author": "Anonymous",
+      "level": "bad",
+      "type": "advice"
+    },
+    {
+      "text": "Surround yourself with positive influences that uplift and encourage you.",
+      "author": "Anonymous",
+      "level": "good",
+      "type": "advice"
+    },
+    {
+      "text": "Focus on the things you are grateful for. Gratitude can shift your perspective.",
+      "author": "Anonymous",
+      "level": "good",
+      "type": "advice"
+    },
+    {
+      "text": "Be patient with yourself. Healing and growth take time.",
+      "author": "Anonymous",
+      "level": "bad",
+      "type": "advice"
+    },
+    {
+      "text": "Trust that you are on the right path, even if it doesn’t feel that way right now.",
+      "author": "Anonymous",
+      "level": "bad",
+      "type": "advice"
+    }
+  ]
+}
