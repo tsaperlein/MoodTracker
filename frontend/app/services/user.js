@@ -32,14 +32,10 @@ export async function updateUserInfo(userId, { first_name, last_name, email }) {
 
 export async function updateUserImage(userId, imageUri) {
   try {
-    console.log('Reading image file as Base64...');
-
     // Read the image file as a base64 string, without any prefix
     const base64Image = await FileSystem.readAsStringAsync(imageUri, {
       encoding: FileSystem.EncodingType.Base64,
     });
-
-    console.log('Requesting to update image with Base64 data...');
 
     // Send the Base64 image to the server
     const response = await fetch(`${PRIVATE_API_URL}/users/${userId}/update-image`, {
@@ -56,11 +52,9 @@ export async function updateUserImage(userId, imageUri) {
     }
 
     const responseData = await response.json();
-    console.log('Response from server:', responseData);
 
     // Check if the response contains a valid image URL
     if (responseData.success && responseData && responseData.imageUrl) {
-      console.log('Successfully updated the user image');
       return {
         success: true,
         message: 'Image updated successfully',
