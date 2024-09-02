@@ -8,7 +8,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "reset": "rm -rf node_modules && npm install && rm -rf /tmp/metro-* && npm start -- --reset-cache"
+    "reset": "rm -rf node_modules && npm install && rm -rf /tmp/metro-* && npm start -- --reset-cache",
+    "reset-project": "node ./scripts/reset-project.js"
   },
   "author": "Alexandros Tsaparas",
   "dependencies": {
@@ -34,13 +35,14 @@
     "crypto-js": "^4.2.0",
     "d3": "^7.9.0",
     "dotenv": "^16.4.5",
-    "expo": "~51.0.31",
+    "expo": "^51.0.31",
     "expo-blur": "^13.0.2",
     "expo-constants": "~16.0.2",
     "expo-device": "~6.0.2",
     "expo-file-system": "~17.0.1",
     "expo-font": "~12.0.9",
     "expo-image-picker": "~15.0.7",
+    "expo-linear-gradient": "~13.0.2",
     "expo-linking": "^6.3.1",
     "expo-notifications": "~0.28.16",
     "expo-router": "~3.5.23",
@@ -53,6 +55,7 @@
     "pinar": "^0.12.2",
     "punycode": "^2.3.1",
     "react": "^18.2.0",
+    "react-dom": "18.2.0",
     "react-native": "^0.74.5",
     "react-native-calendars": "^1.1306.0",
     "react-native-chart-kit": "^6.12.0",
@@ -74,6 +77,7 @@
     "react-native-system-navigation-bar": "^2.6.4",
     "react-native-tab-view": "^3.5.2",
     "react-native-vector-icons": "^10.1.0",
+    "react-native-web": "~0.19.10",
     "react-navigation": "^5.0.0"
   },
   "devDependencies": {
