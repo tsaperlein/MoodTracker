@@ -1,12 +1,11 @@
-import { Platform } from 'react-native';
-
 const fonts = {
-  original: Platform.OS === 'ios' ? 'outfit' : 'roboto',
-  medium: Platform.OS === 'ios' ? 'outfitMedium' : 'robotoMedium',
-  bold: Platform.OS === 'ios' ? 'outfitBold' : 'robotoBold',
+  original: 'outfit',
+  medium: 'outfitMedium',
+  bold: 'outfitBold',
   italic: 'robotoItalic',
   italicBold: 'robotoBoldItalic',
-  fjalla: Platform.OS === 'ios' ? 'fjallaOne' : 'roboto',
+  fjalla: 'fjallaOne',
+  dinoFont: 'pressStart2p',
 };
 
 export default fonts;
