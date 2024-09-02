@@ -6,7 +6,7 @@ import { fetchLatestWelcomeMood } from 'services/welcomeMood';
 // Authorization Services
 import { AuthContext } from 'context/AuthContext';
 
-import { adjustToGreeceTime, areSameDay } from '../utils/datetime.mjs';
+import { adjustToGreeceTime, areSameDay } from '../utilities/datetime';
 
 export const MoodContext = createContext();
 
