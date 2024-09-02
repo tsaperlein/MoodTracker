@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Platform } from 'react-native';
 
 // Colors
-import colors from '../config/colors';
+import colors from '../constants/colors';
 // Fonts
-import fonts from '../config/fonts';
+import fonts from '../constants/fonts';
 // Icons
 import { FontAwesome6 } from '@expo/vector-icons';
 
@@ -38,7 +38,10 @@ export default function WeeklyStats({ action }) {
           ))}
         </ScrollView>
       </View>
-      <BlurView intensity={30} style={styles.arrowButtonContainer}>
+      <BlurView
+        intensity={Platform.OS === 'android' ? 100 : 30}
+        style={styles.arrowButtonContainer}
+      >
         <TouchableOpacity style={styles.arrowButton} onPress={action}>
           <FontAwesome6 name="circle-arrow-right" size={60} color="black" />
         </TouchableOpacity>
@@ -49,7 +52,7 @@ export default function WeeklyStats({ action }) {
 
 const styles = StyleSheet.create({
   labelContainer: {
-    flex: 1 / 6,
+    flex: 1,
     justifyContent: 'center',
     padding: '2%',
     paddingBottom: 0,
@@ -60,7 +63,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bold,
   },
   scrollViewContainer: {
-    flex: 5 / 6,
+    flex: 5,
   },
   scrollViewContent: {
     flexGrow: 1,

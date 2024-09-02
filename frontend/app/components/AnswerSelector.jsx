@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, Animated } from 'react-native';
 
 // Colors
-import colors from '../config/colors';
+import colors from '../constants/colors';
 // Fonts
-import fonts from '../config/fonts';
+import fonts from '../constants/fonts';
 
 export default function AnswerSelector({ text, selected, onPress, disabled }) {
   const [scale] = useState(new Animated.Value(1));
@@ -28,7 +28,7 @@ export default function AnswerSelector({ text, selected, onPress, disabled }) {
     onPress();
   };
 
-  const textColor = selected ? colors.blue200 : colors.blue500;
+  const textColor = selected ? colors.blue100 : colors.blue500;
   const backgroundColor = selected ? colors.blue500 : 'transparent';
 
   return (

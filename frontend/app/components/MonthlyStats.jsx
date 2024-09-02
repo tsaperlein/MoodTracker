@@ -1,15 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 
 // Colors
-import colors from '../config/colors';
+import colors from '../constants/colors';
 // Fonts
-import fonts from '../config/fonts';
+import fonts from '../constants/fonts';
 
 // Components
 import MoodPieChart from './MoodPieChart';
 
-const height = Dimensions.get('window').height;
+// Window height
+import { HEIGHT } from '../constants/dimensions';
 
 export default function MonthlyStats({ data, loading }) {
   if (loading) {
@@ -26,7 +27,7 @@ export default function MonthlyStats({ data, loading }) {
         <Text style={styles.text}>Last 10 surveys</Text>
       </View>
       <View style={{ flex: 6 }}>
-        <MoodPieChart data={data} chartColor={colors.blue800} size={height / 11} />
+        <MoodPieChart data={data} chartColor={colors.blue800} size={HEIGHT / 11} />
       </View>
     </View>
   );

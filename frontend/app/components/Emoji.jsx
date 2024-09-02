@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Pressable, Animated } from 'react-native';
 
 // Colors
-import colors from '../config/colors';
+import colors from '../constants/colors';
 // Icons
 import { FontAwesome6 } from '@expo/vector-icons';
 

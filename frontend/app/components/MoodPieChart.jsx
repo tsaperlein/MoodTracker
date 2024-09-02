@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 // Colors
-import colors from '../config/colors';
+import colors from '../constants/colors';
 // Fonts
-import fonts from '../config/fonts';
-
-// Mood Configuration
-import { moodConfig } from '../config/moodConfig';
+import fonts from '../constants/fonts';
 
 // Components
 import { PieChart } from 'react-native-gifted-charts';
+
+// Mood Configuration
+import { moodConfig } from '../config/moodConfig';
 
 // Utilities
 import { getRatioOutcome } from '../utils/ratioUtils';
 
 // Window Height
-const height = Dimensions.get('window').height;
+import { HEIGHT } from '../constants/dimensions';
 
-export default function MoodPieChart({ data, chartColor = colors.blue800, size = height / 9 }) {
+export default function MoodPieChart({ data, chartColor = colors.blue800, size = HEIGHT / 9 }) {
   const [selectedMood, setSelectedMood] = useState(null);
 
   // Calculate the frequency of each mood

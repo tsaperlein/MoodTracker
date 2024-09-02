@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 // Fonts
-import fonts from '../config/fonts';
+import fonts from '../constants/fonts';
 // Icons
 import { FontAwesome6, MaterialIcons } from '@expo/vector-icons';
 
@@ -10,7 +10,7 @@ import { FontAwesome6, MaterialIcons } from '@expo/vector-icons';
 import { moodConfig } from '../config/moodConfig';
 
 // Window width
-const width = Dimensions.get('window').width;
+import { WIDTH } from '../constants/dimensions';
 
 export default function DailyMood({ mood = 'nothing', datetime = null }) {
   if (mood === 'additional')
@@ -50,14 +50,14 @@ export default function DailyMood({ mood = 'nothing', datetime = null }) {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    width: width / 6,
-    margin: width / 60,
+    width: WIDTH / 6,
+    margin: WIDTH / 60,
     padding: '1%',
     borderRadius: 20,
     overflow: 'hidden',
   },
   labelContainer: {
-    flex: 2 / 3,
+    flex: 2,
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     margin: '8%',
   },
   iconSection: {
-    flex: 1 / 3,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

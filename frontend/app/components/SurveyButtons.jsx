@@ -2,9 +2,9 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 // Colors
-import colors from '../config/colors';
+import colors from '../constants/colors';
 // Fonts
-import fonts from '../config/fonts';
+import fonts from '../constants/fonts';
 
 // Components
 import Button from './Button';
@@ -22,7 +22,7 @@ export default function SurveyButtons({
       {mode === 'past' && (
         <Button
           text="Exit"
-          buttonColor={colors.blue500}
+          buttonColor={colors.blue500a70}
           color={colors.blue100}
           padding={'3%'}
           margin={'3%'}
@@ -34,7 +34,7 @@ export default function SurveyButtons({
       {number < totalQuestions ? (
         <Button
           text="Continue"
-          buttonColor={colors.blue200}
+          buttonColor={colors.blue100}
           color={colors.blue600}
           padding={'3%'}
           margin={'3%'}

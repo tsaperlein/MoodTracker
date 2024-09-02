@@ -2,9 +2,9 @@ import React, { useContext, useState, useEffect } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 
 // Colors
-import colors from '../config/colors';
+import colors from '../constants/colors';
 // Fonts
-import fonts from '../config/fonts';
+import fonts from '../constants/fonts';
 
 // Components
 import { Avatar } from 'react-native-elements';
@@ -14,8 +14,12 @@ import { useNavigation } from '@react-navigation/native';
 
 // Authorization Services
 import { AuthContext } from 'context/AuthContext';
+
 // User Services
 import { fetchUserAvatar } from 'services/user';
+
+// Window height
+import { HEIGHT } from '../constants/dimensions';
 
 export default function HeaderAvatar() {
   const navigation = useNavigation();
@@ -41,7 +45,9 @@ export default function HeaderAvatar() {
       } catch (error) {
         setAvatarSource(null);
       } finally {
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
       }
 
       // Set initials regardless of the avatar fetch result
@@ -52,16 +58,16 @@ export default function HeaderAvatar() {
     if (authData) {
       initializeAvatar();
     }
-  }, [authData.id, authData.image]);
+  }, [authData]);
 
   return loading ? (
     <View style={styles.loadingContainer}>
-      <ActivityIndicator size="large" color={colors.blue400} />
+      <ActivityIndicator size="large" color={colors.blue800} />
     </View>
   ) : (
     <Avatar
       key={avatarSource || 'initials'}
-      size="large"
+      size={HEIGHT / 12}
       rounded
       source={avatarSource ? { uri: avatarSource } : undefined}
       containerStyle={[styles.avatarContainer, !avatarSource && styles.initialsBackground]}
@@ -88,6 +94,8 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
+    marginTop: '4%',
+    marginRight: '28%',
     justifyContent: 'center',
     alignItems: 'center',
   },

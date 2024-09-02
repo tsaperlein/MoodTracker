@@ -1,15 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Platform } from 'react-native';
 
 // Colors
-import colors from '../config/colors';
+import colors from '../constants/colors';
 // Fonts
-import fonts from '../config/fonts';
+import fonts from '../constants/fonts';
+// Border
+import { border } from '../config/borderConfig';
 // Icons
 import { FontAwesome6, MaterialIcons } from '@expo/vector-icons';
 
 // Mood Configuration
 import { moodConfig } from '../config/moodConfig';
+
+// Window Height
+import { HEIGHT } from '../constants/dimensions';
 
 export default function CalendarOptions({ moodFilter, onFilterToggle, moodCounts = null }) {
   return (
@@ -24,9 +29,10 @@ export default function CalendarOptions({ moodFilter, onFilterToggle, moodCounts
             key={mood}
             style={[
               styles.statContainer,
+              border(2),
               moodFilter === mood && styles.selectedStatContainer,
               { backgroundColor },
-              count === 1 && { paddingHorizontal: '5%' },
+              count === 1 && { paddingHorizontal: HEIGHT < 800 ? '4%' : '5%' },
             ]}
             onPress={() => onFilterToggle(mood)}
           >
@@ -52,24 +58,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     width: '100%',
-    rowGap: '8%',
-    columnGap: '25%',
+    rowGap: Platform.OS === 'ios' ? '8%' : 0,
+    columnGap: Platform.OS === 'ios' ? '25%' : 0,
     alignContent: 'center',
     justifyContent: 'space-evenly',
   },
   statContainer: {
     alignItems: 'center',
-    padding: '3%',
+    padding: HEIGHT < 800 ? '2%' : '4%',
+    marginVertical: Platform.OS === 'android' ? '1%' : 0,
+    marginHorizontal: Platform.OS === 'android' ? '3%' : 0,
     borderRadius: 10,
-    borderWidth: 2,
     borderColor: 'transparent',
   },
   selectedStatContainer: {
     borderColor: colors.blue100,
   },
   statText: {
-    fontSize: 18,
+    fontSize: 17,
     fontFamily: fonts.bold,
-    marginVertical: '5%',
   },
 });

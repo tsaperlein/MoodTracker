@@ -1,10 +1,12 @@
 import React from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 // Colors
-import colors from '../config/colors';
+import colors from '../constants/colors';
 // Fonts
-import fonts from '../config/fonts';
+import fonts from '../constants/fonts';
+// Border
+import { border } from '../config/borderConfig';
 // Icons
 import { FontAwesome6, MaterialIcons } from '@expo/vector-icons';
 
@@ -15,17 +17,28 @@ import { moodConfig } from '../config/moodConfig';
 import { Calendar } from 'react-native-calendars';
 
 // Window Width and Height
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height;
+import { WIDTH, HEIGHT } from '../constants/dimensions';
 
 // Controller
 import { useCalendarController } from '../controllers/calendarController';
 
 const MoodIcon = ({ moodStyle }) => {
   if (moodStyle.icon === 'face-retouching-off') {
-    return <MaterialIcons name={moodStyle.icon} size={16} color={moodStyle.calendar.color} />;
+    return (
+      <MaterialIcons
+        name={moodStyle.icon}
+        size={HEIGHT < 800 ? 13 : 16}
+        color={moodStyle.calendar.color}
+      />
+    );
   }
-  return <FontAwesome6 name={moodStyle.icon} size={16} color={moodStyle.calendar.color} />;
+  return (
+    <FontAwesome6
+      name={moodStyle.icon}
+      size={HEIGHT < 800 ? 12 : 15}
+      color={moodStyle.calendar.color}
+    />
+  );
 };
 
 const CustomDayComponent = ({ date, state, mood }) => {
@@ -38,9 +51,9 @@ const CustomDayComponent = ({ date, state, mood }) => {
 
   const containerStyle = [
     styles.dayContainer,
+    today ? border(2) : null,
     {
       backgroundColor: isExtraDay ? colors.blue200a70 : moodStyle.calendar.backgroundColor,
-      borderWidth: today ? 2 : 0,
       borderColor: today ? colors.blue900 : 'transparent',
     },
   ];
@@ -49,6 +62,7 @@ const CustomDayComponent = ({ date, state, mood }) => {
     textAlign: 'center',
     color: isExtraDay ? colors.blue100 : today ? colors.blue900 : moodStyle.calendar.color,
     fontFamily: today ? fonts.bold : fonts.original,
+    fontSize: HEIGHT < 800 ? 11 : 13,
   };
 
   return (
@@ -112,18 +126,19 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   dayContainer: {
-    width: width / 12,
-    height: height / 21,
+    width: WIDTH < 400 ? WIDTH / 14 : WIDTH / 12,
+    height: HEIGHT < 800 ? HEIGHT / 23 : HEIGHT / 21,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
   },
   iconContainer: {
-    marginTop: '2%',
-    padding: '2%',
+    marginTop: HEIGHT < 800 ? 0 : '2%',
+    padding: HEIGHT < 800 ? 0 : '2%',
+    marginBottom: 2,
   },
   calendar: {
     backgroundColor: colors.blue300,
-    padding: '2%',
+    padding: HEIGHT < 800 ? 0 : '2%',
   },
 });

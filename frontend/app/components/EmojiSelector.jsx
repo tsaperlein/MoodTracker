@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 
-// Colors
-import colors from '../config/colors';
 // Fonts
-import fonts from '../config/fonts';
+import fonts from '../constants/fonts';
 
 // Components
 import Emoji from './Emoji';
