@@ -1,4 +1,4 @@
-import colors from './colors';
+import colors from '../constants/colors';
 
 const moods = ['awful', 'sad', 'neutral', 'good', 'happy'];
 
