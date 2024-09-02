@@ -2,15 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Text, Animated } from 'react-native';
 
 // Colors
-import colors from '../../config/colors';
+import colors from '../../constants/colors';
 // Fonts
-import fonts from '../../config/fonts';
+import fonts from '../../constants/fonts';
 
 // Animations Screens
 import LottieView from 'lottie-react-native';
 
 // Window Width and Height
-import { HEIGHT, WIDTH } from '../../config/dimensions';
+import { HEIGHT, WIDTH } from '../../constants/dimensions';
 
 export default function Splashscreen() {
   const [showTitle, setShowTitle] = useState(false);

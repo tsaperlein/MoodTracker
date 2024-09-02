@@ -1,19 +1,19 @@
 import React, { useRef, useEffect } from 'react';
-import { StyleSheet, View, Animated, Dimensions, Easing } from 'react-native';
+import { StyleSheet, View, Animated, Easing } from 'react-native';
 
 // Colors
-import colors from '../../config/colors';
+import colors from '../../constants/colors';
 // Fonts
-import fonts from '../../config/fonts';
+import fonts from '../../constants/fonts';
 
 // Components
 import LottieView from 'lottie-react-native';
 import GoBackButton from '../../components/GoBackButton';
 
 // Window Width
-const width = Dimensions.get('window').width;
+import { WIDTH } from '../../constants/dimensions';
 // Animation Width
-const animWidth = 4 * width;
+const animWidth = 4 * WIDTH;
 
 export default function NoSurvey404() {
   const translateX = useRef(new Animated.Value(-animWidth)).current;
@@ -22,14 +22,14 @@ export default function NoSurvey404() {
     const animation = Animated.loop(
       Animated.sequence([
         Animated.timing(translateX, {
-          toValue: animWidth, // Move to the right edge
-          duration: 0, // Instantly move it to the right off-screen
+          toValue: animWidth,
+          duration: 0,
           useNativeDriver: true,
         }),
         Animated.timing(translateX, {
-          toValue: -animWidth, // Move from right to left
-          duration: 13000, // Adjust the duration as needed
-          easing: Easing.linear, // Use linear easing
+          toValue: -animWidth,
+          duration: 13000,
+          easing: Easing.linear,
           useNativeDriver: true,
         }),
       ])

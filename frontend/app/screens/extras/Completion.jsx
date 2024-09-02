@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 // Colors
-import colors from '../../config/colors';
+import colors from '../../constants/colors';
+// Fonts
+import fonts from '../../constants/fonts';
 
 // Animations Screens
 import LottieView from 'lottie-react-native';
@@ -44,6 +46,6 @@ const styles = StyleSheet.create({
     color: colors.blue200,
     fontSize: 20,
     textAlign: 'center',
-    fontFamily: Platform.OS === 'ios' ? 'outfit' : 'robotoBold',
+    fontFamily: fonts.original,
   },
 });
