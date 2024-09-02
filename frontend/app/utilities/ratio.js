@@ -1,4 +1,4 @@
-import colors from '../config/colors';
+import colors from '../constants/colors';
 
 export function getRatioOutcome(value, maxValue, mode = 'color') {
   const ratio = value / maxValue;
