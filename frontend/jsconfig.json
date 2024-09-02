@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "outDir": "build",
+    "rootDir": "app/",
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "target": "ES6",
+    "lib": ["esnext"],
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "module": "ES6"
+  },
+  "include": ["app/**/*", "app/services/**/*", "context"],
+  "exclude": ["node_modules"]
+}
