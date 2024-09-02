@@ -21,7 +21,7 @@ const tables = [
         notNull: true,
         defaultValue: "now",
       },
-      { name: "quote_id", type: "link", link: { table: "Quote" } },
+      { name: "quote_id", type: "link", link: { table: "Message" } },
       { name: "user_id", type: "link", link: { table: "User" } },
     ],
   },
@@ -54,6 +54,19 @@ const tables = [
       },
       { name: "streak_count", type: "int", notNull: true, defaultValue: "0" },
       { name: "image", type: "file", file: { defaultPublicAccess: true } },
+      {
+        name: "pushNotificationToken",
+        type: "text",
+        notNull: true,
+        defaultValue: "token",
+      },
+      { name: "resetTokenExpiration", type: "datetime" },
+      {
+        name: "passwordResetToken",
+        type: "text",
+        notNull: true,
+        defaultValue: "passwordResetToken",
+      },
     ],
     revLinks: [
       { column: "user_id", table: "Assigns" },
@@ -83,7 +96,7 @@ const tables = [
     revLinks: [{ column: "question_id", table: "Answer" }],
   },
   {
-    name: "Quote",
+    name: "Message",
     columns: [
       {
         name: "author",
@@ -93,6 +106,7 @@ const tables = [
       },
       { name: "level", type: "text", notNull: true, defaultValue: "mid" },
       { name: "text", type: "text", notNull: true, defaultValue: "text" },
+      { name: "type", type: "text", notNull: true, defaultValue: "quote" },
     ],
     revLinks: [{ column: "quote_id", table: "Assigns" }],
   },
