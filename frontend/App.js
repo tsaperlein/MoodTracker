@@ -7,8 +7,10 @@ import StartNavigator from './app/navigators/StartNavigator';
 
 // Authorization Services
 import { AuthProvider } from 'context/AuthContext';
-
+// Mood Services
 import { MoodProvider } from 'context/MoodContext';
+// Profile Services
+import { ProfileProvider } from 'context/ProfileContext';
 
 // Controller
 import { useAppController } from './app/controllers/appController';
@@ -20,9 +22,11 @@ export default function App() {
   return (
     <AuthProvider>
       <MoodProvider>
-        <NavigationContainer>
-          {splashScreenLoading ? <Splashscreen /> : <StartNavigator />}
-        </NavigationContainer>
+        <ProfileProvider>
+          <NavigationContainer>
+            {splashScreenLoading ? <Splashscreen /> : <StartNavigator />}
+          </NavigationContainer>
+        </ProfileProvider>
       </MoodProvider>
     </AuthProvider>
   );
