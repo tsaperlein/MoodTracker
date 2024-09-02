@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { getXataClient } from "../xata.mjs";
+import { adjustToGreeceTime } from "../utils/datetime.mjs";
 const client = getXataClient();
 
 // ASSIGN QUOTE TO USER
@@ -14,7 +15,7 @@ async function assignQuoteToUser(req, res) {
     const newAssign = await client.db.Assigns.create({
       user_id,
       quote_id,
-      datetime: new Date(),
+      datetime: adjustToGreeceTime(new Date()),
     });
 
     return res.status(201).json(newAssign);
