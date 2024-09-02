@@ -1,7 +1,7 @@
 // ROUTES - Quote
 
 import express from "express";
-import { getQuoteByLevel } from "../controllers/quote.mjs";
+import { getQuoteByLevel } from "../controllers/message.mjs";
 
 const router = express.Router();
 
