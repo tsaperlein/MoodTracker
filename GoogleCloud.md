@@ -21,7 +21,7 @@
 - See the configuration list
 
     gcloud config list
-```KT
+```
 
 # Docker
 
