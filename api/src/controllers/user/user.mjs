@@ -16,7 +16,7 @@ async function getAllUsers(req, res) {
       "email",
       "streak_count",
       "image",
-      "token",
+      "pushNotificationToken",
     ]).getAll();
 
     return res.json(users);

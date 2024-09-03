@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   inputStyle: {
     height: '100%',
     width: '100%',
-    textAlignVertical: 'top',
+    verticalAlign: 'top',
     paddingTop: 0,
     paddingBottom: 0,
     color: colors.blue300,

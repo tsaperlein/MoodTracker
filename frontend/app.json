@@ -4,6 +4,7 @@
     "slug": "mood-tracker",
     "description": "Application that captures the mood of the students",
     "version": "1.0.0",
+    "runtimeVersion": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/app-images/icon-3.png",
     "scheme": "myapp",
@@ -14,14 +15,15 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tsaperlein.mood-tracker"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/app-images/adaptive-icon-3.png",
         "backgroundColor": "#ffffff"
       },
-      "useNextNotificationsApi": true
+      "package": "com.tsaperlein.mood_tracker"
     },
     "web": {
       "bundler": "metro",
@@ -34,13 +36,8 @@
       [
         "expo-notifications",
         {
-          "icon": "./local/assets/notification-icon.png",
           "color": "#ffffff",
-          "defaultChannel": "default",
-          "sounds": [
-            "./local/assets/notification-sound.wav",
-            "./local/assets/notification-sound-other.wav"
-          ]
+          "defaultChannel": "default"
         }
       ]
     ],
@@ -49,9 +46,12 @@
         "origin": false
       },
       "eas": {
-        "projectId": "3e8126c0-1c37-49c1-b4aa-65eefd24ac82"
+        "projectId": "d42faef6-71da-44a5-9f2d-85981a66f0ff"
       }
     },
-    "owner": "tsaperlein"
+    "owner": "tsaperlein",
+    "updates": {
+      "url": "https://u.expo.dev/d42faef6-71da-44a5-9f2d-85981a66f0ff"
+    }
   }
 }

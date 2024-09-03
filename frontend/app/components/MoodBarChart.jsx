@@ -10,7 +10,7 @@ import fonts from '../constants/fonts';
 import { BarChart } from 'react-native-gifted-charts';
 
 // Utilities
-import { getRatioOutcome } from '../utilities/ratio';
+import { getRatioOutcome } from '../utilities/ratioUtils';
 
 // Window width and height
 import { HEIGHT, WIDTH } from '../constants/dimensions';

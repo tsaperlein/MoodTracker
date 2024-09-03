@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 
+import cors from "cors";
+
 dotenv.config();
 
 // Routes
@@ -45,6 +47,12 @@ app.use(messageRoutes);
 
 // Notifications
 app.use(notificationRoutes);
+
+app.use(
+  cors({
+    origin: "https://elegant-ape-viable.ngrok-free.app",
+  })
+);
 
 app.get("/", async (req, res) => {
   return res.json({ ok: true });

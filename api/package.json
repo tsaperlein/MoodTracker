@@ -24,6 +24,7 @@
   "dependencies": {
     "@xata.io/client": "^0.29.5",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "crypto-js": "^4.2.0",
     "date-fns": "^3.6.0",
