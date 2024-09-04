@@ -62,7 +62,7 @@ const sendNotificationToUser = async (req, res = null) => {
 function scheduleReminderNotifications() {
   schedule.scheduleJob({ hour: 21, minute: 0 }, async () => {
     const users = await client.db.User.getAll();
-    const today = adjustToGreeceTime(new Date()).toDateString(); // Get today's date string for comparison
+    const today = adjustToGreeceTime(new Date()).toDateString();
 
     for (const user of users) {
       try {

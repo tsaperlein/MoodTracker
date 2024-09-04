@@ -293,9 +293,6 @@ async function getPreviousSurveys(req, res) {
         .json({ message: "No surveys found for this user." });
     }
 
-    // Remove the latest survey from the allSurveys list
-    allSurveys = allSurveys.filter((survey) => survey.id !== latestSurvey.id);
-
     if (!allSurveys || allSurveys.length === 0) {
       return res
         .status(404)
@@ -385,7 +382,7 @@ async function checkSurveyReadiness(user_id) {
     };
   } catch (error) {
     console.error("Error checking survey readiness:", error);
-    throw error; // Rethrow the error to be handled by the calling function
+    throw error;
   }
 }
 
