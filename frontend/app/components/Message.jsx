@@ -20,7 +20,7 @@ import { useNavigation } from '@react-navigation/native';
 // Message Controller
 import { useMessageController } from '../controllers/messageController';
 
-export default function Message({ category }) {
+export default function Message({ category, surveyCompleted }) {
   const { userMessage, loading } = useMessageController(category);
   const navigation = useNavigation();
 
@@ -48,6 +48,13 @@ export default function Message({ category }) {
         />
       </View>
     );
+  } else if (userMessage && surveyCompleted) {
+    <View style={styles.errorContainer}>
+      <Text style={styles.errorText}>
+        Today's survey completed!{'\n'}
+        Need more to get a message.
+      </Text>
+    </View>;
   } else {
     const { text, author, type } = userMessage;
     const randomIndex = Math.floor(Math.random() * messageData.categories[category].length);

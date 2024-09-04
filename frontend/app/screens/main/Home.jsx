@@ -21,14 +21,14 @@ import { useGraphData } from '../../controllers/graphController';
 import { useHomeController } from '../../controllers/homeController';
 
 export default function Home({ navigation }) {
-  const { moodLevel } = useHomeController();
+  const { moodLevel, surveyCompleted } = useHomeController();
   const { data, loading } = useGraphData({ screen: 'Home' });
 
   return (
     <ScreenLayout screenName={'Home'} footer={true}>
       <ScrollView contentContainerStyle={styles.container} scrollEnabled={false}>
         <View style={[styles.content, { padding: '5%', paddingVertical: '2%' }]}>
-          <Message category={moodLevel} />
+          <Message category={moodLevel} surveyCompleted={surveyCompleted} />
         </View>
         <View style={[styles.content, { paddingVertical: '2%' }]}>
           <WeeklyStats
@@ -57,6 +57,13 @@ export default function Home({ navigation }) {
                   />
                 </View>
               </>
+            ) : surveyCompleted ? (
+              <View style={styles.noSurveysContainer}>
+                <Text style={styles.noSurveysText}>
+                  Today's survey completed!{'\n'}
+                  Need more to get results.
+                </Text>
+              </View>
             ) : (
               <View style={styles.noSurveysContainer}>
                 <Text style={styles.noSurveysText}>No answered surveys</Text>
