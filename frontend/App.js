@@ -5,7 +5,7 @@ import * as Linking from 'expo-linking';
 
 // Screens
 import Splashscreen from './app/screens/extras/Splashscreen';
-import PasswordReset from './screens/PasswordReset';
+import PasswordReset from './app/screens/password/PasswordReset';
 
 // Navigation
 import { NavigationContainer } from '@react-navigation/native';
