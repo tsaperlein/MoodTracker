@@ -27,7 +27,7 @@ async function createSurveyForUserAtRandomTime(userId) {
     `Scheduling survey creation for user ${userId} at ${randomHour}:${randomMinute}`
   );
 
-  schedule.scheduleJob({ hour: 0, minute: 1 }, async () => {
+  schedule.scheduleJob({ hour: randomHour, minute: randomMinute }, async () => {
     try {
       const result = await createSurveyVersion(userId);
       if (result.success) {
@@ -58,13 +58,13 @@ async function checkAndScheduleSurveys() {
 
   for (const user of users) {
     try {
-      const isReady = await checkSurveyReadiness(user.id);
+      const result = await checkSurveyReadiness(user.id);
 
-      if (isReady.isReady) {
+      if (result.isReady) {
         await createSurveyForUserAtRandomTime(user.id);
       } else {
         console.log(
-          `User ${user.id} is not ready for a new survey: ${isReady.message}`
+          `User ${user.id} is not ready for a new survey: ${result.message}`
         );
       }
     } catch (error) {
@@ -110,8 +110,8 @@ async function assignDefaultWelcomeMood() {
 
 // Schedule job to run every day to check survey readiness and schedule surveys
 function scheduleCreateDailySurvey() {
-  // This will run at a fixed time every day, e.g., 8:00 AM
-  schedule.scheduleJob({ hour: 2, minute: 47 }, async () => {
+  // This will run at a fixed time every day, e.g., 0:01 AM
+  schedule.scheduleJob({ hour: 0, minute: 1 }, async () => {
     console.log("Running daily survey scheduling task.");
     await checkAndScheduleSurveys();
   });
