@@ -35,14 +35,15 @@ export async function createSurveyVersion(userId) {
     if (lastSurvey) {
       const lastSurveyId = lastSurvey.survey_id;
       const lastVersion = await client.db.Survey.filter({
+        user_id: userId,
         survey_id: lastSurveyId,
       })
         .sort("version", "desc")
         .getFirst();
 
-      // Check if last version was 3 and if it's finished
       const lastSurveyFinished = await isSurveyVersionFinished(lastVersion.id);
 
+      // Check if last version was 3 and if it's finished
       if (lastVersion.version === 3 && lastSurveyFinished.finished) {
         newSurveyId = lastSurveyId + 1;
         newVersion = 1;
@@ -52,6 +53,7 @@ export async function createSurveyVersion(userId) {
         newVersion = lastVersion.version + 1;
 
         const previousVersions = await client.db.Survey.filter({
+          user_id: userId,
           survey_id: lastSurveyId,
         }).getAll();
 
