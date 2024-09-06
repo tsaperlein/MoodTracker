@@ -60,7 +60,8 @@ const sendNotificationToUser = async (req, res = null) => {
 
 // Schedule combined job to send survey reminders and welcome mood notifications to all users
 function scheduleReminderNotifications() {
-  schedule.scheduleJob({ hour: 21, minute: 0 }, async () => {
+  // This will run at a fixed time every day, e.g., 21:00 PM, but assigned 21 - 3 hours because of time difference
+  schedule.scheduleJob({ hour: 18, minute: 0 }, async () => {
     const users = await client.db.User.getAll();
     const today = adjustToGreeceTime(new Date()).toDateString();
 

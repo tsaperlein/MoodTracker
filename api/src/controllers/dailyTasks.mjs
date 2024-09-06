@@ -20,37 +20,46 @@ import {
 } from "../utils/datetime.mjs";
 
 async function createSurveyForUserAtRandomTime(userId) {
-  const randomHour = Math.floor(Math.random() * (20 - 10) + 10);
+  // Random hour between 12:00 and 21:00
+  const randomHour = Math.floor(Math.random() * (21 - 12) + 12);
+  // Convert to greek time (minus 3 hours)
+  const randomGreekHour = randomHour - 3;
   const randomMinute = Math.floor(Math.random() * 60);
 
   console.log(
     `Scheduling survey creation for user ${userId} at ${randomHour}:${randomMinute}`
   );
 
-  schedule.scheduleJob({ hour: randomHour, minute: randomMinute }, async () => {
-    try {
-      const result = await createSurveyVersion(userId);
-      if (result.success) {
-        // Notify the user that a new survey is available
-        await sendNotificationToUser({
-          params: { user_id: userId },
-          body: {
-            title: "New Daily Survey Available",
-            body: "Your new daily survey is ready. Please take a moment to complete it.",
-          },
-        });
-        console.log(
-          `Notification sent to user ${userId} about the new survey.`
-        );
-      } else {
+  schedule.scheduleJob(
+    { hour: randomGreekHour, minute: randomMinute },
+    async () => {
+      try {
+        const result = await createSurveyVersion(userId);
+        if (result.success) {
+          // Notify the user that a new survey is available
+          await sendNotificationToUser({
+            params: { user_id: userId },
+            body: {
+              title: "New Daily Survey Available",
+              body: "Your new daily survey is ready. Please take a moment to complete it.",
+            },
+          });
+          console.log(
+            `Notification sent to user ${userId} about the new survey.`
+          );
+        } else {
+          console.error(
+            `Failed to create survey for user ${userId}: ${result.error}`
+          );
+        }
+      } catch (error) {
         console.error(
-          `Failed to create survey for user ${userId}: ${result.error}`
+          `Error during survey creation for user ${userId}:`,
+          error
         );
       }
-    } catch (error) {
-      console.error(`Error during survey creation for user ${userId}:`, error);
     }
-  });
+  );
 }
 
 async function checkAndScheduleSurveys() {
@@ -78,8 +87,7 @@ async function checkAndScheduleSurveys() {
 
 // Function to check and assign "nothing" mood if not chosen by end of day
 async function assignDefaultWelcomeMood() {
-  const users = await client.db.User.getAll(); // Get all users
-
+  const users = await client.db.User.getAll();
   for (const user of users) {
     try {
       // Get the latest welcome mood for the user
@@ -110,17 +118,24 @@ async function assignDefaultWelcomeMood() {
 
 // Schedule job to run every day to check survey readiness and schedule surveys
 function scheduleCreateDailySurvey() {
-  // This will run at a fixed time every day, e.g., 0:01 AM
-  schedule.scheduleJob({ hour: 0, minute: 1 }, async () => {
-    console.log("Running daily survey scheduling task.");
+  // This will run at a fixed time every day, e.g., 0:01 AM, but adjusted to 21:01 (24 - 3 hours) because of time difference
+  schedule.scheduleJob({ hour: 21, minute: 1 }, async () => {
+    const now = adjustToGreeceTime(new Date());
+    console.log(
+      `Running daily survey scheduling task at ${now.toISOString()}.`
+    );
     await checkAndScheduleSurveys();
   });
 }
 
 // Schedule job to run every day at 23:59 PM to assign default welcome moods
 function scheduleAssignDefaultWelcomeMood() {
-  schedule.scheduleJob({ hour: 23, minute: 59 }, async () => {
-    console.log("Running daily default welcome mood assignment task.");
+  // Schedule job to run every day at 23:59 PM to assign default welcome moods, but adjusted to 20:59 (23 - 3 hours) because of time difference
+  schedule.scheduleJob({ hour: 20, minute: 59 }, async () => {
+    const now = adjustToGreeceTime(new Date());
+    console.log(
+      `Running daily default welcome mood assignment task at ${now.toISOString()}.`
+    );
     await assignDefaultWelcomeMood();
   });
 }
