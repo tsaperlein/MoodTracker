@@ -3,17 +3,21 @@ import { StyleSheet, Alert, Text, TextInput, TouchableOpacity, View } from 'reac
 
 // Colors
 import colors from '../../constants/colors';
+// Fonts
+import fonts from '../../constants/fonts';
+// Border
+import { border } from '../../config/borderConfig';
 
-// Navigation
-import { useNavigation } from '@react-navigation/native';
+// Components
+import ScreenLayout from '../Layout';
+import Button from '../../components/Button';
 
 // Authorization Services
 import { requestPasswordReset } from '../../services/auth';
 
-export default function ResetPassword() {
+export default function ResetPassword({ navigation }) {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const navigation = useNavigation();
 
   const handlePasswordResetRequest = async () => {
     if (!email) {
@@ -34,65 +38,66 @@ export default function ResetPassword() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.description}>
-        Please enter your account email to reset your password.
-      </Text>
-      <TextInput
-        style={styles.input}
-        value={email}
-        placeholder="Your account email"
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        keyboardType="email-address"
-        accessible={true}
-        accessibilityLabel="Email Input"
-        autoComplete="email"
-      />
-      <TouchableOpacity
-        onPress={handlePasswordResetRequest}
-        style={styles.resetButton}
-        disabled={isLoading}
-        accessible={true}
-        accessibilityLabel="Request Password Reset Button"
-      >
-        <Text style={styles.resetButtonText}>
-          {isLoading ? 'Sending...' : 'Request Password Reset'}
+    <ScreenLayout footer={false} backgroundColor={colors.green500a70}>
+      <View style={styles.part}>
+        <Text style={styles.description}>
+          Please enter your email address to reset your password.
         </Text>
-      </TouchableOpacity>
-    </View>
+      </View>
+      <View style={styles.part}>
+        <TextInput
+          style={[styles.input, border(2)]}
+          value={email}
+          placeholder="example@gmail.com"
+          placeholderTextColor={colors.green600}
+          onChangeText={setEmail}
+          autoCapitalize="none"
+          keyboardType="email-address"
+          accessible={true}
+          accessibilityLabel="Email Input"
+          autoComplete="email"
+          returnKeyType="done"
+          onSubmitEditing={() => handlePasswordResetRequest()}
+        />
+      </View>
+      <View style={[styles.part, { justifyContent: 'flex-start' }]}>
+        <Button
+          buttonColor={colors.blue500}
+          padding={'4%'}
+          text="Request Password Reset"
+          color={colors.blue100}
+          fontSize={17}
+          fontFamily={fonts.bold}
+          action={handlePasswordResetRequest}
+          disabled={isLoading}
+        />
+      </View>
+    </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  part: {
     flex: 1,
-    backgroundColor: colors.blue400,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
   },
   description: {
-    color: colors.white,
-    marginBottom: 20,
-    fontSize: 16,
+    width: '90%',
+    color: colors.blue600,
+    fontSize: 24,
+    fontFamily: fonts.bold,
     textAlign: 'center',
   },
   input: {
-    width: '100%',
-    padding: 10,
-    marginVertical: 10,
-    borderRadius: 5,
-    backgroundColor: '#f0f0f0',
-  },
-  resetButton: {
-    marginTop: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: '#007bff',
-    borderRadius: 5,
-  },
-  resetButtonText: {
-    color: '#fff',
+    width: '90%',
+    padding: '4%',
+    borderRadius: 10,
+    color: colors.green700,
+    backgroundColor: colors.green500,
+    fontSize: 16,
+    fontFamily: fonts.medium,
+    borderColor: colors.green600a50,
   },
 });
