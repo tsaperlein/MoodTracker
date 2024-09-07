@@ -26,7 +26,7 @@ export default function DailyMood({ mood = 'nothing', datetime = null }) {
 
   // Get the day of the week and day of the month
   const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'short' });
-  const dayOfMonth = date.getDate();
+  const dayOfMonth = date.getUTCDate();
 
   return (
     <View style={[styles.container, { backgroundColor }]}>

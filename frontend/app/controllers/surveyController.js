@@ -156,7 +156,7 @@ export function useSurveyController(authData, mode, survey_id = null) {
   const formattedDate = postedAt
     ? (() => {
         const date = new Date(postedAt);
-        const day = date.getDate();
+        const day = date.getUTCDate();
         const month = date.toLocaleDateString('en-US', { month: 'long' });
         const ordinalSuffix = (day) => {
           if (day > 3 && day < 21) return 'th';

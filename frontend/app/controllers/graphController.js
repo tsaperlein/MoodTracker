@@ -22,8 +22,8 @@ export const useGraphData = ({ screen }) => {
           const chartData = response.data.map((item) => {
             const startDate = new Date(item.startDate);
             const endDate = new Date(item.endDate);
-            const startDay = startDate.getDate();
-            const endDay = endDate.getDate();
+            const startDay = startDate.getUTCDate();
+            const endDay = endDate.getUTCDate();
             const monthNames = [
               'Jan',
               'Feb',
