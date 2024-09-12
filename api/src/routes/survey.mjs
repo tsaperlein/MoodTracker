@@ -12,6 +12,7 @@ import {
   getLatestSurvey,
   getPreviousSurveys,
   isSurveyReadyForNextDay,
+  getRemainingVersions,
 } from "../controllers/survey/survey.mjs";
 
 // Survey Routes
@@ -20,6 +21,7 @@ router.get("/users/:user_id/get-survey/:survey_id", getSurvey);
 router.get("/users/:user_id/latest-survey", getLatestSurvey);
 router.get("/users/:user_id/previous-surveys", getPreviousSurveys);
 router.get("/users/:user_id/check-next-survey-status", isSurveyReadyForNextDay);
+router.get("/users/:user_id/get-remaining-versions", getRemainingVersions);
 
 /* --- ANSWER --- */
 // Answer Functions

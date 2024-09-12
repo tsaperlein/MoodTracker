@@ -43,6 +43,14 @@ export async function createSurveyVersion(userId) {
 
       const lastSurveyFinished = await isSurveyVersionFinished(lastVersion.id);
 
+      // Check if last version was 3 and it's NOT finished, then do nothing
+      if (lastVersion.version === 3 && !lastSurveyFinished.finished) {
+        console.log(
+          `Survey version 3 for user ${userId} is not finished. No new survey will be created.`
+        );
+        return { success: false, message: "Survey version 3 not finished." };
+      }
+
       // Check if last version was 3 and if it's finished
       if (lastVersion.version === 3 && lastSurveyFinished.finished) {
         newSurveyId = lastSurveyId + 1;
@@ -350,7 +358,6 @@ async function checkSurveyReadiness(user_id) {
     const latestSurvey = await findLatestSurvey(user_id);
 
     if (!latestSurvey.success || !latestSurvey) {
-      // Instead of throwing an error, return an object indicating the survey is not ready
       return {
         status: false,
         message: "No survey found or an error occurred.",
@@ -361,27 +368,27 @@ async function checkSurveyReadiness(user_id) {
     const { id, completion_time } = latestSurvey;
 
     // Check if the latest survey is finished
-    const surveyFinishedResponse = await isSurveyVersionFinished(id);
+    const response = await isSurveyVersionFinished(id);
 
-    if (!surveyFinishedResponse.finished) {
+    if (!response.finished) {
       return {
         status: "not ready",
         message: "Latest survey is not finished yet.",
         isReady: false,
       };
+    } else {
+      // Get the day of the month for the current time and the completion time
+      const currentDay = adjustToGreeceTime(new Date());
+      const completionDay = new Date(completion_time);
+
+      // Check if the days are different
+      const isReady = areDatesOnDifferentDays(currentDay, completionDay);
+
+      return {
+        status: isReady ? "ready" : "not ready",
+        isReady: isReady,
+      };
     }
-
-    // Get the day of the month for the current time and the completion time
-    const currentDay = adjustToGreeceTime(new Date());
-    const completionDay = new Date(completion_time);
-
-    // Check if the days are different
-    const isReady = areDatesOnDifferentDays(currentDay, completionDay);
-
-    return {
-      status: isReady ? "ready" : "not ready",
-      isReady: isReady,
-    };
   } catch (error) {
     console.error("Error checking survey readiness:", error);
     throw error;
@@ -408,6 +415,49 @@ async function isSurveyReadyForNextDay(req, res) {
   }
 }
 
+// Helper function to get the number of remaining versions
+async function getRemainingVersionCount(user_id) {
+  try {
+    // Fetch the latest survey for the user (only need the last survey version and its completion time)
+    const latestSurvey = await findLatestSurvey(user_id);
+
+    // If no survey exists, assume all versions are remaining
+    if (!latestSurvey) return 3;
+
+    const { version, completion_time } = latestSurvey;
+
+    // Return remaining versions based on the latest survey's version and completion status
+    switch (version) {
+      case 1:
+        return completion_time ? 2 : 3; // Version 1 completed -> 2 remaining, otherwise 3 remaining
+      case 2:
+        return completion_time ? 1 : 2; // Version 2 completed -> 1 remaining, otherwise 2 remaining
+      case 3:
+        return completion_time ? 3 : 1; // Version 3 completed -> reset to 3, otherwise 1 remaining
+      default:
+        return 3; // Default to 3 if something unexpected happens
+    }
+  } catch (error) {
+    console.error("Error getting remaining versions:", error.message);
+    return 3; // Default to 3 if there's an error
+  }
+}
+
+// Controller function to handle the API call and return the remaining versions
+async function getRemainingVersions(req, res) {
+  const { user_id } = req.params;
+
+  try {
+    const remainingVersions = await getRemainingVersionCount(user_id);
+    return res.status(200).json({ remainingVersions });
+  } catch (error) {
+    console.error("Error in getRemainingVersions:", error.message);
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+}
+
 export {
   createDailySurvey,
   findLatestCompleteSurvey,
@@ -417,4 +467,5 @@ export {
   getPreviousSurveys,
   checkSurveyReadiness,
   isSurveyReadyForNextDay,
+  getRemainingVersions,
 };
