@@ -125,7 +125,7 @@ function scheduleReminderNotifications() {
           await sendNotificationToUser({
             params: { user_id: user.id },
             body: {
-              title: "Welcome Mood Check",
+              title: "Welcome Mood Reminder",
               body: "How are you feeling today? Take a moment to reflect on your mood.",
             },
           });
