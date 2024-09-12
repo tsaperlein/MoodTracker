@@ -1,8 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
 
-import cors from "cors";
-
 dotenv.config();
 
 // Routes
@@ -19,6 +17,7 @@ import {
   scheduleAssignDefaultWelcomeMood,
   scheduleCreateDailySurvey,
 } from "./controllers/dailyTasks.mjs";
+import dailyTasksRoutes from "./routes/dailyTasks.mjs";
 // Notifications Routes
 import { scheduleReminderNotifications } from "./controllers/notification.mjs";
 
@@ -48,11 +47,7 @@ app.use(messageRoutes);
 // Notifications
 app.use(notificationRoutes);
 
-app.use(
-  cors({
-    origin: "https://elegant-ape-viable.ngrok-free.app",
-  })
-);
+app.use(dailyTasksRoutes);
 
 app.get("/", async (req, res) => {
   return res.json({ ok: true });

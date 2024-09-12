@@ -19,46 +19,55 @@ import {
   areDatesOnDifferentDays,
 } from "../utils/datetime.mjs";
 
-async function createSurveyForUserAtRandomTime(userId) {
-  // Random hour between 12:00 and 21:00
+async function scheduleJobForUserAtRandomTime(userId, type) {
+  // Generate random time between 12:00 and 21:00, adjust to Greek time (-3 hours)
   const randomHour = Math.floor(Math.random() * (21 - 12) + 12);
-  // Convert to greek time (minus 3 hours)
   const randomGreekHour = randomHour - 3;
   const randomMinute = Math.floor(Math.random() * 60);
 
   console.log(
-    `Scheduling survey creation for user ${userId} at ${randomHour}:${randomMinute}`
+    `Scheduling ${type} for user ${userId} at ${randomHour}:${randomMinute}`
   );
 
   schedule.scheduleJob(
     { hour: randomGreekHour, minute: randomMinute },
     async () => {
       try {
-        const result = await createSurveyVersion(userId);
-        if (result.success) {
-          // Notify the user that a new survey is available
-          await sendNotificationToUser({
-            params: { user_id: userId },
-            body: {
-              title: "New Daily Survey Available",
-              body: "Your new daily survey is ready. Please take a moment to complete it.",
-            },
-          });
-          console.log(
-            `Notification sent to user ${userId} about the new survey.`
-          );
-        } else {
-          console.error(
-            `Failed to create survey for user ${userId}: ${result.error}`
-          );
+        let result = { success: false };
+
+        if (type === "survey creation") {
+          result = await createSurveyVersion(userId);
         }
+
+        // Send appropriate notification based on the result or type
+        await sendSurveyNotification(userId, result.success, type);
       } catch (error) {
-        console.error(
-          `Error during survey creation for user ${userId}:`,
-          error
-        );
+        console.error(`Error during ${type} for user ${userId}:`, error);
       }
     }
+  );
+}
+
+async function sendSurveyNotification(userId, surveyCreated, type) {
+  const title =
+    surveyCreated || type === "survey reminder"
+      ? "Daily Survey Reminder"
+      : "New Daily Survey Available";
+
+  const body =
+    surveyCreated || type === "survey reminder"
+      ? "Your daily survey is ready. Please take a moment to complete it."
+      : "Your new daily survey is ready. Please take a moment to complete it.";
+
+  await sendNotificationToUser({
+    params: { user_id: userId },
+    body: { title, body },
+  });
+
+  console.log(
+    `Notification sent to user ${userId} about the ${
+      surveyCreated ? "new survey" : "survey reminder"
+    }.`
   );
 }
 
@@ -70,11 +79,9 @@ async function checkAndScheduleSurveys() {
       const result = await checkSurveyReadiness(user.id);
 
       if (result.isReady) {
-        await createSurveyForUserAtRandomTime(user.id);
+        await scheduleJobForUserAtRandomTime(user.id, "survey creation");
       } else {
-        console.log(
-          `User ${user.id} is not ready for a new survey: ${result.message}`
-        );
+        await scheduleJobForUserAtRandomTime(user.id, "survey reminder");
       }
     } catch (error) {
       console.error(
