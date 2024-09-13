@@ -5,6 +5,7 @@ dotenv.config();
 
 import { getXataClient } from "../../xata.mjs";
 import { findLatestCompleteSurvey } from "./survey.mjs";
+import { isSurveyVersionFinished } from "./answer.mjs";
 const client = getXataClient();
 
 // Function to calculate the score of a single survey version based on xata_id
@@ -74,22 +75,32 @@ async function calculateSurveyScore(userId, surveyId) {
 
     // Initialize the total score
     let totalScore = 0;
+    let allVersionsFinished = true;
 
-    // Loop through each survey version and calculate its score
+    // Loop through each survey version and check if it is finished
     for (const survey of surveys) {
+      const isFinished = await isSurveyVersionFinished(survey.id);
+
+      if (!isFinished) {
+        allVersionsFinished = false;
+        throw new Error(
+          `Survey with ID ${surveyId} does not have all required versions completed`
+        );
+      }
+
       const versionScore = await calculateSurveyVersionScore(survey.id);
       totalScore += versionScore;
+    }
+
+    if (!allVersionsFinished) {
+      throw new Error(
+        `Survey with ID ${surveyId} is not complete because some versions are unfinished.`
+      );
     }
 
     // Fetch version 1 and version 3 for start and end dates
     const version1 = surveys.find((survey) => survey.version === 1);
     const version3 = surveys.find((survey) => survey.version === 3);
-
-    if (!version1 || !version3) {
-      throw new Error(
-        `Required versions (1 or 3) missing for survey ID ${surveyId}`
-      );
-    }
 
     const startDate = version1.posted_at;
     const endDate = version3.posted_at;
