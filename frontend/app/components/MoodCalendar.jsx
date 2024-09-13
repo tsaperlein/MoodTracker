@@ -21,6 +21,7 @@ import { WIDTH, HEIGHT } from '../constants/dimensions';
 
 // Controller
 import { useCalendarController } from '../controllers/calendarController';
+import { adjustToGreeceTime } from '../utilities/datetime';
 
 const MoodIcon = ({ moodStyle }) => {
   if (moodStyle.icon === 'face-retouching-off') {
@@ -42,7 +43,12 @@ const MoodIcon = ({ moodStyle }) => {
 };
 
 const CustomDayComponent = ({ date, state, mood }) => {
-  const today = new Date().toISOString().slice(0, 10) === date.dateString;
+  const newDay = adjustToGreeceTime(new Date());
+
+  const today =
+    newDay.getUTCDate() === date.day &&
+    newDay.getUTCMonth() + 1 === date.month &&
+    newDay.getUTCFullYear() === date.year;
   const isExtraDay = state === 'disabled';
 
   const moodStyle = mood

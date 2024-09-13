@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Alert, Text, TextInput, View } from 'react-native';
 
 // Colors
 import colors from '../../constants/colors';
@@ -13,10 +13,10 @@ import ScreenLayout from '../Layout';
 import Button from '../../components/Button';
 
 // Authorization Services
-import { resetPassword } from '../../services/auth';
+import { resetPassword } from 'services/auth';
 
 export default function PasswordReset({ route, navigation }) {
-  // const { token = null } = route.params;
+  const { token = null } = route.params;
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);

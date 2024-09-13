@@ -9,7 +9,7 @@ import fonts from '../constants/fonts';
 // Screens
 import SignIn from '../screens/start/SignIn';
 import SignUp from '../screens/start/SignUp';
-import ResetPassword from '../screens/password/ResePassword';
+import RequestPasswordReset from '../screens/password/RequestPasswordReset';
 import PasswordReset from '../screens/password/PasswordReset';
 import Welcome from '../screens/start/Welcome';
 import Connecting from '../screens/extras/Connecting';
@@ -88,14 +88,14 @@ export default function StartNavigator() {
               {(props) => <SignUp {...props} showMessage={showMessage} />}
             </Stack.Screen>
             <Stack.Screen
-              name="ResetPassword"
-              component={ResetPassword}
-              options={{ title: 'Reset Password' }}
+              name="RequestPasswordReset"
+              component={RequestPasswordReset}
+              options={{ headerBackVisible: true, headerBackTitleVisible: false }}
             />
             <Stack.Screen
               name="PasswordReset"
               component={PasswordReset}
-              options={{ title: 'Set New Password' }}
+              options={{ headerBackVisible: true, headerBackTitleVisible: false }}
             />
           </>
         )}

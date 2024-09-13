@@ -131,7 +131,7 @@ export default function SignIn({ navigation, showMessage }) {
             <Text style={{ color: colors.blue100, marginBottom: '0.5%' }}>
               Forgot your password?
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
+            <TouchableOpacity onPress={() => navigation.navigate('RequestPasswordReset')}>
               <Text style={styles.option}>Reset Password</Text>
             </TouchableOpacity>
           </Animated.View>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Alert, Text, TextInput, View } from 'react-native';
 
 // Colors
 import colors from '../../constants/colors';
@@ -13,7 +13,7 @@ import ScreenLayout from '../Layout';
 import Button from '../../components/Button';
 
 // Authorization Services
-import { requestPasswordReset } from '../../services/auth';
+import { requestPasswordReset } from 'services/auth';
 
 export default function ResetPassword({ navigation }) {
   const [email, setEmail] = useState('');

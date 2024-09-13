@@ -41,8 +41,6 @@ export default function SurveyNavigator({ route, navigation }) {
 
   if (loading) return <AppLoading backgroundColor={colors.blue900} mode="light" />;
 
-  console.log(mode, isNextSurveyReady);
-
   return mode === 'current' && isNextSurveyReady ? (
     <NoSurvey404 />
   ) : (

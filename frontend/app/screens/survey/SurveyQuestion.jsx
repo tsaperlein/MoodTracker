@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.blue800a50,
     fontFamily: fonts.original,
     fontSize: 15,
-    borderColor: colors.purple400,
+    borderColor: colors.blue800,
   },
   inputStyle: {
     height: '100%',
