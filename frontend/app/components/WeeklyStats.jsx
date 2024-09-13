@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Platform } from 'react-native';
 
 // Colors
@@ -13,13 +13,13 @@ import DailyMood from './DailyMood';
 import { BlurView } from 'expo-blur';
 
 // Authorization Services
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 // Controller
 import { useWeeklyStatsController } from '../controllers/weeklyStatsController';
 
 export default function WeeklyStats({ action }) {
-  const { authData } = useContext(AuthContext);
+  const { authData } = useAuth();
   const { moodsWithAdditional } = useWeeklyStatsController(authData);
 
   return (

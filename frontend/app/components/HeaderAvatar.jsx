@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 
 // Colors
@@ -13,7 +13,7 @@ import { Avatar } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 
 // Authorization Services
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 // User Services
 import { fetchUserAvatar } from 'services/user';
@@ -23,7 +23,7 @@ import { HEIGHT } from '../constants/dimensions';
 
 export default function HeaderAvatar() {
   const navigation = useNavigation();
-  const { authData } = useContext(AuthContext);
+  const { authData } = useAuth();
   const [avatarSource, setAvatarSource] = useState(null);
   const [initials, setInitials] = useState('');
   const [loading, setLoading] = useState(true);

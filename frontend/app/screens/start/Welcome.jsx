@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 // Colors
@@ -15,9 +15,9 @@ import LottieView from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
 
 // Authorization Services
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 // Mood Services
-import { MoodContext } from 'context/MoodContext';
+import { useMood } from 'context/MoodContext';
 
 // Controller
 import { useWelcomeController } from '../../controllers/welcomeController';
@@ -26,10 +26,12 @@ import { useWelcomeController } from '../../controllers/welcomeController';
 import { WIDTH, HEIGHT } from '../../constants/dimensions';
 
 export default function Welcome({ setAppNameColor }) {
+  const { authData, signOut } = useAuth();
+  const { setHasChosenMood } = useMood();
+
   const navigation = useNavigation();
+
   const [selectedMood, setSelectedMood] = useState(null);
-  const { authData, signOut } = useContext(AuthContext);
-  const { setHasChosenMood } = useContext(MoodContext);
 
   // Get controller functions
   const { handleContinue, handleSkip, handleLogout, getRandomAnimation } = useWelcomeController(

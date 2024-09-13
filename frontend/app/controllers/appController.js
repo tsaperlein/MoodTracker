@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 
 // Font
 import * as Font from 'expo-font';
@@ -7,9 +7,9 @@ import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
 // Authorization Services
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 // Mood Services
-import { MoodContext } from 'context/MoodContext';
+import { useMood } from 'context/MoodContext';
 
 const getFonts = () => {
   return Font.loadAsync({
@@ -32,8 +32,8 @@ const getFonts = () => {
 };
 
 export const useAppController = () => {
-  const authContext = useContext(AuthContext);
-  const moodContext = useContext(MoodContext);
+  const authContext = useAuth();
+  const moodContext = useMood();
   const [appIsReady, setAppIsReady] = useState(false);
   const [splashScreenLoading, setSplashScreenLoading] = useState(true);
 

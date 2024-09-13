@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
 // Colors
@@ -25,13 +25,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 
 // Authorization Services
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 // Mood Services
-import { MoodContext } from 'context/MoodContext';
+import { useMood } from 'context/MoodContext';
 
 export default function StartNavigator() {
-  const { authData } = useContext(AuthContext);
-  const { hasChosenMood, checkMoodStatus } = useContext(MoodContext);
+  const { authData } = useAuth();
+  const { hasChosenMood, checkMoodStatus } = useMood();
+
   const [showConnecting, setShowConnecting] = useState(false);
   const [appNameColor, setAppNameColor] = useState(colors.blue600);
 

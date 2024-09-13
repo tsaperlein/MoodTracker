@@ -17,7 +17,7 @@ import { MoodProvider } from 'context/MoodContext';
 // Profile Services
 import { ProfileProvider } from 'context/ProfileContext';
 // Daily Survey Provider
-import { DailyProvider } from 'context/DailyContext';
+import { DailySurveyProvider } from 'context/DailySurveyContext';
 
 // Controller
 import { useAppController } from './app/controllers/appController';
@@ -44,11 +44,11 @@ export default function App() {
     <AuthProvider>
       <MoodProvider>
         <ProfileProvider>
-          <DailyProvider>
+          <DailySurveyProvider>
             <NavigationContainer linking={linking}>
               {splashScreenLoading ? <Splashscreen /> : <StartNavigator />}
             </NavigationContainer>
-          </DailyProvider>
+          </DailySurveyProvider>
         </ProfileProvider>
       </MoodProvider>
     </AuthProvider>

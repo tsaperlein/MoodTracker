@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 // Colors
@@ -20,14 +20,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 
 // Authorization Services
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 // Controller
 import { useSurveyController } from '../controllers/surveyController';
 
 export default function SurveyNavigator({ route, navigation }) {
+  const { authData } = useAuth();
+
   const { mode, surveyId = null } = route.params;
-  const { authData } = useContext(AuthContext);
   const {
     questions,
     loading,

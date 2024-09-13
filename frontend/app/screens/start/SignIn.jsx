@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   TextInput,
@@ -22,7 +22,7 @@ import createShadow from '../../config/shadowConfig';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 
 // Authorization Services
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
 // Controller Functions
 import { onSignInPress } from '../../controllers/signInUpController';
@@ -34,7 +34,7 @@ export default function SignIn({ navigation, showMessage }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { signIn } = useContext(AuthContext);
+  const { signIn } = useAuth()
 
   const ref_input = useRef();
 

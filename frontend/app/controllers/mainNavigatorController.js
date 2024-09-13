@@ -1,51 +1,23 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Colors
 import colors from '../constants/colors';
 
 // Authorization Services
-import { AuthContext } from 'context/AuthContext';
-// Answer Services
-import { isSurveyFinished } from 'services/answer';
-// Survey Services
-import { fetchLatestSurvey } from 'services/survey';
+import { useAuth } from 'context/AuthContext';
+// Daily Survey Services
+import { useDailySurvey } from 'context/DailySurveyContext';
+
 // User Services
 import { fetchStreakCount } from 'services/user';
 
 export const useHeaderTitleController = () => {
-  const { authData } = useContext(AuthContext);
-  const [dailySurveyCompleted, setDailySurveyCompleted] = useState(false);
+  const { authData } = useAuth();
+  const { dailySurveyCompleted } = useDailySurvey();
+
   const [streakCount, setStreakCount] = useState(null);
 
   useEffect(() => {
-    async function checkSurveyStatus() {
-      if (!authData || !authData.id) {
-        setDailySurveyCompleted(false);
-        return;
-      }
-
-      try {
-        const latestSurvey = await fetchLatestSurvey(authData.id);
-
-        if (!latestSurvey || !latestSurvey.id) {
-          setDailySurveyCompleted(false);
-          return;
-        }
-
-        const { finished } = await isSurveyFinished(latestSurvey.id);
-
-        if (typeof finished !== 'boolean') {
-          setDailySurveyCompleted(false);
-          return;
-        }
-
-        setDailySurveyCompleted(finished);
-      } catch (error) {
-        console.error('An error occurred while checking the survey status:', error);
-        setDailySurveyCompleted(false);
-      }
-    }
-
     async function fetchStreak() {
       if (authData) {
         try {
@@ -61,11 +33,8 @@ export const useHeaderTitleController = () => {
       }
     }
 
-    if (authData) {
-      checkSurveyStatus();
-      fetchStreak();
-    }
-  }, [authData]);
+    fetchStreak();
+  }, [authData, dailySurveyCompleted]);
 
   const [iconName, setIconName] = useState('calendar-times');
   const [iconColor, setIconColor] = useState(colors.gray700);

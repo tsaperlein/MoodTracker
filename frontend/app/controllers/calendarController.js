@@ -1,13 +1,13 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 
 // Authorization Services
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 // Welcome Mood Services
 import { fetchAllWelcomeMoods } from 'services/welcomeMood';
 
 // Custom Hook for Calendar Data Management
 export function useCalendarController(currentMonth = null, setMoodCounts = null) {
-  const { authData } = useContext(AuthContext);
+  const { authData } = useAuth();
   const [loading, setLoading] = useState(true);
   const [markedDates, setMarkedDates] = useState({});
 

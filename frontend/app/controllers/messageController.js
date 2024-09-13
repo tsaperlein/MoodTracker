@@ -27,5 +27,5 @@ export const useMessageController = (category) => {
     loadMessage();
   }, [category]);
 
-  return { userMessage, loading };
+  return { userMessage, loading, error };
 };
