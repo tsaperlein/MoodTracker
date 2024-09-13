@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 
 // Colors
@@ -33,8 +33,9 @@ const strokeColorConfig = [
 
 export default function Profile() {
   const {
+    handleInputChange,
     formState,
-    setFormState,
+    editFinished,
     avatarUri,
     loading,
     uploading,
@@ -47,14 +48,21 @@ export default function Profile() {
     participation,
   } = useProfileController();
 
-  const handleInputChange = (field, value) => {
-    setFormState((prevState) => ({
-      ...prevState,
-      [field]: value,
-    }));
-  };
-
   const avatarSize = HEIGHT < 800 ? 120 : 140;
+
+  // Refs for input fields
+  const firstNameRef = useRef(null);
+  const lastNameRef = useRef(null);
+  const emailRef = useRef(null);
+
+  useEffect(() => {
+    if (editFinished) {
+      // Unfocus all input fields when editing is finished
+      if (firstNameRef.current) firstNameRef.current.blur();
+      if (lastNameRef.current) lastNameRef.current.blur();
+      if (emailRef.current) emailRef.current.blur();
+    }
+  }, [editFinished]);
 
   return (
     <ScreenLayout footer={false} backgroundColor={colors.blue900}>
@@ -98,18 +106,21 @@ export default function Profile() {
             value={formState.first_name}
             onChangeText={(value) => handleInputChange('first_name', value)}
             keyboardType="default"
+            inputRef={firstNameRef}
           />
           <LabelInput
             label="Last Name"
             value={formState.last_name}
             onChangeText={(value) => handleInputChange('last_name', value)}
             keyboardType="default"
+            inputRef={lastNameRef}
           />
           <LabelInput
             label="Email"
             value={formState.email}
             onChangeText={(value) => handleInputChange('email', value)}
             keyboardType="email-address"
+            inputRef={emailRef}
           />
         </View>
         <View style={styles.participationContainer}>
@@ -122,7 +133,7 @@ export default function Profile() {
               radius={avatarSize / 2}
               progressValueColor={colors.blue400}
               progressValueStyle={{ fontFamily: fonts.medium }}
-              progressValueFontSize={HEIGHT / 22}
+              progressValueFontSize={HEIGHT / 24}
               inActiveStrokeColor={colors.blue700a70}
               inActiveStrokeWidth={35}
               activeStrokeWidth={20}
@@ -193,7 +204,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: fonts.bold,
     color: colors.blue400,
-    textAlign: 'right',
+    textAlign: 'center',
   },
   optionsContainer: {
     flex: 0.8,

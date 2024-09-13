@@ -8,7 +8,13 @@ import fonts from '../constants/fonts';
 // Border
 import { border } from '../config/borderConfig';
 
-export default function LabelInput({ label, value, onChangeText, keyboardType = 'default' }) {
+export default function LabelInput({
+  label,
+  value,
+  onChangeText,
+  keyboardType = 'default',
+  inputRef,
+}) {
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => setIsFocused(true);
@@ -18,6 +24,7 @@ export default function LabelInput({ label, value, onChangeText, keyboardType = 
     <View style={[styles.container, border(2), isFocused && styles.containerFocused]}>
       <Text style={[styles.label, (isFocused || value) && styles.labelFocused]}>{label}</Text>
       <TextInput
+        ref={inputRef}
         style={[styles.inputField, isFocused && styles.inputFieldFocused]}
         value={value}
         onChangeText={onChangeText}

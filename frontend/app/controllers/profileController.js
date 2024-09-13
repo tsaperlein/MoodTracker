@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Alert, Animated } from 'react-native';
 
 // Image picker
@@ -10,20 +10,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { showMessage } from 'react-native-flash-message';
 
 // Authorization Services
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 // Profile Services
 import { useProfile } from 'context/ProfileContext';
 
 // User Services
-import { updateUserInfo, updateUserImage, deleteUserImage, fetchUserAvatar } from 'services/user';
+import { updateUserImage, deleteUserImage, fetchUserAvatar } from 'services/user';
 // Participation Services
 import { fetchUserParticipation } from 'services/participation';
 // Image utilities
 import { pickImageAsync } from '../utilities/image';
 
 export default function useProfileController() {
-  const { authData, signOut, setAuthData } = useContext(AuthContext);
-  const { setIsChanged, handleSaveChanges } = useProfile();
+  const { authData, signOut, setAuthData } = useAuth();
+  const { handleSaveChanges, formState, setFormState, editFinished } = useProfile();
 
   const [avatarUri, setAvatarUri] = useState(authData?.image?.url || null);
   const [showOverlay, setShowOverlay] = useState(false);
@@ -31,34 +31,12 @@ export default function useProfileController() {
   const [uploading, setUploading] = useState(false);
   const [participation, setParticipation] = useState(null);
 
-  const [formState, setFormState] = useState({
-    first_name: authData.first_name,
-    last_name: authData.last_name,
-    email: authData.email,
-  });
-
-  const originalState = useRef(formState);
-
-  useEffect(() => {
-    setFormState({
-      first_name: authData.first_name,
-      last_name: authData.last_name,
-      email: authData.email,
-    });
-    originalState.current = {
-      first_name: authData.first_name,
-      last_name: authData.last_name,
-      email: authData.email,
-    };
-  }, [authData]);
-
-  useEffect(() => {
-    const isChanged =
-      originalState.current.first_name !== formState.first_name ||
-      originalState.current.last_name !== formState.last_name ||
-      originalState.current.email !== formState.email;
-    setIsChanged(isChanged);
-  }, [formState, setIsChanged]);
+  const handleInputChange = (field, value) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      [field]: value,
+    }));
+  };
 
   const editButtonAnimation = useRef(new Animated.Value(-100)).current;
   const deleteButtonAnimation = useRef(new Animated.Value(100)).current;
@@ -139,47 +117,6 @@ export default function useProfileController() {
   }, [authData.id, authData.image]);
 
   const handleLogout = async () => await signOut();
-
-  handleSaveChanges.current = async () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formState.email)) {
-      showMessage({
-        message: 'Invalid Email',
-        description: 'Please enter a valid email address before saving.',
-        type: 'danger',
-      });
-      console.log('Invalid email, save operation aborted.');
-      return;
-    }
-
-    const result = await updateUserInfo(authData.id, formState);
-
-    if (result.success) {
-      showMessage({
-        message: 'Success',
-        description: 'User information updated successfully.',
-        type: 'success',
-      });
-
-      const updatedAuthData = { ...authData, ...formState };
-      console.log('Updating authData:', updatedAuthData); // Debugging info
-      setAuthData(updatedAuthData);
-
-      try {
-        await AsyncStorage.setItem('@AuthData', JSON.stringify(updatedAuthData));
-        console.log('Updated authData saved to AsyncStorage.');
-      } catch (error) {
-        console.error('Failed to save authData to AsyncStorage:', error);
-      }
-    } else {
-      showMessage({
-        message: 'Error',
-        description: result.message,
-        type: 'danger',
-      });
-      console.error('Error updating user information:', result.message);
-    }
-  };
 
   const pickImage = async () => {
     try {
@@ -279,8 +216,9 @@ export default function useProfileController() {
   const handleImagePress = () => setShowOverlay((prev) => !prev);
 
   return {
+    handleInputChange,
     formState,
-    setFormState,
+    editFinished,
     avatarUri,
     loading,
     uploading,
