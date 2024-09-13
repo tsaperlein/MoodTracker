@@ -65,7 +65,7 @@ export default function MoodPieChart({ data, chartColor = colors.blue800, size =
         innerCircleBorderWidth={3}
         innerCircleBorderColor={chartColor}
         radius={size}
-        innerRadius={size - 40}
+        innerRadius={size - HEIGHT / 25}
         innerCircleColor={chartColor}
         focusOnPress
         centerLabelComponent={() => {

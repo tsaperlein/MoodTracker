@@ -27,7 +27,7 @@ export default function MonthlyStats({ data, loading }) {
         <Text style={styles.text}>Last 10 Questionnaires</Text>
       </View>
       <View style={{ flex: 6 }}>
-        <MoodPieChart data={data} chartColor={colors.blue800} size={HEIGHT / 11} />
+        <MoodPieChart data={data} chartColor={colors.blue700} size={HEIGHT / 11} />
       </View>
     </View>
   );
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    color: colors.blue800,
+    color: colors.blue300,
     fontSize: 20,
     fontFamily: fonts.bold,
   },

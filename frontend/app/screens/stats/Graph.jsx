@@ -18,10 +18,15 @@ import { useNavigation } from '@react-navigation/native';
 
 // Controller
 import { useGraphData } from '../../controllers/graphController';
+import { useHomeController } from '../../controllers/homeController';
 
 export default function Graph() {
+  const { dailySurveyCompleted, remainingVersions } = useHomeController();
   const { data, loading } = useGraphData({ screen: 'Graph' });
   const navigation = useNavigation();
+
+  const informationText =
+    remainingVersions === 1 ? '1 more survey' : `${remainingVersions} more surveys`;
 
   return (
     <View style={styles.container}>
@@ -41,19 +46,27 @@ export default function Graph() {
               <EmotionLegend />
             </View>
           </View>
-        ) : (
+        ) : !dailySurveyCompleted ? (
           <View style={styles.noSurveysContainer}>
-            <Text style={styles.noSurveysText}>You need 3 completed surveys</Text>
+            <Text style={styles.noSurveysText}>
+              You need {informationText} to get graph results.
+            </Text>
             <Button
-              buttonColor={colors.blue400}
+              buttonColor={colors.blue700}
               padding={16}
-              text="Complete a survey"
-              color={colors.blue100}
+              text="Complete today's survey"
+              color={colors.blue900a70}
               borderRadius={20}
               fontSize={20}
               fontFamily={fonts.bold}
               action={() => navigation.navigate('Questionnaires')}
             />
+          </View>
+        ) : (
+          <View style={styles.noSurveysContainer}>
+            <Text style={styles.noSurveysText}>
+              You need {informationText} to get graph results.
+            </Text>
           </View>
         )}
       </View>
@@ -93,8 +106,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   noSurveysText: {
-    color: colors.blue200,
-    fontSize: 26,
+    color: colors.blue200a70,
+    fontSize: 24,
     fontFamily: fonts.bold,
     textAlign: 'center',
   },
