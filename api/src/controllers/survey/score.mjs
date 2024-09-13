@@ -68,34 +68,24 @@ async function calculateSurveyScore(userId, surveyId) {
     const surveyVersions = new Set(surveys.map((survey) => survey.version));
 
     if (requiredVersions.some((version) => !surveyVersions.has(version))) {
-      throw new Error(
-        `Survey with ID ${surveyId} does not have all required versions (1, 2, 3).`
-      );
+      // If not all required versions exist, return without doing anything
+      return;
     }
 
     // Initialize the total score
     let totalScore = 0;
-    let allVersionsFinished = true;
 
     // Loop through each survey version and check if it is finished
     for (const survey of surveys) {
-      const isFinished = await isSurveyVersionFinished(survey.id);
+      const { finished } = await isSurveyVersionFinished(survey.id);
 
-      if (!isFinished) {
-        allVersionsFinished = false;
-        throw new Error(
-          `Survey with ID ${surveyId} does not have all required versions completed`
-        );
+      if (!finished) {
+        // If any version is not finished, exit early
+        return;
       }
 
       const versionScore = await calculateSurveyVersionScore(survey.id);
       totalScore += versionScore;
-    }
-
-    if (!allVersionsFinished) {
-      throw new Error(
-        `Survey with ID ${surveyId} is not complete because some versions are unfinished.`
-      );
     }
 
     // Fetch version 1 and version 3 for start and end dates
@@ -116,7 +106,7 @@ async function calculateSurveyScore(userId, surveyId) {
       "An error occurred while calculating the survey score:",
       error
     );
-    throw error;
+    // You may choose to log the error but not throw it
   }
 }
 
