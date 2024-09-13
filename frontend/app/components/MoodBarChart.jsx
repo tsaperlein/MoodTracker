@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 // Colors
@@ -20,9 +20,11 @@ const barWidth = WIDTH < 400 ? (WIDTH * 0.7) / 7 - 16 : (WIDTH * 0.7) / 7 - 14;
 const barChartHeight = HEIGHT < 800 ? (HEIGHT * 28) / 100 : (HEIGHT * 30) / 100;
 
 export default function MoodBarChart({ data }) {
+  const [showValueOnTop, setShowValueOnTop] = useState(false);
   return (
     <BarChart
       height={barChartHeight}
+      minHeight={2}
       maxValue={26}
       data={data}
       yAxisThickness={0}
@@ -30,18 +32,26 @@ export default function MoodBarChart({ data }) {
       hideYAxisText
       hideRules
       barWidth={barWidth}
-      barInnerComponent={(item) => (
-        <View
-          style={[
-            styles.textContainer,
-            {
-              backgroundColor: getRatioOutcome(item.value, 26, 'color'),
-            },
-          ]}
-        >
-          <Text style={styles.text}>{item.value}</Text>
-        </View>
-      )}
+      barInnerComponent={(item) => {
+        if (item.value >= 0 && item.value <= 4 && !showValueOnTop) {
+          setShowValueOnTop(true);
+        }
+
+        return (
+          <View
+            style={[
+              styles.textContainer,
+              {
+                backgroundColor: getRatioOutcome(item.value, 26, 'color'),
+              },
+            ]}
+          >
+            {!showValueOnTop ? <Text style={styles.text}>{item.value}</Text> : null}
+          </View>
+        );
+      }}
+      showValuesAsTopLabel={showValueOnTop}
+      topLabelTextStyle={styles.topLabelText}
       roundedTop
       roundedBottom
       disablePress
@@ -63,6 +73,11 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.black,
+    fontSize: 20,
+    fontFamily: fonts.medium,
+  },
+  topLabelText: {
+    color: colors.blue200,
     fontSize: 20,
     fontFamily: fonts.medium,
   },
