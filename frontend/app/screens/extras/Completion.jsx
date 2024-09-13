@@ -12,6 +12,13 @@ import LottieView from 'lottie-react-native';
 export default function CompletionAnimation({ navigation }) {
   useEffect(() => {
     const timer = setTimeout(() => {
+      // Reset the navigation stack and navigate to Questionnaires
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Questionnaires' }],
+      });
+
+      // Optionally ensure navigation goes to Questionnaires
       navigation.navigate('Questionnaires');
     }, 2000);
 

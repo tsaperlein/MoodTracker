@@ -9,6 +9,9 @@ import { fetchSurveyAnswers, updateSurveyAnswers } from 'services/answer';
 // Score Services
 import { fetchSurveyVersionScore } from 'services/score';
 
+// Questionnaires Controller
+import useQuestionnairesController from './questionnairesController';
+
 // Custom Hook for Survey Data Management
 export function useSurveyController(authData, mode, survey_id = null) {
   const [loading, setLoading] = useState(true);
@@ -18,6 +21,8 @@ export function useSurveyController(authData, mode, survey_id = null) {
   const [answers, setAnswers] = useState({});
   const [surveyScore, setSurveyScore] = useState(0);
   const [isNextSurveyReady, setIsNextSurveyReady] = useState(false);
+
+  const { onRefresh } = useQuestionnairesController();
 
   useEffect(() => {
     async function checkNextSurvey() {
@@ -142,11 +147,12 @@ export function useSurveyController(authData, mode, survey_id = null) {
       return acc;
     }, {});
 
-    console.log(filteredAnswers);
-
     const submitResult = await updateSurveyAnswers(authData.id, surveyId, filteredAnswers);
     if (submitResult.success) {
-      navigation.navigate('Completion');
+      if (onRefresh) {
+        await onRefresh(authData.id);
+        navigation.navigate('Completion');
+      }
     } else {
       console.error(submitResult.message);
     }

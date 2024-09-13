@@ -15,15 +15,12 @@ export default function useQuestionnairesController() {
   const scrollY = useState(new Animated.Value(0))[0];
   const [surveys, setSurveys] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [refreshing, setRefreshing] = useState(false);
 
-  const onRefresh = useCallback(async () => {
-    setRefreshing(true);
-
+  const fetchAndSetSurveys = async () => {
     try {
-      const userId = authData.id;
-      const result = await fetchPreviousSurveys(userId);
+      setLoading(true);
+      const result = await fetchPreviousSurveys(authData.id);
 
       if (result.success) {
         const sortedSurveys = result.surveys
@@ -41,39 +38,21 @@ export default function useQuestionnairesController() {
         setSurveys(sortedSurveys);
       }
     } catch (error) {
-      console.error('Failed to refresh surveys:', error);
+      console.error('Failed to fetch surveys:', error);
     } finally {
-      setRefreshing(false);
+      setLoading(false);
     }
+  };
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await fetchAndSetSurveys();
+    setRefreshing(false);
   }, [authData]);
 
   useEffect(() => {
-    const loadPreviousSurveys = async () => {
-      const userId = authData.id;
-      const result = await fetchPreviousSurveys(userId);
-
-      if (result.success) {
-        const sortedSurveys = result.surveys
-          .sort((a, b) => b.surveyId - a.surveyId)
-          .map((group) => {
-            const sortedVersions = group.versions.sort(
-              (a, b) => new Date(b.completion_time) - new Date(a.completion_time)
-            );
-            return {
-              ...group,
-              versions: sortedVersions,
-            };
-          });
-
-        setSurveys(sortedSurveys);
-      } else {
-        setLoading(false);
-      }
-      setLoading(false);
-    };
-
-    loadPreviousSurveys();
-  }, [authData]);
+    fetchAndSetSurveys();
+  }, [authData, setSurveys]);
 
   // Determine the output range based on the screen height
   const outputRange = HEIGHT < 800 ? ['30%', '15%'] : ['25%', '10%'];
