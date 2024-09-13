@@ -112,4 +112,36 @@ async function isSurveyReadyForNextDay(userId) {
   }
 }
 
-export { fetchLatestSurvey, fetchSurvey, fetchPreviousSurveys, isSurveyReadyForNextDay };
+async function fetchRemainingVersions(userId) {
+  console.log('Fetching the remaining versions of the user ...');
+  try {
+    const response = await fetch(`${PRIVATE_API_URL}/users/${userId}/get-remaining-versions`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      return {
+        success: true,
+        remainingVersions: data.remainingVersions,
+      };
+    } else {
+      return { success: false, message: data.message || 'Failed to fetch previous surveys' };
+    }
+  } catch (error) {
+    console.error('Network Error:', error);
+    return { success: false, message: 'An error occurred while fetching previous surveys' };
+  }
+}
+
+export {
+  fetchLatestSurvey,
+  fetchSurvey,
+  fetchPreviousSurveys,
+  isSurveyReadyForNextDay,
+  fetchRemainingVersions,
+};
