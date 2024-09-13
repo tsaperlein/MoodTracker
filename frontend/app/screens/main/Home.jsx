@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 
 // Colors
@@ -21,22 +21,34 @@ import { useGraphData } from '../../controllers/graphController';
 import { useHomeController } from '../../controllers/homeController';
 
 export default function Home({ navigation }) {
-  const { moodLevel, surveyCompleted } = useHomeController();
+  const { moodLevel, dailySurveyCompleted, remainingVersions } = useHomeController();
   const { data, loading } = useGraphData({ screen: 'Home' });
+
+  const informationText =
+    remainingVersions === 1 ? '1 more survey' : `${remainingVersions} more surveys`;
 
   return (
     <ScreenLayout screenName={'Home'} footer={true}>
       <ScrollView contentContainerStyle={styles.container} scrollEnabled={false}>
-        <View style={[styles.content, { padding: '5%', paddingVertical: '2%' }]}>
-          <Message category={moodLevel} surveyCompleted={surveyCompleted} />
+        <View style={[styles.content, { paddingHorizontal: '5%' }]}>
+          <Message
+            category={moodLevel}
+            dailySurveyCompleted={dailySurveyCompleted}
+            remainingVersions={remainingVersions}
+          />
         </View>
-        <View style={[styles.content, { paddingVertical: '2%' }]}>
+        <View style={styles.content}>
           <WeeklyStats
             action={() => navigation.navigate('Stats Navigator', { screen: 'Calendar' })}
           />
         </View>
         <View style={[styles.content, { paddingVertical: '3%', flexDirection: 'row' }]}>
-          <View style={styles.contentContainer}>
+          <View
+            style={[
+              styles.contentContainer,
+              { backgroundColor: data.length > 0 ? colors.blue700 : colors.blue500a50 },
+            ]}
+          >
             {data && data.length > 0 ? (
               <>
                 <TouchableOpacity
@@ -57,11 +69,11 @@ export default function Home({ navigation }) {
                   />
                 </View>
               </>
-            ) : surveyCompleted ? (
+            ) : dailySurveyCompleted ? (
               <View style={styles.noSurveysContainer}>
-                <Text style={styles.noSurveysText}>
-                  Today's survey completed!{'\n'}
-                  Need more to get results.
+                <Text style={styles.dailySurveyCompletedText}>Today's survey completed!</Text>
+                <Text style={styles.remainingVersionsText}>
+                  You need {informationText} to get results.
                 </Text>
               </View>
             ) : (
@@ -70,7 +82,7 @@ export default function Home({ navigation }) {
                 <Button
                   buttonColor={colors.blue400}
                   padding={16}
-                  text="Complete a survey"
+                  text="Complete today's survey"
                   color={colors.blue100}
                   borderRadius={20}
                   fontSize={20}
@@ -104,6 +116,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     width: '100%',
+    paddingVertical: '2%',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -127,12 +140,25 @@ const styles = StyleSheet.create({
   },
   noSurveysContainer: {
     height: '100%',
+    padding: '3%',
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },
   noSurveysText: {
     color: colors.blue200,
     fontSize: 26,
+    fontFamily: fonts.bold,
+    textAlign: 'center',
+  },
+  dailySurveyCompletedText: {
+    fontSize: 24,
+    fontFamily: fonts.bold,
+    color: colors.blue200,
+    textAlign: 'center',
+  },
+  remainingVersionsText: {
+    color: colors.blue700a70,
+    fontSize: 22,
     fontFamily: fonts.bold,
     textAlign: 'center',
   },

@@ -10,6 +10,7 @@ import { FontAwesome6 } from '@expo/vector-icons';
 
 // Components
 import Button from './Button';
+import CircularProgress from 'react-native-circular-progress-indicator';
 
 // Message Configuration
 import messageData from '../config/messageConfig';
@@ -17,10 +18,13 @@ import messageData from '../config/messageConfig';
 // Navigation
 import { useNavigation } from '@react-navigation/native';
 
+// Window Height
+import { HEIGHT } from '../constants/dimensions';
+
 // Message Controller
 import { useMessageController } from '../controllers/messageController';
 
-export default function Message({ category, surveyCompleted }) {
+export default function Message({ category, dailySurveyCompleted, remainingVersions }) {
   const { userMessage, loading } = useMessageController(category);
   const navigation = useNavigation();
 
@@ -32,14 +36,16 @@ export default function Message({ category, surveyCompleted }) {
     );
   }
 
-  if (!userMessage) {
+  const circularProgressValue = (100 * (3 - remainingVersions)) / 3;
+
+  if (!userMessage && !dailySurveyCompleted) {
     return (
       <View style={styles.errorContainer}>
         <Text style={styles.errorText}>No message available</Text>
         <Button
           buttonColor={colors.blue400}
           padding={16}
-          text="Complete a survey"
+          text="Complete today's survey"
           color={colors.blue100}
           borderRadius={20}
           fontSize={20}
@@ -48,13 +54,32 @@ export default function Message({ category, surveyCompleted }) {
         />
       </View>
     );
-  } else if (userMessage && surveyCompleted) {
-    <View style={styles.errorContainer}>
-      <Text style={styles.errorText}>
-        Today's survey completed!{'\n'}
-        Need more to get a message.
-      </Text>
-    </View>;
+  } else if (!userMessage && dailySurveyCompleted) {
+    return (
+      <View style={styles.completionContainer}>
+        <View style={styles.completion}>
+          <Text style={styles.completionText}>Questionnaire {'\n'} Completion</Text>
+        </View>
+        <View style={styles.completion}>
+          <CircularProgress
+            value={circularProgressValue}
+            radius={HEIGHT / 11}
+            maxValue={100}
+            progressValueColor={colors.blue700a70}
+            progressValueStyle={{ fontFamily: fonts.medium }}
+            progressValueFontSize={HEIGHT / 22}
+            activeStrokeColor={colors.blue400}
+            inActiveStrokeColor={colors.blue700a70}
+            inActiveStrokeWidth={35}
+            activeStrokeWidth={20}
+            valueSuffix={'%'}
+            duration={500}
+            strokeLinecap="butt"
+            allowFontScaling={true}
+          />
+        </View>
+      </View>
+    );
   } else {
     const { text, author, type } = userMessage;
     const randomIndex = Math.floor(Math.random() * messageData.categories[category].length);
@@ -173,6 +198,26 @@ const styles = StyleSheet.create({
     color: colors.blue200a70,
     fontSize: 22,
     fontFamily: fonts.bold,
+    textAlign: 'center',
+  },
+  completionContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.blue500a50,
+    borderRadius: 20,
+    overflow: 'hidden',
+  },
+  completion: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  completionText: {
+    fontSize: 24,
+    fontFamily: fonts.bold,
+    color: colors.blue700,
     textAlign: 'center',
   },
 });
