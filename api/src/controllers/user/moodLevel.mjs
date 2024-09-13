@@ -37,6 +37,8 @@ async function findUserMoodLevel(req, res) {
 
       const moodType = latestWelcomeMood.welcome_mood_id?.type;
 
+      console.log(latestSurveyScore, moodType);
+
       // Check if moodType is valid
       if (!moodType) {
         return res.status(404).json({
@@ -49,12 +51,12 @@ async function findUserMoodLevel(req, res) {
       const totalScore = adjustScoreBasedOnMood(latestSurveyScore, moodType);
 
       // Determine the mood level based on the total score
-      if (totalScore >= 1 && totalScore <= 8) {
-        moodLevel = "bad";
+      if (totalScore >= 0 && totalScore <= 8) {
+        moodLevel = "good";
       } else if (totalScore >= 9 && totalScore <= 17) {
         moodLevel = "mid";
       } else if (totalScore >= 18 && totalScore <= 26) {
-        moodLevel = "good";
+        moodLevel = "bad";
       } else {
         moodLevel = "undefined";
       }

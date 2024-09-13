@@ -125,8 +125,8 @@ async function assignDefaultWelcomeMood() {
 
 // Schedule job to run every day to check survey readiness and schedule surveys
 function scheduleCreateDailySurvey() {
-  // This will run at a fixed time every day, e.g., 0:01 AM, but adjusted to 21:01 (24 - 3 hours) because of time difference
-  schedule.scheduleJob({ hour: 21, minute: 1 }, async () => {
+  // This will run at a fixed time every day, e.g., 4:00 AM, but adjusted to 1:00 (4 - 1 hours) because of time difference
+  schedule.scheduleJob({ hour: 1, minute: 0 }, async () => {
     const now = adjustToGreeceTime(new Date());
     console.log(
       `Running daily survey scheduling task at ${now.toISOString()}.`
