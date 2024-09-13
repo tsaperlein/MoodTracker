@@ -179,7 +179,7 @@ async function resetPassword(req, res) {
 }
 
 async function sendPasswordResetEmail(email, token) {
-  const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
+  const resetLink = `${process.env.FRONTEND_URL}/reset-password/${token}`;
 
   const transporter = nodemailer.createTransport({
     service: "Gmail",
