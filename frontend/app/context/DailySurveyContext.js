@@ -11,6 +11,9 @@ export const useDailySurvey = () => useContext(DailySurveyContext);
 // Authorization Services
 import { useAuth } from 'context/AuthContext';
 
+// Utilities
+import { adjustToGreeceTime, areSameDay } from '../utilities/datetime';
+
 export const DailySurveyProvider = ({ children }) => {
   const { authData } = useAuth();
   const [dailySurveyCompleted, setDailySurveyCompleted] = useState(false);
@@ -31,12 +34,21 @@ export const DailySurveyProvider = ({ children }) => {
 
       const { finished } = await isSurveyFinished(latestSurvey.id);
 
-      if (typeof finished !== 'boolean' || !finished) {
+      if (typeof finished !== 'boolean' || !finished || !completionDate) {
         setDailySurveyCompleted(false);
         return;
       }
 
-      setDailySurveyCompleted(finished);
+      // Adjust the completion date to Greece time
+      const completionDate = latestSurvey.completion_time.getUTCDate();
+      const today = adjustToGreeceTime(new Date());
+
+      // Check if the completion date and today are the same day
+      if (areSameDay(completionDate, today)) {
+        setDailySurveyCompleted(true);
+      } else {
+        setDailySurveyCompleted(false);
+      }
     } catch (error) {
       console.error('An error occurred while checking the survey status:', error);
       setDailySurveyCompleted(false);

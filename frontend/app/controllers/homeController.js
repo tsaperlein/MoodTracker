@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 // Authorization Services
 import { useAuth } from 'context/AuthContext';
 // Daily Survey Services
-import { useDailySurvey } from '../context/DailySurveyContext';
+import { useDailySurvey } from 'context/DailySurveyContext';
 
 // Mood Level Services
 import { fetchUserMoodLevel } from 'services/moodLevel';
@@ -15,7 +15,7 @@ export const useHomeController = () => {
   const [moodLevel, setMoodLevel] = useState(null);
   const [remainingVersions, setRemainingVersions] = useState(null);
 
-  const { dailySurveyCompleted } = useDailySurvey;
+  const { dailySurveyCompleted } = useDailySurvey();
 
   useEffect(() => {
     async function getMoodLevel() {
@@ -44,7 +44,6 @@ export const useHomeController = () => {
 
   return {
     moodLevel,
-    dailySurveyCompleted,
     remainingVersions,
   };
 };

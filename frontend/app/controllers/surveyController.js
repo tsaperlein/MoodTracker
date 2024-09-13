@@ -148,8 +148,8 @@ export function useSurveyController(authData, mode, survey_id = null) {
     }, {});
 
     const submitResult = await updateSurveyAnswers(authData.id, surveyId, filteredAnswers);
+    setDailySurveyCompleted(true);
     if (submitResult.success) {
-      setDailySurveyCompleted(true);
       navigation.navigate('Completion');
     } else {
       console.error(submitResult.message);

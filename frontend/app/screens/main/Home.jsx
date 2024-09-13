@@ -16,12 +16,17 @@ import Message from '../../components/Message';
 import EmotionLegend from '../../components/EmotionLegend';
 import Button from '../../components/Button';
 
+// Daily Survey Services
+import { useDailySurvey } from 'context/DailySurveyContext';
+
 // Controllers
 import { useGraphData } from '../../controllers/graphController';
 import { useHomeController } from '../../controllers/homeController';
 
 export default function Home({ navigation }) {
-  const { moodLevel, dailySurveyCompleted, remainingVersions } = useHomeController();
+  const { dailySurveyCompleted } = useDailySurvey();
+
+  const { moodLevel, remainingVersions } = useHomeController();
   const { data, loading } = useGraphData({ screen: 'Home' });
 
   const informationText =
@@ -140,7 +145,7 @@ const styles = StyleSheet.create({
   },
   noSurveysContainer: {
     height: '100%',
-    padding: '3%',
+    paddingHorizontal: '5%',
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },

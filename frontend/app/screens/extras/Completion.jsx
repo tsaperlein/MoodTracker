@@ -9,9 +9,15 @@ import fonts from '../../constants/fonts';
 // Animations Screens
 import LottieView from 'lottie-react-native';
 
+// Daily Survey Services
+import { useDailySurvey } from 'context/DailySurveyContext';
+
 export default function CompletionAnimation({ navigation }) {
+  const { setDailySurveyCompleted } = useDailySurvey();
+
   useEffect(() => {
     const timer = setTimeout(() => {
+      setDailySurveyCompleted(true);
       navigation.navigate('Questionnaires');
     }, 2000);
 

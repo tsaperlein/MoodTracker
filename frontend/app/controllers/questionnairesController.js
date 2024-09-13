@@ -1,8 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Animated } from 'react-native';
 
-// Authorization services
+// Authorization Services
 import { useAuth } from 'context/AuthContext';
+// Daily Survey Services
+import { useDailySurvey } from 'context/DailySurveyContext';
+
 // Survey Services
 import { fetchPreviousSurveys } from 'services/survey';
 
@@ -11,6 +14,7 @@ import { HEIGHT } from '../constants/dimensions';
 
 export default function useQuestionnairesController() {
   const { authData } = useAuth();
+  const { dailySurveyCompleted } = useDailySurvey();
 
   const scrollY = useState(new Animated.Value(0))[0];
   const [surveys, setSurveys] = useState([]);
@@ -48,11 +52,11 @@ export default function useQuestionnairesController() {
 
   const onRefresh = useCallback(async () => {
     await fetchAndSetSurveys();
-  }, [authData]);
+  }, [authData, dailySurveyCompleted]);
 
   useEffect(() => {
     fetchAndSetSurveys();
-  }, [authData]);
+  }, [authData, dailySurveyCompleted]);
 
   // Determine the output range based on the screen height
   const outputRange = HEIGHT < 800 ? ['30%', '15%'] : ['25%', '10%'];
