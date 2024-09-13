@@ -1,8 +1,8 @@
-import { useState, useEffect, useContext, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Animated } from 'react-native';
 
 // Authorization services
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 // Survey Services
 import { fetchPreviousSurveys } from 'services/survey';
 
@@ -10,7 +10,7 @@ import { fetchPreviousSurveys } from 'services/survey';
 import { HEIGHT } from '../constants/dimensions';
 
 export default function useQuestionnairesController() {
-  const { authData } = useContext(AuthContext);
+  const { authData } = useAuth();
 
   const scrollY = useState(new Animated.Value(0))[0];
   const [surveys, setSurveys] = useState([]);
@@ -19,6 +19,7 @@ export default function useQuestionnairesController() {
 
   const fetchAndSetSurveys = async () => {
     try {
+      setRefreshing(true);
       setLoading(true);
       const result = await fetchPreviousSurveys(authData.id);
 
@@ -40,19 +41,18 @@ export default function useQuestionnairesController() {
     } catch (error) {
       console.error('Failed to fetch surveys:', error);
     } finally {
+      setRefreshing(false);
       setLoading(false);
     }
   };
 
   const onRefresh = useCallback(async () => {
-    setRefreshing(true);
     await fetchAndSetSurveys();
-    setRefreshing(false);
   }, [authData]);
 
   useEffect(() => {
     fetchAndSetSurveys();
-  }, [authData, setSurveys]);
+  }, [authData]);
 
   // Determine the output range based on the screen height
   const outputRange = HEIGHT < 800 ? ['30%', '15%'] : ['25%', '10%'];
@@ -91,7 +91,7 @@ export default function useQuestionnairesController() {
     }
 
     let formattedDate = date.toLocaleDateString('en-US', options);
-    const day = date.getDate();
+    const day = date.getUTCDate();
 
     if (!omitSuffix) {
       let daySuffix;
@@ -182,15 +182,15 @@ export default function useQuestionnairesController() {
     const startDate = dates[0];
     const endDate = dates[dates.length - 1];
 
-    const startMonth = monthNames[startDate.getMonth()];
-    const endMonth = monthNames[endDate.getMonth()];
+    const startMonth = monthNames[startDate.getUTCMonth()];
+    const endMonth = monthNames[endDate.getUTCMonth()];
 
     // Check if the number of unique dates in the group is 1 or 2
     if (dates.length === 1 || dates.length === 2) {
       return `${startMonth} ${formatDate(startDate.toISOString(), false)} - ...`;
     }
 
-    if (startDate.getMonth() === endDate.getMonth()) {
+    if (startDate.getUTCMonth() === endDate.getUTCMonth()) {
       return `${startMonth} ${formatDate(startDate.toISOString(), false)} - ${formatDate(endDate.toISOString(), false)}`;
     } else {
       return `${startMonth} ${formatDate(startDate.toISOString(), false)} - ${endMonth} ${formatDate(endDate.toISOString(), false)}`;

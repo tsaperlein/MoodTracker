@@ -8,6 +8,7 @@ import {
   Animated,
   ActivityIndicator,
   RefreshControl,
+  Platform,
 } from 'react-native';
 
 // Colors
@@ -43,6 +44,14 @@ export default function Questionnaires({ navigation }) {
     onRefresh,
   } = useQuestionnairesController();
 
+  const CustomRefreshControl = ({ refreshing, onRefresh }) => {
+    return Platform.OS === 'ios' ? (
+      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={'transparent'} />
+    ) : (
+      <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['transparent']} />
+    );
+  };
+
   return (
     <ScreenLayout footer={true}>
       <View style={styles.container}>
@@ -77,13 +86,14 @@ export default function Questionnaires({ navigation }) {
             <ActivityIndicator size="large" color={colors.blue900} />
           </View>
         ) : surveys.length === 0 ? (
-          <View style={styles.noSurveysContainer}>
+          <View style={styles.noSurveysView}>
             <Text style={styles.noSurveysText}>No previous surveys</Text>
           </View>
         ) : (
           <Animated.ScrollView
             style={{ flex: 1, width: '100%' }}
-            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+            contentContainerStyle={{ flexGrow: 1 }}
+            refreshControl={<CustomRefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
             onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
               useNativeDriver: false,
             })}
@@ -157,6 +167,12 @@ const styles = StyleSheet.create({
   },
   noSurveysContainer: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noSurveysView: {
+    flex: 1,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -1,19 +1,21 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 
 // Authorization Services
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
+// Daily Survey Services
+import { useDailySurvey } from '../context/DailySurveyContext';
+
 // Mood Level Services
 import { fetchUserMoodLevel } from 'services/moodLevel';
-// Answer Services
-import { isSurveyFinished } from 'services/answer';
 // Survey Services
-import { fetchLatestSurvey } from '../services/survey';
+import { fetchRemainingVersions } from 'services/survey';
 
 export const useHomeController = () => {
-  const { authData } = useContext(AuthContext);
+  const { authData } = useAuth();
   const [moodLevel, setMoodLevel] = useState(null);
-  const [latestSurveyId, setLatestSurveyId] = useState(null);
-  const [surveyCompleted, setSurveyCompleted] = useState(false);
+  const [remainingVersions, setRemainingVersions] = useState(null);
+
+  const { dailySurveyCompleted } = useDailySurvey;
 
   useEffect(() => {
     async function getMoodLevel() {
@@ -25,33 +27,24 @@ export const useHomeController = () => {
       }
     }
 
-    // Fetch the latest survey and check if it is completed
-    async function checkLatestSurvey() {
-      const latestSurveyResult = await fetchLatestSurvey(authData.id);
+    async function getRemainingVersions() {
+      try {
+        const { remainingVersions } = await fetchRemainingVersions(authData.id);
 
-      if (latestSurveyResult.success) {
-        const { surveyId } = latestSurveyResult;
-        setLatestSurveyId(surveyId);
-
-        // Now check if the latest survey is finished
-        const surveyStatusResult = await isSurveyFinished(surveyId);
-        if (surveyStatusResult.success) {
-          setSurveyCompleted(surveyStatusResult.finished);
-        } else {
-          console.error(surveyStatusResult.message);
-        }
-      } else {
-        console.error(latestSurveyResult.message);
+        setRemainingVersions(remainingVersions);
+      } catch (error) {
+        console.error('An error occurred while fetching the remaining versions:', error);
+        setRemainingVersions(null);
       }
     }
 
     getMoodLevel();
-    checkLatestSurvey();
-  }, [authData]);
+    getRemainingVersions();
+  }, [authData, dailySurveyCompleted]);
 
   return {
     moodLevel,
-    latestSurveyId,
-    surveyCompleted,
+    dailySurveyCompleted,
+    remainingVersions,
   };
 };

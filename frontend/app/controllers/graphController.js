@@ -1,13 +1,18 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 
 // Authorization Services
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
+// Daily Survey Services
+import { useDailySurvey } from 'context/DailySurveyContext';
+
 // Answer Services
 import { fetchLatestWeekSurveyScore, fetchAllWeeksSurveyScore } from 'services/score';
 
 // Utility to fetch and process survey data
 export const useGraphData = ({ screen }) => {
-  const { authData } = useContext(AuthContext);
+  const { authData } = useAuth();
+  const { dailySurveyCompleted } = useDailySurvey();
+
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -57,7 +62,7 @@ export const useGraphData = ({ screen }) => {
     }
 
     fetchData();
-  }, [authData.id]);
+  }, [authData.id, dailySurveyCompleted]);
 
   return { data, loading };
 };

@@ -80,7 +80,7 @@ export default function MainNavigator() {
       <MaterialIcons name="arrow-back-ios-new" size={30} color={colors.blue300} />
     ),
     headerRight: () => (
-      <TouchableOpacity onPress={handleSaveChanges.current} disabled={!isChanged}>
+      <TouchableOpacity onPress={handleSaveChanges} disabled={!isChanged}>
         <Text style={[styles.doneButton, !isChanged && styles.disabledButton]}>Done</Text>
       </TouchableOpacity>
     ),
