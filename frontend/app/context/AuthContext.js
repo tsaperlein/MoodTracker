@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 
 // Async Storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,6 +15,7 @@ import Connecting from '../screens/extras/Connecting';
 import { handleSignIn, handleSignUp } from 'services/auth';
 
 export const AuthContext = createContext();
+export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [authData, setAuthData] = useState(null);
@@ -65,7 +66,6 @@ export const AuthProvider = ({ children }) => {
       alert('Must use a physical device for Push Notifications');
     }
 
-    console.log(token);
     return token;
   };
 

@@ -4,14 +4,16 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 import { fetchLatestWelcomeMood } from 'services/welcomeMood';
 
 // Authorization Services
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'context/AuthContext';
 
+// Utilities
 import { adjustToGreeceTime, areSameDay } from '../utilities/datetime';
 
 export const MoodContext = createContext();
+export const useMood = () => useContext(MoodContext);
 
 export const MoodProvider = ({ children }) => {
-  const { authData } = useContext(AuthContext);
+  const { authData } = useAuth();
   const [loading, setLoading] = useState(true);
   const [hasChosenMood, setHasChosenMood] = useState(false);
 
