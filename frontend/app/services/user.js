@@ -136,8 +136,6 @@ export async function fetchUserAvatar(userId) {
     if (data.success && data.imageUrl) {
       return data.imageUrl;
     } else if (data.message === 'User Image not found') {
-      // Handle the case where the image is not found gracefully
-      console.log('No user image found.');
       return null;
     } else {
       throw new Error(`Failed to fetch user avatar: ${data.message || 'Unknown error'}`);
