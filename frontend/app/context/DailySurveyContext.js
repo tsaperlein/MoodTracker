@@ -34,13 +34,30 @@ export const DailySurveyProvider = ({ children }) => {
 
       const { finished } = await isSurveyFinished(latestSurvey.id);
 
-      if (typeof finished !== 'boolean' || !finished || !completionDate) {
+      console.log(finished);
+
+      if (typeof finished !== 'boolean' || !finished) {
+        setDailySurveyCompleted(false);
+        return;
+      }
+
+      // Ensure completionTime exists and is a valid Date
+      if (!latestSurvey.completionTime) {
+        console.error('completionTime is missing in the latest survey.');
+        setDailySurveyCompleted(false);
+        return;
+      }
+
+      const completionDate = new Date(latestSurvey.completionTime);
+
+      // Check if the conversion to a date was successful
+      if (isNaN(completionDate.getTime())) {
+        console.error('Invalid completionTime in the latest survey.');
         setDailySurveyCompleted(false);
         return;
       }
 
       // Adjust the completion date to Greece time
-      const completionDate = latestSurvey.completion_time.getUTCDate();
       const today = adjustToGreeceTime(new Date());
 
       // Check if the completion date and today are the same day
