@@ -34,7 +34,7 @@ export default function SignIn({ navigation, showMessage }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { signIn } = useAuth()
+  const { signIn } = useAuth();
 
   const ref_input = useRef();
 

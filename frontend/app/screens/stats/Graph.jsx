@@ -30,7 +30,7 @@ export default function Graph() {
 
   return (
     <View style={styles.container}>
-      <InformationLabel text="All surveys" />
+      <InformationLabel text="All Questionnaires" />
       <View style={styles.contentContainer}>
         {loading ? (
           <View style={styles.loadingContainer}>
