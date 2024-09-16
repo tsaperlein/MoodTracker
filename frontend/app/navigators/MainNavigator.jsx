@@ -1,5 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, LogBox } from 'react-native';
+LogBox.ignoreLogs([
+  'Warning: Cannot update a component (`MoodBarChart`) while rendering a different component (`Animated2DWithGradient`)',
+]);
 
 // Colors
 import colors from '../constants/colors';
