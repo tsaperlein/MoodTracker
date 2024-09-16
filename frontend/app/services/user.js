@@ -3,7 +3,7 @@ import { PRIVATE_API_URL } from '@env';
 import * as FileSystem from 'expo-file-system';
 
 export async function updateUserInfo(userId, { first_name, last_name, email }) {
-  console.log();
+  console.log('Updating the information of the user ...');
   try {
     const response = await fetch(`${PRIVATE_API_URL}/users/${userId}`, {
       method: 'PUT',
@@ -31,6 +31,7 @@ export async function updateUserInfo(userId, { first_name, last_name, email }) {
 }
 
 export async function updateUserImage(userId, imageUri) {
+  console.log('Updating the image of the user ...');
   try {
     // Read the image file as a base64 string, without any prefix
     const base64Image = await FileSystem.readAsStringAsync(imageUri, {
@@ -75,6 +76,7 @@ export async function updateUserImage(userId, imageUri) {
 }
 
 export async function deleteUserImage(userId) {
+  console.log('Deleting the image of the user ...');
   try {
     const response = await fetch(`${PRIVATE_API_URL}/users/${userId}/delete-image`, {
       method: 'DELETE',
@@ -98,6 +100,7 @@ export async function deleteUserImage(userId) {
 }
 
 export async function checkIfEmailExists(email) {
+  console.log('Checking if the email exists ...');
   try {
     const response = await fetch(`${PRIVATE_API_URL}/users/email/${email}`, {
       method: 'GET',
@@ -119,6 +122,7 @@ export async function checkIfEmailExists(email) {
 }
 
 export async function fetchUserAvatar(userId) {
+  console.log('Fetching the image of the user ...');
   try {
     const response = await fetch(`${PRIVATE_API_URL}/users/${userId}/image`, {
       method: 'GET',
