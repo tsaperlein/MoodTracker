@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
+StatusBar.setBarStyle('light-content', true);
 import * as Linking from 'expo-linking';
 
 // Screens
