@@ -23,7 +23,6 @@ export const DailySurveyProvider = ({ children }) => {
   // Function to check the survey status
   const checkDailySurvey = async () => {
     if (!authData || !authData.id) {
-      console.log('No authData or ID found');
       setDailySurveyCompleted(false);
       setLoading(false);
       return;
@@ -79,7 +78,6 @@ export const DailySurveyProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log('authData in useEffect:', authData);
     checkDailySurvey();
   }, [authData]);
 

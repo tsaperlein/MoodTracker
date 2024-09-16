@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import { Text } from 'react-native';
 
 // Components
 import { showMessage } from 'react-native-flash-message';
@@ -47,6 +48,9 @@ export const ProfileProvider = ({ children }) => {
         email: authData.email || '',
       });
       setLoading(false); // Stop loading once the data is populated
+    } else {
+      // Handle the case when authData is not available
+      setLoading(false); // Stop loading even if authData is not available
     }
   }, [authData]);
 
@@ -71,6 +75,15 @@ export const ProfileProvider = ({ children }) => {
       showMessage({
         message: 'Invalid Email',
         description: 'Please enter a valid email address before saving.',
+        type: 'danger',
+      });
+      return;
+    }
+
+    if (!authData) {
+      showMessage({
+        message: 'Error',
+        description: 'User is not authenticated.',
         type: 'danger',
       });
       return;
@@ -106,11 +119,6 @@ export const ProfileProvider = ({ children }) => {
       console.error('Error updating user information:', result.message);
     }
   };
-
-  // Ensure the content is rendered only when authData is loaded
-  if (loading) {
-    return null; // Or render a loading spinner here
-  }
 
   return (
     <ProfileContext.Provider
