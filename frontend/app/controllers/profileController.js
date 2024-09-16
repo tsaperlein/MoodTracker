@@ -104,8 +104,8 @@ export default function useProfileController() {
 
     const fetchParticipation = async () => {
       try {
-        const participationPercentage = await fetchUserParticipation(authData.id);
-        setParticipation(participationPercentage); // Store the fetched participation percentage
+        const { participation } = await fetchUserParticipation(authData.id);
+        setParticipation(participation); // Store the fetched participation percentage
       } catch (error) {
         console.error('Error fetching participation:', error);
         setParticipation(null); // Handle error by setting participation to null or a default value
