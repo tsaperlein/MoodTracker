@@ -13,7 +13,7 @@ export async function fetchUserParticipation(userId) {
     const data = await response.json();
 
     if (response.ok) {
-      return data.participation;
+      return { success: true, participation: data.participation };
     } else {
       return { success: false, message: data.message || 'Failed to fetch participation data' };
     }

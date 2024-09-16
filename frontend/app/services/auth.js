@@ -1,6 +1,7 @@
 import { PRIVATE_API_URL } from '@env';
 
 export async function handleSignIn(email, password) {
+  console.log(`${PRIVATE_API_URL}/auth/signin`);
   console.log('connected');
   try {
     const response = await fetch(`${PRIVATE_API_URL}/auth/signin`, {

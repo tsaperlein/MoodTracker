@@ -19,7 +19,7 @@ async function fetchLatestSurvey(userId) {
         surveyId: data.surveyId,
         version: data.version,
         postedAt: data.postedAt,
-        completionTime: data.completion_time,
+        completionTime: data.completionTime,
       };
     } else {
       return { success: false, message: data.message || 'Failed to fetch latest survey' };
@@ -49,7 +49,7 @@ async function fetchSurvey(userId, surveyId) {
         surveyId: data.surveyId,
         version: data.version,
         postedAt: data.postedAt,
-        completionTime: data.completion_time,
+        completionTime: data.completionTime,
       };
     } else {
       return { success: false, message: data.message || 'Failed to fetch latest survey' };
