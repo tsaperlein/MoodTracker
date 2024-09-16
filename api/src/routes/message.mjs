@@ -1,11 +1,13 @@
 // ROUTES - Message
 
 import express from "express";
-import { getMessageByLevel } from "../controllers/message.mjs";
 
 const router = express.Router();
 
-// User routes
+// Message Functions
+import { getMessageByLevel } from "../controllers/message.mjs";
+
+// Message Routes
 router.get("/message/:level", getMessageByLevel);
 
 export default router;

@@ -1,37 +1,25 @@
-// CONTROLLER - Message
+// CONTROLLERS - Message
 
 import dotenv from "dotenv";
 dotenv.config();
 
-import { getXataClient } from "../xata.mjs";
-const client = getXataClient();
+import { fetchRandomMessageByLevel } from "../services/message.mjs";
 
-// GET RANDOM MESSAGE BY LEVEL
-async function getMessageByLevel(req, res) {
+// Controller to get a random message by level
+export async function getMessageByLevel(req, res) {
   const { level } = req.params;
 
   try {
-    // Fetch messages by level
-    const messages = await client.db.Message.filter({ level }).getMany();
+    // Call the service function to fetch a random message by level
+    const responseMessage = await fetchRandomMessageByLevel(level);
 
-    if (messages.length === 0) {
+    if (responseMessage) {
+      return res.json(responseMessage);
+    } else {
       return res
         .status(404)
         .json({ message: "No messages found for this level" });
     }
-
-    // Shuffle messages and select a random one
-    const randomMessage = messages.sort(() => 0.5 - Math.random())[0];
-
-    // Prepare the response object
-    const responseMessage = {
-      author: randomMessage.author,
-      text: randomMessage.text,
-      level: randomMessage.level,
-      type: randomMessage.type,
-    };
-
-    return res.json(responseMessage);
   } catch (error) {
     console.error("Error:", error);
     return res
@@ -39,5 +27,3 @@ async function getMessageByLevel(req, res) {
       .json({ message: "Error retrieving messages", error });
   }
 }
-
-export { getMessageByLevel };

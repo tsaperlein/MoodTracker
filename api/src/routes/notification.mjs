@@ -1,11 +1,13 @@
-// ROUTES - Notifications
+// ROUTES - Notification
 
 import express from "express";
-import { sendNotificationToUser } from "../controllers/notification.mjs";
 
 const router = express.Router();
 
-// User routes
+// Notification Functions
+import { sendNotificationToUser } from "../controllers/notification.mjs";
+
+// Notification Routes
 router.post("/users/:user_id/send-notification", sendNotificationToUser);
 
 export default router;
