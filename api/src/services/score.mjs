@@ -60,7 +60,7 @@ export async function calculateSurveyScore(user_id, survey_id) {
     const surveyVersions = new Set(surveys.map((survey) => survey.version));
 
     if (requiredVersions.some((version) => !surveyVersions.has(version))) {
-      // If not all required versions exist, return without doing anything
+      throw new Error("No required survey versions");
       return;
     }
 
@@ -72,7 +72,7 @@ export async function calculateSurveyScore(user_id, survey_id) {
       const { finished } = await checkSurveyCompletionStatus(survey.id);
 
       if (!finished) {
-        // If any version is not finished, exit early
+        throw new Error("Not all versions are finished");
         return;
       }
 
