@@ -51,11 +51,9 @@ export const useGraphData = ({ screen }) => {
           });
 
           setData(chartData);
-        } else {
-          console.error('Error fetching data:', response.message);
         }
       } catch (error) {
-        console.error('An error occurred while fetching survey scores:', error);
+        console.log('An error occurred while fetching survey scores:', error);
       } finally {
         setLoading(false);
       }
