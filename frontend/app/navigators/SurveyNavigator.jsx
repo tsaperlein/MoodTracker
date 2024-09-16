@@ -61,7 +61,9 @@ export default function SurveyNavigator({ route, navigation }) {
         headerRight: () =>
           mode === 'past' && (
             <View style={styles.scoreContainer}>
-              <Text style={styles.scoreText}>{`${surveyScore} points`}</Text>
+              <Text style={styles.scoreText}>
+                {surveyScore === 1 ? '1 point' : `${surveyScore} points`}
+              </Text>
             </View>
           ),
       }}
