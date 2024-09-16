@@ -19,13 +19,14 @@ export default function DailyMood({ mood = 'nothing', datetime = null }) {
   const {
     icon,
     general: { color, backgroundColor },
-  } = moodConfig[mood];
+  } = moodConfig[mood] || moodConfig['nothing']; // Fallback to 'nothing' if mood not found
 
   // Convert the datetime to a Date object
   const date = datetime ? new Date(datetime) : new Date();
 
   // Get the day of the week and day of the month
-  const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'short' });
+  const options = { weekday: 'short', timeZone: 'UTC' };
+  const dayOfWeek = date.toLocaleDateString('en-US', options);
   const dayOfMonth = date.getUTCDate();
 
   return (
