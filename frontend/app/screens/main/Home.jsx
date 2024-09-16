@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 
 // Colors
@@ -26,7 +26,7 @@ import { useHomeController } from '../../controllers/homeController';
 export default function Home({ navigation }) {
   const { dailySurveyCompleted } = useDailySurvey();
 
-  const { moodLevel, remainingVersions } = useHomeController();
+  const { remainingVersions } = useHomeController();
   const { data, loading } = useGraphData({ screen: 'Home' });
 
   const informationText =
@@ -37,7 +37,6 @@ export default function Home({ navigation }) {
       <ScrollView contentContainerStyle={styles.container} scrollEnabled={false}>
         <View style={[styles.content, { paddingHorizontal: '5%' }]}>
           <Message
-            category={moodLevel}
             dailySurveyCompleted={dailySurveyCompleted}
             remainingVersions={remainingVersions}
           />

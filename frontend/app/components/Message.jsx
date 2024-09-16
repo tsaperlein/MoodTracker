@@ -24,8 +24,9 @@ import { HEIGHT } from '../constants/dimensions';
 // Message Controller
 import { useMessageController } from '../controllers/messageController';
 
-export default function Message({ category, dailySurveyCompleted, remainingVersions }) {
-  const { userMessage, loading } = useMessageController(category);
+export default function Message({ dailySurveyCompleted, remainingVersions }) {
+  const { moodLevel, userMessage, loading } = useMessageController(dailySurveyCompleted);
+
   const navigation = useNavigation();
 
   if (loading) {
@@ -82,9 +83,9 @@ export default function Message({ category, dailySurveyCompleted, remainingVersi
     );
   } else {
     const { text, author, type } = userMessage;
-    const randomIndex = Math.floor(Math.random() * messageData.categories[category].length);
+    const randomIndex = Math.floor(Math.random() * messageData.categories[moodLevel].length);
     const { image, headerColor, messageIconColor, messageTextColor } =
-      messageData.categories[category][randomIndex];
+      messageData.categories[moodLevel][randomIndex];
 
     const headerTitle = type === 'advice' ? 'Advice' : 'Quote of the Day';
 
