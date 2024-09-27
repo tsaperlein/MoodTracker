@@ -1,5 +1,3 @@
-// SERVICES - Participation
-
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -39,12 +37,21 @@ export async function calculateParticipation(user_id) {
       const postedDate = new Date(posted_at);
       const completionDate = new Date(completion_time);
 
+      // Ensure that completionDate is after postedDate
+      if (completionDate <= postedDate) {
+        // Skip this survey if the completion date is invalid
+        continue;
+      }
+
       // Calculate the number of days difference between posting and completion date
       const timeDifference = completionDate - postedDate;
       const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
 
+      // If daysDifference is zero, assign a minimum value of 1 day to avoid division by zero
+      const adjustedDaysDifference = daysDifference > 0 ? daysDifference : 1;
+
       // Calculate the participation score based on time taken to complete the survey
-      let participationScore = 1 / (daysDifference + 1);
+      let participationScore = 1 / (adjustedDaysDifference + 1);
       totalParticipationScore += participationScore;
     }
 
