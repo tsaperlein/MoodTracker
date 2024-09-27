@@ -25,7 +25,7 @@ export default function MoodBarChart({ data }) {
     <BarChart
       height={barChartHeight}
       minHeight={2}
-      maxValue={26}
+      maxValue={28}
       data={data}
       yAxisThickness={0}
       xAxisThickness={0}
@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     borderRadius: 20,
-    paddingTop: '20%',
   },
   text: {
     color: colors.black,

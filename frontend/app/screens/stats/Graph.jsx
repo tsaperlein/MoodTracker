@@ -38,10 +38,10 @@ export default function Graph() {
           </View>
         ) : data && data.length > 0 ? (
           <View style={{ flex: 1, width: '100%' }}>
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, justifyContent: 'flex-end' }}>
               <MoodBarChart data={data} />
             </View>
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, paddingTop: '5%' }}>
               <MoodPieChart data={data} />
               <EmotionLegend />
             </View>
