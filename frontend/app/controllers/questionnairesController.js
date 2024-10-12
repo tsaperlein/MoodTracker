@@ -63,25 +63,25 @@ export default function useQuestionnairesController() {
 
   // Assuming scrollY is an Animated.Value, create the height interpolation
   const height = scrollY.interpolate({
-    inputRange: [0, 100],
+    inputRange: [0, 200],
     outputRange: outputRange,
     extrapolate: 'clamp',
   });
 
   const marginBottom = scrollY.interpolate({
-    inputRange: [0, 50],
+    inputRange: [0, 100],
     outputRange: ['3%', '0%'],
     extrapolate: 'clamp',
   });
 
   const width = scrollY.interpolate({
-    inputRange: [0, 50],
+    inputRange: [0, 100],
     outputRange: ['90%', '100%'],
     extrapolate: 'clamp',
   });
 
   const borderRadius = scrollY.interpolate({
-    inputRange: [0, 50],
+    inputRange: [0, 100],
     outputRange: [40, 0],
     extrapolate: 'clamp',
   });
