@@ -24,3 +24,4 @@ MT-Company/.DS_Store
 *.tar
 Reports/main.pyg
 Interviews.md
+*.aux
