@@ -1,0 +1,652 @@
+\chapter{Analysis}
+
+In this chapter, we conduct a comprehensive analysis to lay the groundwork for designing and developing the Mood Tracker application. Our focus is on understanding user needs and defining the application’s features through established methodologies and models. We begin by applying the PACT Model (People, Activities, Context, Technology), which provides a structured framework for understanding the diverse needs and expectations of our primary users—university students. Following this, we introduce personas and scenarios to create a realistic representation of the users and their interactions with the application.\vspace{5mm} \\
+Additionally, we identify and prioritize the functional and non-functional requirements to ensure the app meets its intended purpose effectively. To support mood tracking and emotional well-being assessment, we evaluate various validated scales to select the most suitable one for our target audience. We then define the core functionalities of the application, including the survey design, daily mood tracking, and the personalized feedback system, ensuring the app provides an engaging and supportive experience for students. This structured approach helps ensure that the development of the application is both user-centered and aligned with the project’s objectives, ultimately leading to a solution that effectively addresses the mental health challenges faced by university students.
+
+\section{PACT Model}
+
+To achieve the goal set in the first chapter of this thesis—to develop a comprehensive application that supports students in managing their mood and overall well-being—we employed the PACT Model as a foundational framework. The PACT Model (People, Activities, Context, Technology), developed by Benyon, Turner, and Turner (2005) \cite{pact-model}, is a framework that helps designers create applications with a deep understanding of user needs and environments. It ensures that the app is created with a deep understanding of its users and the environment in which it operates. By focusing on these four critical areas, the PACT Model allows us to develop an application that aligns with user expectations and enhances their overall experience.
+
+\subsection{People}
+
+This component identifies the users of the application, taking into account their diverse characteristics, needs, preferences, and behaviors. The primary users are university students, each with varying levels of technological expertise, emotional states, and unique mental health needs. Key considerations for this user base include:
+
+\begin{itemize}
+    \item \textbf{Physical Differences}: Although not a primary factor for this app, students may have varying physical abilities, such as visual impairments, that need to be considered. The app should cater to different body sizes and abilities, ensuring it is usable for students regardless of their physical attributes by offering accessibility features like larger text and voice controls.
+    \item \textbf{Psychological Differences}: Students have different emotions, thinking abilities, and personality traits, shaped by both their genetics and environment. Some may be more anxious or emotionally sensitive, while others may handle stress better. The app needs to accommodate these psychological differences by offering a flexible, non-judgmental interface that adapts to different levels of emotional well-being and provides supportive, personalized feedback.
+    \item \textbf{Mental Models}: The app should be designed to match how students already think and process information. Many students are familiar with logging activities or inputting data into apps. The mood-tracking process should be intuitive, allowing students to easily understand how to log their mood and interpret the visual data provided by the app (e.g., mood graphs, calendars). This helps them build an accurate mental model of their emotional patterns over time and make informed decisions about their well-being.
+    \item \textbf{Social Differences}: Students come from a range of cultural and social backgrounds, which influence their motivations for using the app. Some may be more focused on managing academic stress, while others might be seeking better balance between their personal and academic lives. The app should accommodate these varying goals, offering different ways to engage with mood tracking, whether it’s for self-reflection, self-improvement, or sharing data with a mental health professional.
+\end{itemize}
+
+\subsection{Activities}
+
+This section focuses on the specific tasks that the user will perform with the mood-tracking app. The app supports various activities aimed at helping students manage their emotional well-being, which includes frequent mood logging, reflecting on mental health patterns, and engaging with motivational content. Below, we outline these activities with attention to the goals, priorities, temporal aspects, cooperation, and complexity involved:
+
+\begin{itemize}
+    \item \textbf{Logging Mood (Main Purpose)}: The primary purpose of the system is to allow users to log their emotional states daily. This is a straightforward, frequent task, typically carried out once per day. Users can either select emojis or fill out a questionnaire to represent their current emotional state. This task is simple and non-collaborative, as it is carried out independently.
+    \item \textbf{Reflecting on Emotional Patterns (Weekly/As Needed)}: After mood data is collected, users can visualize their emotional patterns using graphs and calendars. This activity occurs weekly or whenever users feel the need to reflect. It is a more complex task, requiring users to interpret data trends. Users can carry this out independently but may share insights with mental health professionals or counselors, making the task potentially cooperative in certain contexts. The consequences of errors in interpreting data are low, but this reflection is crucial for users’ mental awareness.
+    \item \textbf{Engaging with Motivational Content (Daily)}: After logging a mood, the app provides tailored motivational quotes and advice. This occurs daily and is intended to keep users engaged and positive about their well-being. It’s a simple, non-collaborative task. However, this feature directly ties into the users’ emotional state, and while the activity itself is low-risk, it serves a key function in keeping users emotionally supported.
+    \item \textbf{Receiving Daily Reminders (Daily)}: The system sends reminders to users to log their emotions each day. This feature promotes consistency and habit-building, ensuring users regularly use the app. This task is simple, non-collaborative, and occurs automatically based on predefined system settings. It ensures that users do not forget to log their mood, a critical activity for building meaningful emotional patterns over time.
+    \item \textbf{Seeking Professional Help (As Needed)}: The app identifies emotional distress patterns and suggest seeking professional help when needed. This is a more complex task as it requires users to acknowledge and act upon recommendations to seek outside support. The task is collaborative in nature, as users may engage with therapists or counselors as a result. Ensuring users access help in a timely manner can have serious implications for their mental well-being, making it a safety-critical feature.
+    \item \textbf{Tracking Progress and Data Sharing (Optional/Occasional)}: Users can generate progress reports based on their mood data and share these with mental health professionals. This task occurs occasionally but is more complex as it involves analyzing past trends and communicating insights. It is both independent and collaborative, depending on whether the data is shared with others. There are low consequences of errors, but accurate sharing of this data can contribute to effective mental health support.
+    \item \textbf{Setting and Tracking Personalized Mental Goals (Optional/Occasional)}: Users can set personal mental health goals and track progress toward them. This task is less frequent or even optional and lower in complexity, providing additional motivation. It is carried out independently and is not safety-critical but offers users a chance to develop healthier emotional habits.
+    \item \textbf{Journaling (Optional/Occasional)}: As an optional feature, journaling allows users to record their thoughts and feelings in a free-form way. This task is highly independent, simple, and occurs occasionally when users feel the need for personal reflection. There are no significant consequences of errors in this task, and it serves as an outlet for deeper emotional expression.
+\end{itemize}
+
+\vspace{5mm}
+
+\noindent The nature of the activities supported by this system primarily focuses on emotional self-tracking and reflection. While most activities are carried out independently, the app offers collaborative opportunities when users seek professional help or share their data with mental health professionals. The system’s design ensures that the complexity of tasks varies—some are simple and routine, like mood logging, while others, such as interpreting emotional patterns or reaching out for help, involve more significant cognitive and emotional effort. The app is capable of handling these activities through visual data, notifications, and structured inputs, ensuring that users can manage their emotional well-being effectively.
+
+\subsection{Context}
+
+This component focuses on the broader context in which the app will be used, encompassing the physical environment, social and cultural norms, and organizational constraints. Additionally, external factors such as market trends and technological advancements must be considered. The context in which students can interact with the app includes various influences:
+
+\begin{itemize}
+    \item \textbf{Physical Environment}: The app will be used in diverse physical settings such as lecture halls, libraries, cafeterias, or even outdoors. These environments can present varying challenges, including noise, fluctuating light conditions, or temperature changes. The app should be designed with readability and accessibility in mind, ensuring clear navigation even in noisy or visually challenging surroundings, such as low-light or on-the-go situations.
+    \item \textbf{Social Context}: The social environment in which students use the app includes both individual and group settings. They may engage with the app in private, such as when reflecting on their mood at home, or in more public spaces, like in between classes or during group study sessions. Social norms and cultural values also play a role in how students perceive and interact with mental health tools. The app should offer discretion and flexibility, allowing for quick and private entries, while also respecting the sensitivity of emotional data in different social situations.
+    \item \textbf{Organizational Context}: Within the university setting, the app could integrate into existing mental health support structures. For instance, students may use it in conjunction with university counseling services, sharing their mood data with professionals for more informed support. This requires the app to align with institutional resources and processes, ensuring that it can facilitate communication between students and mental health professionals. It also needs to follow any privacy rules set by the organization to keep student data safe.
+    \item \textbf{External Factors}: The app must adapt to external influences such as technological trends and regulatory requirements. As technology advances, the app should remain compatible with new devices and platforms (e.g., mobile and wearable technology). Additionally, privacy regulations (such as the General Data Protection Regulation - GDPR) play a critical role in how the app stores and manages sensitive user data, ensuring students’ personal information is protected.
+\end{itemize}
+
+\vspace{5mm}
+
+\noindent In summary, the app must account for the physical environment, ensuring usability across different settings and devices. It must also adapt to various social dynamics, from private individual use to more public settings, while being sensitive to cultural and emotional considerations. Furthermore, the app should integrate smoothly within the university's organizational framework, allowing for communication with mental health services and ensuring compliance with legal and technological standards.
+
+\subsection{Technology}
+
+Finally, this section focuses on the technical aspects of the system, including hardware, software, and how users will interact with it. The app should incorporate suitable technology to enhance usability, performance, and security while meeting user needs:
+
+\begin{itemize}
+    \item \textbf{Input}: The app primarily uses touchscreens on mobile devices as the main input method. The interface should support secure and intuitive interaction, allowing users to log their mood and navigate the app easily.
+    \item \textbf{Output}: The app delivers feedback through visual output (graphs, calendars, and motivational content) and potentially haptic feedback (e.g., vibrations for reminders) to enhance the user experience.
+    \item \textbf{Communication}: The app must ensure smooth communication between the user’s device and cloud-based services, allowing data synchronization and updates across multiple devices. Secure channels must be used to ensure data protection during transmission.
+    \item \textbf{Content}: The app handles sensitive mood-tracking data, presented in formats such as visual graphs, reports, and motivational text. Data management should be secure, and the content should be presented in a clear and accessible manner.
+    \item \textbf{Compatibility and Performance}: The app must function seamlessly across mobile platforms, such as iOS and Android, ensuring compatibility and optimal performance, even with low battery or limited data usage.
+    \item \textbf{Data Privacy and Security}: Given the sensitive nature of the content, the app must include encryption and secure authentication methods (such as secure logins) to ensure user privacy.
+\end{itemize}
+
+\section{Personas}
+
+Based on the ``People'' section of the PACT Model, we introduce personas derived from the preparatory survey results discussed in the first chapter. These personas represent the primary users of the application and reflect the real characteristics, needs, and experiences of university students gathered from the relevant research. By using these authentic profiles for both constructing personas and developing scenarios, we are able to create a more realistic representation of the problem and its context, ensuring that the application addresses genuine issues grounded in actual data. This approach allows us to design a solution that is not only user-centered but also aligned with the real-world challenges faced by students, thereby enhancing the overall relevance and effectiveness of the application.
+
+\subsection{Dimitra}
+
+\FloatBarrier
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|p{11cm}|}
+\hline
+\textbf{Name} & Dimitra \\ \hline
+\textbf{Description} & Student at the Faculty of Electrical and Computer Engineering. \\ \hline
+\textbf{Age} & 22 \\ \hline
+\textbf{Role} & Undergraduate Student \\ \hline
+\textbf{Sex} & Female \\ \hline
+\textbf{Income} & Limited, dependent on parents and part-time work. \\ \hline
+\textbf{Hometown} & Patras, Greece \\ \hline
+\end{tabular}
+\label{tab:persona_dimitra}
+\end{table}
+\FloatBarrier
+
+\begin{center} \textbf{Goals} \end{center}
+\begin{itemize}
+    \item Graduate with a good academic record in her engineering degree.
+    \item Maintain a healthy balance between academic workload and personal life.
+    \item Do a lot of trips and excursions.
+\end{itemize}
+
+\begin{center} \textbf{Skills/Knowledge} \end{center}
+\begin{itemize}
+    \item Strong understanding of engineering concepts and technologies.
+    \item Not so good at time management, especially in managing coursework and projects.
+    \item Productive, particularly during stressful periods.
+\end{itemize}
+
+\begin{center} \textbf{Experiences} \end{center}
+\begin{itemize}
+    \item Struggling with the pressure of academic deadlines and fluctuating moods.
+    \item Occasional feelings of being overwhelmed by a demanding academic schedule.
+    \item Rejected by a few social groups.
+\end{itemize}
+
+\begin{center} \textbf{Family/Contacts} \end{center}
+\begin{itemize} 
+    \item Close relationship with her family and a small circle of friends.
+    \item Limited time for socializing due to her academic commitments.
+\end{itemize}
+
+\begin{center} \textbf{Likes} \end{center}
+\begin{itemize}
+    \item Going on trips.
+    \item Hanging out with friends and taking part in activities.
+    \item Receiving positive reinforcement, whether through feedback or personal accomplishments.
+\end{itemize}
+
+\begin{center} \textbf{Dislikes} \end{center}
+\begin{itemize}
+    \item Social isolation caused by her intense focus on academics.
+    \item The pressure of tight deadlines and overwhelming workloads.
+    \item Losing control over her emotions during high-stress situations.
+\end{itemize}
+
+\begin{center} \textbf{Habits} \end{center}
+\begin{itemize}
+    \item Reads technical books or articles to stay ahead in her field of study.
+    \item Prefers watching movies at home to relax and decompress.
+    \item Takes short evening walks to clear her mind after long study sessions.
+\end{itemize}
+
+\begin{center} \textbf{Background} \end{center}
+Dimitra is a driven student who is focused on completing her engineering degree with a strong academic record. However, the demands of her coursework and the stress that comes with it have been taking a toll on her emotional well-being. While she has not yet discovered any mood-tracking tools, she is keen on finding ways to better manage her stress and balance her academic and personal life.
+
+\subsection{Ioannis}
+
+\FloatBarrier
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|p{11cm}|}
+\hline
+\textbf{Name} & Ioannis \\ \hline
+\textbf{Description} & Student in the Faculty of Electrical and Computer Engineering. \\ \hline
+\textbf{Age} & 23 \\ \hline
+\textbf{Role} & Undergraduate Student \\ \hline
+\textbf{Sex} & Male \\ \hline
+\textbf{Income} & Stable, dependent on occasional freelance work and family support. \\ \hline
+\textbf{Hometown} & Patras, Greece \\ \hline
+\end{tabular}
+\label{tab:persona_ioannis}
+\end{table}
+\FloatBarrier
+
+\begin{center} \textbf{Goals} \end{center}
+\begin{itemize}
+    \item Maintain a high academic performance and finish university with strong grades.
+    \item To be able to acquire a scholarship from a university abroad.
+    \item Balance academic responsibilities with personal and social life perfectly.
+\end{itemize}
+
+\begin{center} \textbf{Skills/Knowledge} \end{center}
+\begin{itemize}
+    \item Strong academic performance with excellent organizational skills.
+    \item Skilled in technical engineering concepts and related technologies.
+    \item Self-motivated with a good understanding of managing tasks and projects efficiently.
+    \item Adaptive to any social group.
+\end{itemize}
+
+\begin{center} \textbf{Experiences} \end{center}
+\begin{itemize}
+    \item Maintains a positive outlook and works on preventing burnout by staying active.
+    \item Typically feels balanced but experiences occasional stress during high-pressure periods.
+\end{itemize}
+
+\begin{center} \textbf{Family/Contacts} \end{center}
+\begin{itemize}
+    \item Close relationship with family and a supportive group of friends.
+    \item Regularly socializes with friends to maintain a balanced lifestyle.
+\end{itemize}
+
+\begin{center} \textbf{Likes} \end{center}
+\begin{itemize}
+    \item Taking part in social activities and personal hobbies.
+    \item Receiving positive feedback on his hard work.
+\end{itemize}
+
+\begin{center} \textbf{Dislikes} \end{center}
+\begin{itemize}
+    \item Overworking and feeling burnt out due to excessive academic pressure.
+    \item Feeling unproductive or behind schedule with tasks.
+    \item Letting stress build up without finding healthy outlets.
+\end{itemize}
+
+\begin{center} \textbf{Habits} \end{center}
+\begin{itemize}
+    \item Meets regurarly with friends and have activities together.
+    \item Practices light exercises or jogs in the morning to stay active.
+    \item Enjoys working on personal projects and learning new skills in his free time.
+\end{itemize}
+
+\begin{center} \textbf{Background} \end{center}
+Ioannis is an active and organized student who consistently performs well academically. He is aware of the importance of maintaining a balance between studies and personal life. Although he manages his workload well, he occasionally feels stress during exam periods and high-pressure situations. Ioannis maintains an active social life and incorporates physical activities to keep stress in check.
+
+\subsection{Kostas}
+
+\FloatBarrier
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|p{11cm}|}
+\hline
+\textbf{Name} & Kostas \\ \hline
+\textbf{Description} & Student in the Faculty of Electrical and Computer Engineering. \\ \hline
+\textbf{Age} & 24 \\ \hline
+\textbf{Role} & Undergraduate Student \\ \hline
+\textbf{Sex} & Male \\ \hline
+\textbf{Income} & Limited, dependent on family support. \\ \hline
+\textbf{Hometown} & Patras, Greece \\ \hline
+\end{tabular}
+\label{tab:persona_kostas}
+\end{table}
+\FloatBarrier
+
+\begin{center} \textbf{Goals} \end{center}
+\begin{itemize}
+    \item Finish the university with a decent grade.
+    \item Participate in more activities and find new hobbies to enjoy.
+    \item Overcome personal and emotional challenges to improve his mental health and social life.
+\end{itemize}
+
+\begin{center} \textbf{Skills/Knowledge} \end{center}
+\begin{itemize}
+    \item Basic understanding of engineering and technical concepts.
+\end{itemize}
+
+\begin{center} \textbf{Experiences} \end{center}
+\begin{itemize}
+    \item Struggling with prolonged periods of stress, sadness, and anxiety.
+    \item Difficulty balancing academic performance with emotional well-being.
+    \item Avoids connecting with social groups.
+\end{itemize}
+
+\begin{center} \textbf{Family/Contacts} \end{center}
+\begin{itemize}
+    \item Close to family, but distant from friends due to emotional challenges.
+    \item Lacks a strong social network and feels isolated most of the time.
+\end{itemize}
+
+\begin{center} \textbf{Likes} \end{center}
+\begin{itemize}
+    \item Playing video games to unwind and have fun.
+    \item Enjoying casual activities like watching TV, or listening to music, to take his mind off things.
+\end{itemize}
+
+\begin{center} \textbf{Dislikes} \end{center}
+\begin{itemize}
+    \item Taking exams in the university, because of the big amount stress that circles him.
+    \item Being socially distant from others, which makes him feel lonely at times.
+    \item To be absent from university events and trips, for financial reasons.
+\end{itemize}
+
+\begin{center} \textbf{Habits} \end{center}
+\begin{itemize}
+    \item Enjoys listening to music, and sometimes even playing it, to relax and de-stress.
+    \item Occasionally plays video games as a way to switch off and forget about worries.
+    \item Takes walks late at night or exercises to clear his mind and get some fresh air.
+\end{itemize}
+
+\begin{center} \textbf{Background} \end{center}
+Kostas is a student who faces significant personal and emotional challenges, which affect his academic performance and social life. His feelings of isolation and stress have made it difficult for him to stay connected with others or seek the support he needs. He struggles to maintain balance, but remains hopeful for improvement in his well-being.
+
+\section{Scenarios}
+
+After defining the personas, we create respective scenarios in which each persona plays the main character, encountering challenges related to their emotional well-being and interacting with the mood-tracking application, ``Mood Tracker''. Through these scenarios, we explore how the characters face and manage mood-related issues, allowing us to better understand the needs and experiences of university students. These insights can help create solutions that meet their mental health and emotional support needs.
+
+\subsection{Scenario 1}
+
+Dimitra has always been ambitious when it comes to her academic goals. With the pressure of keeping up with lectures, lab sessions, and project deadlines, she often finds herself stressed. While she has a small group of friends and family, her social life has taken a back seat due to the demands of her coursework. As the stress builds up, Dimitra notices that her emotions fluctuate from feeling overwhelmed to just barely keeping up. She begins to wonder if there’s a better way to manage her time and emotional well-being, as she juggles the weight of her academic responsibilities.\vspace{5mm} \\
+One afternoon, while looking for ways to better organize her life, Dimitra stumbles upon a mood-tracking app designed specifically for students, called ``Mood Tracker''. Intrigued by its simplicity and focus on emotional well-being, she downloads it. The app is user-friendly and lets her log her mood for the day in just a few taps. Feeling the strain of an upcoming lab exam and a project deadline, Dimitra logs ``sad'' as her mood. The app instantly provides her with a motivational quote: “It's not about having time, it's about making time”, which gives her a small sense of relief.\vspace{5mm} \\
+Over the next few days, Dimitra makes it a habit to log her mood every morning before her classes. On good days, she selects ``good'' or “happy”, while after grueling lab sessions, she chooses “anxious” or ``awful'' The app collects all her entries and maps them onto a calendar, allowing Dimitra to see patterns in her moods. After a week, she notices a trend—her mood tends to dip on days when her schedule is packed with both morning lectures and afternoon labs.\vspace{5mm} \\
+Dimitra starts using the app’s graph feature to visualize her mood swings over time. The data helps her better understand the relationship between her stress levels and her academic workload. She sees that although her emotional state fluctuates, she experiences periods of calmness after spending time with friends or completing a major project. The app’s calendar feature allows her to easily identify good and bad days, while the graph offers a more in-depth look at the ebbs and flows of her emotional state.\vspace{5mm} \\
+One of the most helpful aspects for Dimitra is the app’s personalized advice based on her logged moods. On days when she records “exhausted”, the app reminds her to rest and take care of herself: “Rest when you need it; burnout won't help you in the long run.” On a good day, after logging “happy” following a productive study session, she gets a message encouraging her to “Celebrate small victories; they add up.” These short insights help her feel more supported in managing her workload and emotional health.\vspace{5mm} \\
+Over time, Dimitra reflects on her mood patterns and realizes that the key to balancing her academic responsibilities lies in managing her emotional well-being. She uses the app to track her progress, noting that on days when she prioritizes personal time—such as taking short walks or watching a movie—her mood tends to stabilize. Looking back over the months, Dimitra can see how far she’s come in managing her academic stress and finding more emotional balance.\vspace{5mm} \\
+By regularly tracking her moods, Dimitra becomes more aware of her emotional state, which in turn helps her navigate the ups and downs of her demanding university life. Although she hasn't completely resolved all her challenges, the ability to monitor her emotional well-being gives her a greater sense of control, making her feel more equipped to handle the pressures of her academic journey.
+
+\subsection{Scenario 2}
+
+Ioannis has always been proactive about managing his time and responsibilities. As his coursework, labs, and projects progress, he recognizes the importance of maintaining not just his academic performance, but also his mental and emotional well-being. While Ioannis generally feels in control, he understands that balancing everything, especially during stressful periods like exams or deadlines, can be challenging. Wanting to stay ahead of potential stress, Ioannis decides to download a mood-tracking app, called ``Mood Tracker'' that he believes will help him stay aware of his emotional state.\vspace{5mm} \\
+Each morning, Ioannis makes it a point to log his mood in the app. On most days, he feels positive, choosing “happy”, and the app reflects these entries on a calendar. Occasionally, the app offers motivational quotes, such as “Consistency is key, keep up the great work”, which reinforces Ioannis' sense of stability and encourages him to stay focused on his well-being.\vspace{5mm} \\
+On days when he’s feeling more pressure—perhaps after long hours of studying or working on group projects—the app gently reminds him to take breaks or make time for himself. These small prompts are helpful in keeping Ioannis from overworking or allowing stress to build up unnoticed. By regularly tracking his mood and reflecting on how he feels, Ioannis is able to maintain a healthy balance between his university responsibilities and his personal life.\vspace{5mm} \\
+As time goes by, Ioannis notices recurring patterns in his emotional state, particularly during exam weeks when his mood slightly lowers. However, because he consistently uses the app, he's more aware of these fluctuations and can manage them more effectively. The app’s advice to take breaks or reconnect with friends keeps him grounded and helps him prevent burnout during high-stress periods.\vspace{5mm} \\
+One day, after completing a particularly challenging lab, Ioannis logs his mood as ``happy'', and the app provides him with a quote: “Success isn’t just about what you achieve, but how you sustain it.” This connects with him, as it reminds him that maintaining his emotional well-being is just as important as achieving academic success.\vspace{5mm} \\
+By the end of the semester, Ioannis reviews his mood history through the app’s graphs and realizes that, despite a few stressful moments, he’s managed to stay emotionally balanced throughout. Mood Tracker has played an important role in helping him stay aware of his emotional state and giving him the tools to maintain his well-being. For Ioannis, the app isn't just about solving problems, but rather about preventing them from building up and ensuring that he continues to thrive both academically and emotionally.
+
+\subsection{Scenario 3}
+
+Kostas has been feeling the weight of both his academic life and personal challenges. Despite doing reasonably well in his studies, the difficulties he's facing outside of university have started to affect his emotional well-being. Social interactions feel strained, and he often finds himself feeling isolated, unable to connect with others. In an attempt to gain better insight into his emotions, Kostas stumbles upon a mood-tracking app, ``Mood Tracker'', while scrolling through his phone and decides to give it a try.\vspace{5mm} \\
+On the first day, Kostas logs his mood as ``neutral'', not expecting much from the app. However, it immediately provides a small piece of encouragement: “It’s okay to feel down sometimes, but remember, you’re stronger than you think.” Though simple, the message resonates with him, and he continues to track his moods over the following days, hoping to uncover patterns that might help him manage his emotions.\vspace{5mm} \\
+As Kostas logs his moods both in the morning and after his daily activities, he notices a troubling trend. The majority of his entries reflect feelings of sadness, anxiety, or exhaustion. The app's calendar and graphs make it clear—his emotional state is consistently low. The app continues to offer advice like “Take time to reflect and seek support when you need it”, but Kostas realizes that this isn’t just about having a few bad days—something deeper is affecting him.\vspace{5mm} \\
+Over the weeks, Kostas becomes frustrated with not being able to get out of this negative emotional state. Despite logging his mood every day, the results only seem to confirm what he already knows: he's struggling. One evening, after noticing yet another string of ``awful'' days, the app provides a suggestion that finally makes him pause: “Sometimes the bravest thing you can do is ask for help.”\vspace{5mm} \\
+This suggestion hits home for Kostas. He has been trying to handle everything on his own, thinking he could work through it, but he realizes that external support might be what he really needs. He decides to take the next step and contacts the university’s counseling center, setting up an appointment with a psychologist.\vspace{5mm} \\
+In the days leading up to his first therapy session, Kostas continues to use the app, but with a different mindset. Instead of viewing the negative results with frustration, he sees them as a reflection of his readiness to address his challenges. When he finally meets with the psychologist, Kostas shares his mood data from the app, and together they go over the patterns and discuss potential triggers. This process helps Kostas begin to unpack his emotions, and he feels empowered by the realization that identifying the problem is the first step toward making real changes.\vspace{5mm} \\
+As Kostas continues his therapy, he keeps using the app to track his emotional progress. Slowly, he starts to see improvements—more “neutral” days, and even the occasional “good” day. The app's advice feels more relevant, reminding him that healing is a gradual process, but progress is within reach. Kostas knows he still has work to do, but with professional help and the tools he’s developed, he feels more equipped to face his challenges and improve his emotional well-being.
+
+\subsection{Identifying Key Features Through Student Scenarios}
+
+From the scenarios described above, it's clear that students like Ioannis, Dimitra, and Kostas have different needs when it comes to managing their mental health and emotional well-being. Whether it's tracking daily moods, receiving motivational quotes to stay focused, or recognizing the need for professional help, each student benefits in unique ways from the app's features.
+
+\begin{itemize}
+    \item \textbf{Dimitra} relied on the app to increase her self-awareness by tracking her emotional patterns and understanding what triggers her stress.
+    \item \textbf{Ioannis} used the app to maintain emotional balance and stability by consistently logging his moods and reflecting on the positive outcomes of his habits.
+    \item \textbf{Kostas} found the app instrumental in recognizing that he needed external support, which ultimately led him to seek professional help. 
+\end{itemize}
+
+\noindent These varied experiences highlight the critical features a mood-tracking app must have to address the diverse emotional needs of students. Features like mood tracking, visualization of emotional progress, motivational guidance, and suggestions for seeking help are integral to providing students with a supportive mental health tool.
+
+\section{Application Requirements}
+
+Based on the scenarios, we have identified several key requirements for the mood-tracking app. These requirements are divided into \textbf{functional} and \textbf{non-functional} categories to better organize and prioritize the necessary features. Each type of requirement has a separate table with priority levels indicated.
+
+\subsection{Functional Requirements}
+
+These are the core features the mood-tracking app must have to support the user's needs. \vspace{5mm}
+
+\FloatBarrier
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|p{7cm}|c|} \hline
+\textbf{Order} & \textbf{Functional Requirement} & \textbf{Priority (1-3)} \\ \hline
+1 & Track Emotional States on a Daily Basis. & 1 \\ \hline
+2 & Graph and Calendar Visualization. & 1 \\ \hline
+3 & Support for Seeking Professional Help. & 1 \\ \hline
+4 & Motivational Quotes and Advice. & 2 \\ \hline
+5 & Daily Reminders for Mood Logging. & 2 \\ \hline
+6 & Progress Reports and Data Export. & 2 \\ \hline
+7 & Set and Track Personalized Mental Goals. & 3 \\ \hline
+8 & Provide Option for Personal Journaling. & 3 \\ \hline
+\end{tabular}
+\caption{Functional Requirements and Priority (1 to 3, high to low)}
+\label{tab:functional_requirements}
+\end{table}
+\FloatBarrier
+
+\noindent \textbf{Explanation of Functional Requirements:}
+\begin{itemize}
+    \item \textbf{Track Emotional States on a Daily Basis (Priority 1)}: This is a core feature that allows users to log and monitor their emotional states on a daily basis. Users can track their moods using either emojis or a validated questionnaire.
+    \item \textbf{Graph and Calendar Visualization (Priority 1)}: This feature provides users with visualizations of their mood patterns over time through graphs and calendars. It helps users become more aware of emotional trends and fluctuations.
+    \item \textbf{Support for Seeking Professional Help (Priority 1)}: A critical feature that helps guide students toward seeking professional support when necessary, ensuring they can access appropriate mental health resources.
+    \item \textbf{Motivational Quotes and Advice (Priority 2)}: Based on users’ mood logs, the app offers motivational feedback to keep users engaged and provide emotional support when needed.
+    \item \textbf{Daily Reminders for Mood Logging (Priority 2)}: This feature ensures that users consistently log their emotions, helping them develop healthy tracking habits and maintain regular engagement with the app.
+    \item \textbf{Progress Reports and Data Export (Priority 2)}: Users can generate progress reports and export their mood data, allowing them to share the information with mental health professionals for ongoing support.
+    \item \textbf{Set and Track Personalized Mental Goals (Priority 3)}: This feature allows users to set personal mental health goals, which provides additional motivation, but it is not essential to the core functionality of the app.
+    \item \textbf{Provide Option for Personal Journaling (Priority 3)}: An optional feature that allows users to reflect on their mental health through personal journaling, offering additional insight, but it is not critical to the primary app functions.
+\end{itemize}
+
+\subsection{Non-Functional Requirements}
+
+These requirements define the app’s usability, performance, and technical specifications to ensure a flawless experience. \vspace{5mm}
+
+\FloatBarrier
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|p{7cm}|c|} \hline
+\textbf{Order} & \textbf{Non-Functional Requirement} & \textbf{Priority (1-3)} \\ \hline
+1 & User Interface Simplicity. & 1 \\ \hline
+2 & Data Privacy and Security. & 1 \\ \hline
+3 & User-Friendly Navigation. & 1 \\ \hline
+4 & Compatibility Across Devices. & 2 \\ \hline
+5 & Include Accessible Features. & 2 \\ \hline
+6 & Optimal Performance and Fast Speed. & 2 \\ \hline
+7 & Customization Options for Users. & 3 \\ \hline
+8 & Low Battery and Data Usage. & 3 \\ \hline
+\end{tabular}
+\caption{Non-Functional Requirements and Priority}
+\label{tab:non_functional_requirements}
+\end{table}
+\FloatBarrier
+
+\noindent \textbf{Explanation of Non-Functional Requirements:}
+\begin{itemize}
+    \item \textbf{User Interface Simplicity (Priority 1)}: Ensures that the app is easy to navigate and understand, allowing users to log moods quickly.
+    \item \textbf{Data Privacy and Security (Priority 1)}: Essential to ensure users' sensitive mood data is protected and handled securely.
+    \item \textbf{User-Friendly Navigation (Priority 1)}: Ensures that users can easily find and use the app’s features without confusion.
+    \item \textbf{Compatibility Across Devices (Priority 2)}: The app must be compatible with various devices and operating systems to reach a broad audience.
+    \item \textbf{Include Accessible Features (Priority 2)}: Incorporates features like text scaling and voice assistance for users with disabilities, ensuring inclusivity.
+    \item \textbf{Optimal Performance and Fast Speed (Priority 2)}: The app should perform smoothly and respond quickly to user inputs to ensure a good experience.
+    \item \textbf{Customization Options for Users (Priority 3)}: Enhances user experience by offering personalization but is not a core necessity.
+    \item \textbf{Low Battery and Data Usage (Priority 3)}: Ensures the app does not drain the user's device, though not a top priority.
+\end{itemize}
+
+\subsection{Conclusion}
+
+Through the analysis of student scenarios, the key functional and non-functional requirements have been identified. These requirements ensure that the app will meet students' emotional needs while providing a user-friendly, secure, and efficient experience. The prioritization of each requirement helps focus the design and development process on what is most essential for delivering a successful mood-tracking app. The next step is to determine the most suitable questionnaire for tracking moods within the application, ensuring accurate and relevant emotional monitoring for users.
+
+\section{Mood Scale Selection}
+
+In this section, I explore various validated questionnaires that aim to assess the mental health of students, categorizing them based on how accurately they address the specific mental health topics relevant to university life and how well they align with students' experiences. Additionally, I evaluate each questionnaire from a user perspective, considering factors such as the number of questions and the relevance of the content. This helps us to determine which questionnaire is not only comprehensive but also user-friendly and likely to be embraced by students.
+
+\subsection{Beck Depression Inventory (BDI)}
+
+The \textbf{\href{https://www.ismanet.org/doctoryourspirit/pdfs/Beck-Depression-Inventory-BDI.pdf}{Beck Depression Inventory}}\footnote{Link: \url{https://www.ismanet.org/doctoryourspirit/pdfs/Beck-Depression-Inventory-BDI.pdf}} is a 21-item self-report questionnaire developed by Dr. Aaron T. Beck to measure the severity of depression \cite{bdi-review}. Each item corresponds to a symptom of depression, such as emotional, cognitive, and physical symptoms. The BDI is designed to assess the intensity of depression in individuals, helping healthcare professionals identify the severity of the condition and monitor treatment progress. The BDI-II, the most current version, reflects updates aligned with the Diagnostic and Statistical Manual of Mental Disorders (DSM).\vspace{5mm}
+
+\noindent \textbf{What the BDI Measures:}
+\begin{itemize}
+    \item \textbf{Emotional Symptoms}: Feelings of sadness and hopelessness.
+    \item \textbf{Cognitive Symptoms}: Difficulties concentrating, negative self-image.
+    \item \textbf{Physical Symptoms}: Fatigue, changes in appetite and sleep patterns.
+\end{itemize}
+
+\noindent The BDI is not a diagnostic tool but rather a screening measure. It is commonly used in clinical practice to assess depression levels and to track changes in symptoms over time. A score of 10 to 18 indicates mild depression, while scores above 30 suggest severe depression.\vspace{5mm} \\
+\textbf{Suitability for the students} \\
+While the BDI is a validated and reliable tool for measuring depression severity, it may not be the most suitable for university students. This is because the BDI focuses specifically on depression, potentially overlooking other relevant mental health concerns such as anxiety, stress, or academic pressures that students often face. Additionally, as a self-report measure, it relies on the individual's subjective assessment, which may not always be accurate.
+
+\subsection{Brunel Mood Scale (BRUMS)}
+
+The \textbf{\href{https://www.getmoodfit.com/}{Brunel Mood Scale}}\footnote{Link \url{https://www.getmoodfit.com/}} is a 24-item self-report questionnaire designed to measure six distinct mood states: anger, confusion, depression, fatigue, tension, and vigor \cite{brums-review}. Respondents rate how they have been feeling over the past week or at the moment of evaluation on a 5-point Likert scale\footnote{A Likert scale is a rating scale used to measure survey participants' opinions, attitudes, motivations, and more. It uses a range of answer options ranging from one extreme attitude to another, sometimes including a moderate or neutral option. However, 4- to 7-point scales are the most popular.}, ranging from 0 (not at all) to 4 (extremely). The BRUMS was originally developed to assess mood in physically active and healthy populations, and it has been widely used for this purpose across various studies.\vspace{5mm}
+
+\noindent \textbf{What the BRUMS measures:}
+\begin{itemize}
+    \item \textbf{Anger}: Hostile feelings toward others.
+    \item \textbf{Confusion}: Mental fogginess or uncertainty.
+    \item \textbf{Depression}: Emotional states of sadness and unhappiness.
+    \item \textbf{Fatigue}: Physical tiredness and low energy.
+    \item \textbf{Tension}: Feelings of stress and nervousness.
+    \item \textbf{Vigor}: Positive mood states such as energy and alertness.
+\end{itemize}
+The BRUMS is not a diagnostic tool but rather a measure of mood states that can be used to track psychological well-being. Each mood state is scored individually, providing insights into specific emotional conditions, though it doesn't give a overall mood score. The scale has shown good internal consistency and construct validity across various populations.\vspace{5mm} \\
+\textbf{Suitability for the students} \\
+The BRUMS could be suitable for university students because it assesses a range of mood states that are highly relevant to student life, such as stress (tension), exhaustion (fatigue), and low energy (vigor). These are common emotional responses to academic pressure, social challenges, and workload management. However, it primarily focuses on general mood states and may not delve as deeply into specific mental health conditions like anxiety or depression in the way that some other tools do. Nonetheless, the BRUMS offers a broad overview of emotional well-being, making it a useful tool for monitoring mood fluctuations in a student population.
+
+\subsection{Depression, Anxiety and Stress Scale (DASS)}
+
+The \textbf{\href{https://www2.psy.unsw.edu.au/dass/}{Depression, Anxiety and Stress Scale}}\footnote{Link: \url{https://www2.psy.unsw.edu.au/dass/}} is a self-report questionnaire designed to measure the severity of emotional symptoms related to depression, anxiety, and stress \cite{dass-review}. It contains 21 items, grouped into three subscales corresponding to each emotional state. Participants are asked to rate how often they experienced specific symptoms over the past week using a 4-point scale ranging from 0 (never) to 3 (almost always).\vspace{5mm}
+
+\noindent \textbf{What the DASS-21 measures:}
+\begin{itemize}
+    \item \textbf{Depression}: Focuses on feelings of hopelessness, low self-esteem, and a lack of interest or pleasure in activities.
+    \item \textbf{Anxiety}: Assesses physical symptoms like trembling or panic as well as feelings of nervousness and fear.
+    \item \textbf{Stress}: Captures tension, agitation/anxiety, and difficulty relaxing.
+\end{itemize}
+The DASS-21 is widely used in both clinical and research settings to gauge emotional distress. It is not a diagnostic tool but rather a measure of the severity of symptoms that range from mild to extremely severe.\vspace{5mm} \\
+\textbf{Suitability for the students} \\
+The DASS-21 is an effective tool for university students because it provides a comprehensive evaluation of mental health by addressing multiple emotional challenges. It not only covers depression but also explores the commonly linked experiences of anxiety and stress, which are frequently encountered in academic settings. Although the DASS-21 has more questions than some shorter questionnaires, its detailed approach ensures a thorough assessment of students' emotional well-being
+
+\subsection{General Anxiety Disorder (GAD-7)}
+
+The \textbf{\href{https://patient.info/doctor/generalised-anxiety-disorder-assessment-gad-7}{General Anxiety Disorder}}\footnote{Link: \url{https://patient.info/doctor/generalised-anxiety-disorder-assessment-gad-7}} questionnaire is a 7-question self-assessment tool created to identify and measure the severity of generalized anxiety disorder (GAD) \cite{gad-review}. It asks respondents to rate how frequently they have been bothered by anxiety-related symptoms over the past two weeks using a scale of 0 (not at all) to 3 (nearly every day). The symptoms measured include feelings of nervousness, excessive worrying, restlessness, and difficulty relaxing.\vspace{5mm}
+
+\noindent \textbf{What the GAD-7 Measures:}
+\begin{itemize}
+    \item \textbf{Nervousness or anxiety}: Feelings of being tense or unable to manage anxiety.
+    \item \textbf{Physical symptoms}: Restlessness, trouble relaxing, and irritability.
+    \item \textbf{Catastrophic thoughts}: Fear that something terrible can happen.
+\end{itemize}
+Scores range from 0 to 21, with higher scores indicating more severe anxiety. Scores of 5, 10, and 15 represent mild, moderate, and severe anxiety, respectively. The GAD-7 is commonly used in both clinical settings and research to assess the presence and severity of generalized anxiety, but it can also provide insights into other anxiety disorders, such as panic disorder and social anxiety.\vspace{5mm} \\
+\textbf{Suitability for the students} \\
+The GAD-7 is highly suitable for assessing anxiety levels among university students, as it focuses specifically on anxiety symptoms that students frequently experience due to academic pressures, social expectations, and life transitions. Since anxiety is one of the most common mental health issues faced by students, the GAD-7 can offer a focused and effective measure for identifying students at risk of anxiety-related disorders. Furthermore, it captures both emotional and physical manifestations of anxiety, making it a comprehensive tool for this purpose.
+
+\subsection{Mindful Attention Awareness Scale (MASS)}
+
+The \textbf{\href{https://ggsc.berkeley.edu/images/uploads/The_Mindful_Attention_Awareness_Scale_-_Trait_(1).pdf}{Mindful Attention Awareness Scale}}\footnote{Link: \url{https://ggsc.berkeley.edu/images/uploads/The_Mindful_Attention_Awareness_Scale_-_Trait_(1).pdf}} is a 15-item self-report questionnaire designed to measure mindfulness, specifically the attention and awareness individuals pay to current \cite{maas-review}. Each item is rated on a 6-point Likert scale, where respondents indicate how often they are mindful in their daily lives, ranging from 1 (almost always) to 6 (almost never). The MAAS focuses on measuring dispositional mindfulness, or how frequently individuals tend to be aware of their thoughts, emotions, and surroundings.\vspace{5mm}
+
+\noindent 
+\textbf{What the MAAS Measures:} 
+\begin{itemize} 
+    \item \textbf{Attention}: The ability to focus on and remain aware of current experiences. 
+    \item \textbf{Mindfulness}: Conscious awareness of thoughts, emotions, and sensations without being distracted by them. 
+\end{itemize}
+Higher scores on the MAAS indicate higher levels of mindfulness, and research has shown strong correlations between mindfulness and improved mental well-being, emotional regulation, and reduced anxiety and depression. The MAAS excludes mood and motivation to keep the focus solely on mindfulness as a neutral construct.\vspace{5mm} \\
+\noindent \textbf{Suitability for Students} \\
+The MAAS is well-suited for university students because it measures mindfulness, a crucial skill for managing stress, maintaining focus, and enhancing emotional balance. By encouraging students to be aware of their emotional and mental states in the present moment, the MAAS helps improve well-being, focus, and academic performance. It can also help students build mindfulness as a long-term way to handle academic stress and life changes.
+
+\subsection{Mood and Feelings Questionnaire (MFQ)}
+
+The \textbf{\href{https://www.seattlechildrens.org/globalassets/documents/healthcare-professionals/pal/ratings/smfq-rating-scale.pdf}{Mood and Feelings Questionnaire}}\footnote{Link: \url{https://www.seattlechildrens.org/globalassets/documents/healthcare-professionals/pal/ratings/smfq-rating-scale.pdf}} is a validated self-report questionnaire designed to measure depressive symptoms in children and young adults \cite{mfq-review}. Developed by Adrian Angold and Elizabeth J. Costello in 1987, the MFQ is used to assess the presence and severity of depressive symptoms by asking respondents to rate how much a series of statements about feelings and behaviors apply to their recent experiences. The MFQ comes in both short (13-item) and long (33-item) forms, with versions available for youth self-report, parent-report, and adult self-report.\vspace{5mm}
+
+\noindent \textbf{What the MFQ Measures:}
+\begin{itemize} 
+    \item \textbf{Depressive feelings}: Sadness, hopelessness, and lack of pleasure in usual activities.
+    \item \textbf{Physical symptoms}: Changes in sleep, energy, and appetite.
+    \item \textbf{Cognitive symptoms}: Trouble concentrating, negative self-image, and feelings of worthlessness.
+\end{itemize}
+Responses are scored as ``not true,'' ``somewhat true'' (or ``sometimes''), ``or true'', with higher scores indicating more severe depressive symptoms. The MFQ has been validated in multiple studies and has been shown to reliably identify depressive symptoms in children and adolescents. For the long form scores above 27 may warrant further clinical assessment. On the other hand, a study using a sample from the Avon Longitudinal Study of Parents and Children (ALSPAC) \cite{mfq-short-review} demonstrated that the sMFQ provides high accuracy in distinguishing between cases and non-cases of major depressive disorder (MDD), with an optimal cut-point of $\geq 12$ balancing sensitivity and specificity. \vspace{5mm} \\
+\noindent \textbf{Suitability for Students} \\
+The MFQ is highly suitable for university students, particularly those experiencing depressive symptoms. It covers a wide range of emotional, mental, and physical symptoms of depression, providing a comprehensive tool for identifying students at risk of depression. Its development specifically for younger populations makes it a good fit for the student demographic, with age-appropriate language and relevant symptom coverage.
+
+\subsection{Positive and Negative Affect Schedule (PANAS)}
+
+The \textbf{\href{https://www.brandeis.edu/roybal/docs/PANAS-GEN_website_PDF.pdf}{Positive and Negative Affect Schedule}}\footnote{Link: \url{https://www.brandeis.edu/roybal/docs/PANAS-GEN_website_PDF.pdf}} is a widely used 20-item self-report questionnaire designed to measure two distinct dimensions of mood: positive affect (PA) and negative affect (NA) \cite{panas-review}. Developed by Watson, Clark, and Tellegen (1988), the PANAS assesses how often individuals experience a range of positive and negative emotions over a specified time period, such as the present moment, the past week, or longer. Participants rate their feelings on a 5-point Likert scale, from 1 (very slightly or not at all) to 5 (extremely).\vspace{5mm}
+
+\noindent \textbf{What the PANAS Measures:}
+\begin{itemize}
+    \item \textbf{Positive Affect}: Emotions such as enthusiasm, alertness, and determination.
+    \item \textbf{Negative Affect}: Emotions such as distress, anger, and fear.
+\end{itemize}
+Higher scores on the positive affect items reflect greater levels of enthusiasm, energy, and engagement, while higher scores on the negative affect items indicate more frequent experiences of distress and discomfort. The PANAS provides separate scores for PA and NA, allowing users to assess both positive and negative aspects of their emotional experience.\vspace{5mm}
+\noindent \textbf{Suitability for Students} \\
+The PANAS is particularly useful for assessing the emotional well-being of university students, as it captures both the positive and negative emotions that are often influenced by academic pressures, social interactions, and life transitions. By measuring both positive and negative affect, the PANAS provides a more balanced and comprehensive view of a student's emotional state, making it suitable for identifying areas where emotional support or interventions may be needed.
+
+\subsection{Patient Health Questionnaire (PHQ-9)}
+
+The \textbf{\href{https://patient.info/doctor/patient-health-questionnaire-phq-9}{Patient Health Questionnaire}}\footnote{\url{Link: https://patient.info/doctor/patient-health-questionnaire-phq-9}} is a widely used 9-item self-report tool designed to screen for and assess the severity of depression \cite{phq9-review}. Developed by Kroenke, Spitzer, and Williams, the PHQ-9 is based on the diagnostic criteria for depression from the DSM-IV\footnote{The DSM-IV (Diagnostic and Statistical Manual of Mental Disorders, 4th edition) is a manual published by the American Psychiatric Association that provides standardized criteria for the diagnosis of mental health disorders.}. Participants rate how often they have experienced each of the nine symptoms over the past two weeks on a 4-point scale from 0 (not at all) to 3 (nearly every day).\vspace{5mm}
+
+\noindent \textbf{What the PHQ-9 Measures:}
+\begin{itemize}
+    \item \textbf{Mood}: Feelings of sadness, hopelessness, and lack of interest in activities.
+    \item \textbf{Cognitive and Physical Symptoms}: Fatigue, difficulty concentrating, changes in appetite, and sleep disturbances.
+    \item \textbf{Suicidal Thoughts}: Thoughts of self-harm or feeling that one would be better off dead.
+\end{itemize}
+Scores range from 0 to 27, with higher scores indicating more severe depression. A score of 5 indicates mild depression, 10 moderate, 15 moderately severe, and 20 or higher indicates severe depression. The PHQ-9 is widely used in both clinical settings and research, given its brevity and ability to measure both the presence and severity of depressive symptoms.\vspace{5mm}
+\noindent \textbf{Suitability for Students} \\
+The PHQ-9 is particularly suitable for university students, as it covers a broad range of symptoms commonly associated with academic stress and mental health challenges. Its ability to identify different levels of depression, from mild to severe, makes it a valuable tool for early intervention. The questionnaire’s simplicity and focus on symptoms that are highly relevant to student life, such as fatigue and difficulty concentrating, ensure that it effectively captures mental health issues within the student population.
+
+\subsection{Perceived Stress Scale (PSS)}
+
+The \textbf{\href{https://www.mdapp.co/perceived-stress-scale-pss-calculator-389/}{Perceived Stress Scale}}\footnote{Link: \url{https://www.mdapp.co/perceived-stress-scale-pss-calculator-389/}} is a widely used self-report questionnaire designed to measure the perception of stress \cite{pss-review}. Developed by Cohen, Kamarck, and Mermelstein in 1983, the PSS assesses how unpredictable, uncontrollable, and overwhelming respondents find their life circumstances. The PSS has three versions: a 14-item, 10-item, and 4-item version, with the 10-item version being the most commonly used. Participants are asked to rate how often they have felt a certain way over the past month using a 5-point Likert scale, ranging from 0 (never) to 4 (very often).\vspace{5mm}
+
+\noindent \textbf{What the PSS Measures:}
+\begin{itemize}
+    \item \textbf{Perceived Helplessness}: Feelings of being overwhelmed or out of control due to stress.
+    \item \textbf{Perceived Self-Efficacy}: The ability to manage or cope with life’s demands and challenges.
+\end{itemize}
+Higher PSS scores indicate greater levels of perceived stress. The scale is widely used in both clinical and research settings to examine the relationship between perceived stress and health outcomes, including physical and psychological well-being.\vspace{5mm} \\
+\noindent \textbf{Suitability for Students} \\
+The PSS is particularly suitable for university students, as it captures both the emotional and cognitive aspects of stress that students commonly face due to academic pressures, social challenges, and personal responsibilities. By measuring how students perceive their ability to manage these stressors, the PSS provides valuable insights into their mental health and coping mechanisms.
+
+\subsection{Student Adjustment to College Questionnaire (SACQ)}
+
+The \textbf{\href{https://scales.arabpsychology.com/s/student-adjustment-to-college-questionnaire-sacq/}{Student Adjustment to College Questionnaire}}\footnote{Link: \url{https://scales.arabpsychology.com/s/student-adjustment-to-college-questionnaire-sacq/}} is a 67-item self-report questionnaire designed to assess how well students are adjusting to university life \cite{sacq-review}. Developed by Baker and Siryk in 1984, the SACQ measures four distinct areas of adaptation: academic adjustment, social adjustment, personal-emotional adjustment, and connection to the institution. Students rate themselves on a 9-point scale across various aspects of their university experience, such as coping with academic demands, building social relationships, and emotional well-being. The SACQ can be used to identify areas where students may need additional support in adjusting to university life.\vspace{5mm} \\
+In addition to the full version, a shorter version of the SACQ has also been developed, which contains 47 items \cite{sacq-short-review}. This shorter version is ideal for more frequent assessments, as it retains the key dimensions of the original SACQ while reducing the burden on students.\vspace{5mm}
+
+\noindent \textbf{What the SACQ Measures:}
+\begin{itemize}
+    \item \textbf{Academic Adjustment}: How well students cope with academic demands and responsibilities.
+    \item \textbf{Social Adjustment}: Success in developing and maintaining interpersonal relationships at university.
+    \item \textbf{Personal-Emotional Adjustment}: The degree of emotional distress or psychological well-being students experience during their transition to college.
+    \item \textbf{Institutional Attachment}: Students' satisfaction with their university and their sense of belonging.
+\end{itemize}
+Each subscale provides insight into different facets of a student’s adjustment process. Higher scores indicate better adjustment in the respective domains, while lower scores suggest areas where students may be struggling.\vspace{5mm} \\
+\noindent \textbf{Suitability for Students} \\
+The SACQ is a good fit for university students because it looks at how well they are adjusting to college life in different areas—academically, socially, and emotionally, as well as their connection to the school. It gives a complete picture of how students are handling the transition to university and can help identify those who may need extra support.
+
+\subsection{Warwick-Edinburgh Mental Wellbeing Scales (WEMWBS)}
+
+The \textbf{\href{https://www2.uwe.ac.uk/services/Marketing/students/pdf/Wellbeing-resources/well-being-scale-wemwbs.pdf}{Warwick-Edinburgh Mental Wellbeing Scales}}\footnote{Link: \url{https://www2.uwe.ac.uk/services/Marketing/students/pdf/Wellbeing-resources/well-being-scale-wemwbs.pdf}} is a 14-item self-report questionnaire designed to measure mental well-being in the general population \cite{wemwbs-review}. Developed by researchers at the University of Warwick and the University of Edinburgh in 2007, the WEMWBS focuses on positive aspects of mental health, such as optimism, relaxation, and interpersonal relationships. Participants rate their experiences over the past two weeks on a 5-point Likert scale, ranging from 1 (none of the time) to 5 (all of the time).\vspace{5mm}
+
+\noindent \textbf{What the WEMWBS Measures:}
+\begin{itemize}
+    \item \textbf{Positive mental health}: Feelings of optimism, confidence, and self-worth.
+    \item \textbf{Emotional well-being}: Experiences of relaxation, emotional stability, and happiness.
+    \item \textbf{Social well-being}: Positive relationships and the ability to interact with others.
+\end{itemize}
+Higher scores on the WEMWBS reflect greater levels of mental well-being. Unlike many mental health scales that focus on distress or negative symptoms, the WEMWBS highlights positive mental health, making it unique in its approach.\vspace{5mm} \\
+\noindent \textbf{Suitability for Students} \\
+The WEMWBS is particularly suitable for university students, as it emphasizes positive mental health and well-being, which are essential for managing academic and social demands. It focuses on positive aspects of mental health like optimism and feeling connected to others, which makes it a valuable tool for understanding students' overall well-being rather than just identifying mental health issues. This approach helps foster a more balanced and comprehensive view of student mental health.
+
+\subsection{Content-Based Analysis}
+
+I evaluated each questionnaire based on its relevance to student mood tracking and overall mental health assessment. By examining the specific emotional states, symptoms, and mental health factors each questionnaire targets, I was able to rank them in order of suitability for tracking the moods and well-being of university students. The following table presents the results of this analysis, showing the ranked questionnaires and the reasons for their placement.\vspace{5mm}
+
+\FloatBarrier
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|p{3cm}|p{9cm}|}
+\hline
+\textbf{Order} & \textbf{Questionnaire} & \textbf{Reason for Ranking} \\ \hline
+1 & DASS-21 & Covers three key emotional states (depression, anxiety, and stress), providing a comprehensive view of student mental health, which is essential for mood tracking. \\ \hline
+2 & PSS & Focuses specifically on perceived stress, which is highly relevant for students facing academic pressures and personal challenges. \\ \hline
+3 & WEMWBS & Emphasizes positive mental health, well-being, and social connection, offering a balanced perspective on emotional well-being. \\ \hline
+4 & PANAS & Measures both positive and negative affect, allowing for holistic tracking of emotional fluctuations, making it suitable for capturing mood shifts. \\ \hline
+5 & GAD-7 & Focuses on anxiety, which is highly relevant for students, but it does not cover broader emotional states like stress and depression. \\ \hline
+6 & MFQ & Primarily measures depressive symptoms in younger populations, but it is less focused on other emotional challenges like anxiety or stress that are common in university students. \\ \hline
+7 & BRUMS & Provides insights into multiple mood states like tension, fatigue, and vigor, but does not focus on anxiety or stress, which are more critical for students. \\ \hline
+8 & PHQ-9 & Focuses solely on depression, making it less comprehensive for tracking a broader range of emotions and mental health concerns students may face. \\ \hline
+9 & SACQ & Measures student adjustment to university, but is less relevant for tracking day-to-day mood and emotional fluctuations. \\ \hline
+\end{tabular}
+\caption{Content-based Ranking of Questionnaires for Student Mood Tracking}
+\label{tab:questionnaire_content_based_ranking}
+\end{table}
+\FloatBarrier
+
+\subsection{User-Focused Analysis}
+
+In addition to analyzing the content of various questionnaires, it is essential to prioritize how user-friendly they are for students who will be using them regularly. As a student, that I will be using the application myself, a user-friendly questionnaire should meet the following criteria:
+\begin{itemize}
+    \item \textbf{Number of Questions (12-15 preferred)}: The ideal number of questions is between 12 and 15. This range strikes a balance between gathering enough information and not overwhelming the student. To keep it manageable, I plan to divide the questionnaire into three versions, with each version containing for example 4-4-4 questions (for a 12-question survey, or similar distributions for others). These shorter versions will be provided on consecutive days. This approach prevents students from getting bored or tired of a lengthy survey and reduces the likelihood of seeing the same questions too often. Furthermore, mood changes between consecutive days may be minimal, so shorter, more frequent surveys are likely to be more effective for tracking changes over time.
+    \item \textbf{Answer Options (2-3 preferred)}: Limiting the number of answer options to 2-3 ensures that students can respond quickly and easily without spending too much time thinking about each question. Having fewer options simplifies the decision-making process, making the survey feel less like a chore and encouraging regular engagement. When students need to complete a questionnaire daily or every other day, it is important that the process remains quick and streamlined.
+    \item \textbf{Clarity of Questions}: The questions in the questionnaire should be clear and straightforward to avoid confusion. When students are answering on a regular basis, it’s essential that they understand each question right away, without needing to interpret its meaning. Clear and simple wording ensures that students can complete the questionnaire quickly and accurately. Ambiguity or confusion could lead to inconsistent or unreliable responses, which would diminish the usefulness of the data collected.
+\end{itemize}
+
+\noindent This structured approach ensures that the chosen questionnaire supports frequent, effective mood tracking without burdening the student or reducing the quality of the data. By keeping the number of questions manageable, limiting the answer options, and maintaining clarity in their questions, the survey remains engaging, accurate, and easy to complete on a regular basis.\vspace{5mm}
+
+\FloatBarrier
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|p{2.6cm}<{\centering}|p{2cm}<{\centering}|p{7.2cm}|} \hline
+\textbf{Order} & \textbf{Questionnaire} & \textbf{Number of Questions} & \textbf{Reason for Ranking} \\ \hline
+1 & MFQ (Short Version) & 13 & Fitting the ideal range of questions, it is clear and user-friendly with 3 simple answer options (Not True - Sometimes - True). Its focus on depressive symptoms may limit variety, but it's well-suited for quick mood tracking. \\ \hline
+2 & PSS & 10 & Slightly more answer options (Never - Very often) could cause hesitation, but its clarity and focus on stress management keep it highly ranked for frequent use. \\ \hline
+3 & DASS-21 & 21 & While it exceeds the preferred question count, the subscales (depression, anxiety, stress) and 4 answer options (Did not apply - Applied most of the time) provide a comprehensive assessment, though it requires more time to complete. \\ \hline
+4 & WEMWBS & 14 & The number of questions is ideal, but the 5-point Likert scale (None of the time - All of the time) may slow down responses. However, its focus on well-being remains valuable for mental health tracking. \\ \hline
+5 & PHQ-9 & 9 & Though it has fewer questions than ideal, the simplicity of its structure and 4 answer options (Not at all - Nearly every day) make it suitable for regular mood tracking. \\ \hline
+6 & GAD-7 & 7 & Although shorter than the ideal number of questions, it allows quick mood tracking with 4 straightforward answer options (Not at all - Nearly every day), making it practical for frequent use. \\ \hline
+7 & PANAS & 20 & Although the questions are clear, the high number of items and 5 answer options (Very slightly - Extremely) make it less practical for frequent use in mood tracking. \\ \hline
+8 & BRUMS & 24 & Its complexity and length with 5 answer options (Not at all - Extremely) make it time-consuming, lowering its suitability for frequent use, despite capturing various mood states. \\ \hline
+9 & SACQ (Short Version) & 47 & Far too lengthy for regular use, and with 9 answer options (Ranges from Doesn’t apply - Applies very much), it is unsuitable for frequent mood tracking despite its thorough insights into student adjustment. \\ \hline
+\end{tabular}
+\caption{User-Friendly Ranking of Questionnaires for Student Mood Tracking}
+\label{tab:questionnaire_user_focused_ranking}
+\end{table}
+\FloatBarrier
+
+\subsection{Conclusion}
+
+After conducting both content-based and user-focused analyses of the questionnaires, I have concluded that the \textbf{Mood and Feelings Questionnaire (MFQ) - Short Version} is the most suitable option for mood tracking in the application. Although it focuses on depressive symptoms, it balances being thorough and easy to use. With 13 questions, the MFQ fits within the ideal range, ensuring that users are not overwhelmed or burdened by lengthy surveys. Its 3 straightforward answer options (Not True - Sometimes - True) make it user-friendly and quick to complete, which is crucial for an application that will require frequent engagement.\vspace{5mm} \\
+The MFQ provides a straightforward way to assess mood without adding extra difficulty. While it mainly focuses on depressive symptoms, it still gives useful insights into students' emotions, especially since depression often relates to other issues like stress and anxiety, which many students face. Its simple and clear design makes it easy for students to complete the survey, allowing them to track their mental well-being over time without confusion.\vspace{5mm} \\
+As an alternative, the \textbf{DASS-21} would be the next best option. Although it consists of 21 questions—slightly above the preferred range—it offers a well-rounded assessment of depression, anxiety, and stress, which are critical areas of concern for students. Its ability to reflect these multiple emotional states in one questionnaire makes it a strong contender for mood tracking in the application.
+
+\section{Functionalities Structure}
+
+In this section, we outline the core functionalities of the mood-tracking application and describe the design, implementation, and rationale behind each feature. The goal is to provide a detailed explanation of how the different components of the app work together to support university students in managing their emotional well-being. Each subsection breaks down specific aspects of the application, from survey structure and scoring to the feedback system that delivers personalized messages to users based on their emotional state.\vspace{5mm} \\
+By diving into each functionality, we aim to demonstrate how the app integrates mood tracking, daily mood inputs, and a feedback mechanism to create a complete tool for enhancing emotional awareness and self-reflection among students. Through this detailed breakdown, readers can better understand how the design choices contribute to the app’s effectiveness and user engagement, while also addressing potential limitations and areas for further improvement.
+
+\subsection{Survey Design and Implementation}
+The survey used in this project was constructed to assess mood states using a scale of 13 questions based on the Short Mood and Feelings Questionnaire (SMFQ). Given the length of the survey, it was divided into three smaller parts to enhance user engagement and prevent survey tiredness. Each of the first two parts contains four questions, while the third part consists of five questions. This structure allows users to answer the questions comfortably over a three-day period, after which the questionnaire resets and repeats.\vspace{5mm} \\
+This division strategy ensures that users do not feel overwhelmed and are more likely to complete the survey consistently. Although this design helps maintain engagement, it introduces a potential limitation: the mood-tracking data may not be 100\% accurate, as the responses are spread over a three-day period rather than being collected at a single point in time. However, considering the benefits of improved user participation and reduced survey fatigue, this approach provides a reasonable balance between accuracy and usability.
+
+\vspace{5mm}
+
+\subsection{Daily Survey Scheduling}
+The survey is scheduled to be available from 12:00 to 20:00, strategically chosen to align with typical student schedules. This timing captures a range of daily activities and emotional states, providing a more accurate representation of mood patterns. The noon and early morning hours are ideal since they cover periods when students have likely completed their morning classes or activities and may experience heightened emotional states, such as relief, fatigue, or stress. Moreover, keeping the survey open until 20:00 accommodates students who may have laboratory sessions or other commitments later in the day, allowing them to reflect on their emotional state at the end of their academic day.
+
+\subsection{Survey Scoring and Interpretation}
+The SMFQ scores responses using a numerical scale for each of the 13 questions: ``Not True'' = 0, ``Sometimes'' = 1, and ``True'' = 2. The total score is the sum of the values across all questions, with a maximum possible score of 26. A score of 8 or higher indicates a significant risk of depression, based on the questionnaire’s validation studies.\vspace{5mm} \\
+This scoring method provides an initial screening tool to identify students who may need further support, but it is important to note that the SMFQ is not a diagnostic tool. Instead, it serves as an indicator of potential emotional challenges, aiding in tracking mood and emotional well-being over time.
+
+\subsection{Daily Mood Tracking: Welcome Mood Selection}
+To simplify the daily interaction with the app, users are greeted with a mood selection question upon opening the application: ``How are you feeling today?''. The response options are represented as five emojis, each depicting a different mood state (e.g., happy, neutral, sad), along with an option for ``nothing'', allowing the user to skip the question. This visual and user-friendly approach helps students quickly communicate their current emotional state without requiring a detailed response. Lastly, if the user doesn't answer any welcome mood during the day, he will be assigned the option of ``nothing''.
+
+\subsection{Personalized Message and Feedback System}
+After completing the initial survey and selecting their daily mood, the app calculates a cumulative score based on both components. For the survey responses, scores range from 0 to 26, where each response is given a numerical value depending on its severity. For the daily mood input, values are assigned as follows: ``awful'' receives -2 points, ``sad'' receives -1, ``neutral'' is 0, ``good'' is +1, and ``happy'' is +2 points. These values are combined to produce a total score.\vspace{5mm} \\
+The overall score is then analyzed using a percentile-based system, which divides users into five categories based on their score distribution: 0-20\%, 20-40\%, 40-60\%, 60-80\%, and 80-100\%. This classification helps in providing more targeted messages and feedback, ensuring that the responses are relevant and supportive based on where the user’s score falls within these ranges. It’s important to note that this method is not based on any specialized psychological model or clinical validation, but rather a straightforward categorization strategy to help visualize the data and offer generalized insights.
+
+\section{Summary}
+
+In this chapter, we established a complete framework for understanding user needs through the PACT Model, examining people, activities, context, and technology. We explored personas to illustrate diverse user profiles and outlined scenarios to identify key features that the application should support. Additionally, we defined the functional and non-functional requirements to guide the development process and reviewed various questionnaires to determine the most suitable for user evaluation. We then outlined the key functionalities of the application, including the design and implementation of the survey, daily mood tracking, and the personalized feedback system, which together form the core structure of the application. With these foundational elements in place, we are ready to proceed with designing the application prototype.
