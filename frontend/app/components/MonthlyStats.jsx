@@ -21,10 +21,13 @@ export default function MonthlyStats({ data, loading }) {
     );
   }
 
+  // Conditionally determine the text for the title
+  const titleText = data.length === 1 ? 'Last Questionnaire' : `Last ${data.length} Questionnaires`;
+
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.text}>Last 10 Questionnaires</Text>
+        <Text style={styles.text}>{titleText}</Text>
       </View>
       <View style={{ flex: 6 }}>
         <MoodPieChart data={data} chartColor={colors.blue700} size={HEIGHT / 11} />
