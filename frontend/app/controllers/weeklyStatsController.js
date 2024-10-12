@@ -18,21 +18,20 @@ export const useWeeklyStatsController = (authData) => {
     fetchMoods();
   }, [authData.id]);
 
-  // Ensure there are at least 4 moods, with the last one being 'additional'
-  const moodsWithAdditional = [...moods];
-  const additionalMoodsNeeded = Math.max(0, 5 - moodsWithAdditional.length);
+  // Ensure there are at least 5 moods, including at least one 'additional'
+  let moodsWithAdditional = [...moods];
 
-  // Add additional placeholder moods if necessary
+  // Calculate how many additional moods are needed to reach at least 5 moods
+  const minimumMoodsRequired = 5;
+  const additionalMoodsNeeded = Math.max(0, minimumMoodsRequired - moodsWithAdditional.length);
+
+  // Add 'additional' placeholder moods if necessary to make sure we have at least 5 moods
   for (let i = 0; i < additionalMoodsNeeded; i++) {
     moodsWithAdditional.push({ type: 'additional' });
   }
 
-  // Ensure the last mood is always 'additional'
-  if (moodsWithAdditional.length > 0) {
-    moodsWithAdditional[moodsWithAdditional.length - 1] = { type: 'additional' };
-  } else {
-    moodsWithAdditional.push({ type: 'additional' });
-  }
+  // Ensure one more 'additional' mood is always added at the end
+  moodsWithAdditional.push({ type: 'additional' });
 
   return { moodsWithAdditional };
 };
