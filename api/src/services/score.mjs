@@ -7,7 +7,6 @@ import { getXataClient } from "../xata.mjs";
 const client = getXataClient();
 
 import { checkSurveyCompletionStatus } from "./answer.mjs";
-import { findLatestSurvey } from "./survey.mjs";
 
 // Function to calculate the score of a single survey version based on survey_id
 export async function calculateSurveyVersionScore(survey_id) {

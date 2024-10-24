@@ -3,8 +3,21 @@
 % CUSTOM TITLE
 \begin{titlepage}
     \begin{center}
-        % Include emblem image at the top
-        \includegraphics[width=0.8\linewidth]{figures/university/logo-english.pdf} \\[5em]
+        \begin{figure}[h!]
+            \centering
+            \begin{tabular}{>{\centering\arraybackslash}m{1.8in} >{\raggedright\arraybackslash}m{3.8in}}
+                \includegraphics[width=0.35\textwidth]{figures/university/logo.jpg} & 
+                \begin{minipage}[t]{\linewidth}
+                    \vspace{-17mm}
+                    \raggedright % Align text to the left
+                    {\LARGE \textbf{UNIVERSITY OF PATRAS}}\\[0.5em]
+                    {\Large \textbf{Department of Electrical and Computer Engineering}}\\[1.5em]
+                    {\normalsize DIVISION OF ELECTRONICS AND COMPUTERS \\ INTERACTIVE TECHNOLOGIES LAB}\\[2em]
+                \end{minipage} 
+            \end{tabular}
+        \end{figure}
+
+        \vspace{2em}
 
         %  English title
         {\LARGE \textbf{Design and development of a mobile mood tracker application}}\\[10mm]
@@ -20,7 +33,6 @@
 
         % Department and University information
         \rule{0.5\textwidth}{0.4pt} \\[1.5em] % A separator line
-        {\large Electrical and Computer Engineering Department} \\[0.5em]
         {\large University of Patras}\\[2em]
 
         % Date at the bottom
